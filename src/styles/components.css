@@ -1,0 +1,200 @@
+/* ==========================================================================
+   MOSAL STICKERS - REUSABLE COMPONENTS
+   ========================================================================== */
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.6rem;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  transition: all var(--transition-normal);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn-primary {
+  background-color: var(--color-brand-yellow);
+  color: var(--bg-darkest);
+  box-shadow: 0 4px 16px rgba(255, 230, 0, 0.25);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-brand-yellow-hover);
+  box-shadow: 0 6px 24px rgba(255, 230, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: var(--bg-surface-2);
+  color: var(--text-white);
+  border: 1px solid var(--border-medium);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-surface-3);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--color-brand-pink), var(--color-brand-purple));
+  color: var(--text-white);
+  box-shadow: 0 4px 18px rgba(255, 45, 135, 0.35);
+}
+
+.btn-accent:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 45, 135, 0.5);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-gray-200);
+}
+
+.btn-ghost:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-white);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  padding: 1.1rem 2.2rem;
+  font-size: 1.15rem;
+  border-radius: var(--radius-lg);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.badge-yellow {
+  background-color: rgba(255, 230, 0, 0.15);
+  color: var(--color-brand-yellow);
+  border: 1px solid rgba(255, 230, 0, 0.3);
+}
+
+.badge-green {
+  background-color: rgba(0, 182, 122, 0.15);
+  color: var(--color-brand-green);
+  border: 1px solid rgba(0, 182, 122, 0.3);
+}
+
+.badge-pink {
+  background-color: rgba(255, 45, 135, 0.15);
+  color: var(--color-brand-pink);
+  border: 1px solid rgba(255, 45, 135, 0.3);
+}
+
+.badge-discount {
+  background-color: #00b67a;
+  color: #ffffff;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-xs);
+  font-size: 0.72rem;
+}
+
+/* Star Rating Trustpilot Style */
+.trustpilot-stars {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.trustpilot-star {
+  width: 20px;
+  height: 20px;
+  background-color: #00b67a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trustpilot-star svg {
+  width: 14px;
+  height: 14px;
+  fill: #ffffff;
+}
+
+/* Glassmorphism Cards */
+.card {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: all var(--transition-normal);
+}
+
+.card:hover {
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-md);
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  background: var(--bg-surface-2);
+  color: var(--text-white);
+  border: 1px solid var(--color-brand-yellow);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

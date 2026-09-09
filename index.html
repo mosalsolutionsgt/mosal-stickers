@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es-GT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mosal Stickers | Stickers y Calcomanías Personalizadas en Guatemala</title>
+  <meta name="description" content="Imprime stickers y calcomanías personalizadas en Guatemala con Mosal Stickers. Prueba instantánea, troquelado de ultra precisión, vinilo impermeable y envíos a todo el país." />
+
+  <!-- Google Fonts: Outfit (Display) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/src/styles/variables.css" />
+  <link rel="stylesheet" href="/src/styles/reset.css" />
+  <link rel="stylesheet" href="/src/styles/components.css" />
+  <link rel="stylesheet" href="/src/styles/editor.css" />
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement-bar">
+    <div class="announcement-item">
+      <span>⚡</span> Envíos a toda Guatemala en 24-48 horas
+    </div>
+    <div class="announcement-item">
+      <span>📦</span> <strong>Envío Gratis</strong> en pedidos de más de Q 250
+    </div>
+    <div class="announcement-item">
+      <span>✨</span> Prueba digital instantánea garantizada
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <!-- Logo -->
+      <a href="/" class="brand-logo">
+        <div class="brand-logo-badge">M</div>
+        <span>Mosal <span class="brand-name-sub">Stickers</span></span>
+      </a>
+
+      <!-- Navigation -->
+      <nav class="nav-menu" id="navMenu">
+        <a href="#editor" class="nav-link active">Crear Stickers</a>
+        <a href="#catalog" class="nav-link">Productos</a>
+        <a href="#materials" class="nav-link">Materiales</a>
+        <a href="#why" class="nav-link">Garantía Mosal</a>
+        <a href="#faq" class="nav-link">Preguntas</a>
+      </nav>
+
+      <!-- Action Utilities -->
+      <div class="header-actions">
+        <!-- Currency Selector -->
+        <select class="currency-selector" id="currencySelector" aria-label="Seleccionar moneda">
+          <option value="GTQ" selected>GTQ (Q)</option>
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+        </select>
+
+        <!-- Cart Button -->
+        <button class="cart-toggle-btn js-cart-toggle" aria-label="Ver carrito">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-badge-count js-cart-count">1</span>
+        </button>
+
+        <a href="#editor" class="btn btn-primary btn-sm" style="display: none;">Empezar</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-tagline-badge">
+          <span>★ ★ ★ ★ ★</span>
+          <span>Calidad Certificada #1</span>
+        </div>
+
+        <h1 class="hero-title">
+          ¡Imprime tus stickers con <span class="highlight-yellow">calidad insuperable!</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Corte troquelado de ultra precisión, vinilo impermeable resistente a los rayos UV y envíos a Ciudad de Guatemala y departamentos. Personaliza materiales holográficos, glitter, transparentes o vinilo clásico.
+        </p>
+
+        <div class="hero-trust-row">
+          <div class="trustpilot-stars">
+            <div class="trustpilot-star"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+            <div class="trustpilot-star"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+            <div class="trustpilot-star"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+            <div class="trustpilot-star"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+            <div class="trustpilot-star"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+          </div>
+          <div class="hero-trust-text">
+            <strong>4.9 de 5</strong> en satisfacción (más de 3,500 clientes satisfechos en Guatemala)
+          </div>
+        </div>
+
+        <div class="hero-cta-group">
+          <a href="#editor" class="btn btn-primary btn-lg">
+            <span>🎨</span> Crear stickers ahora
+          </a>
+          <a href="#materials" class="btn btn-secondary btn-lg">
+            Explorar materiales →
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-showcase-visual">
+        <div class="hero-image-frame">
+          <img src="/assets/hero-showcase.jpg" alt="Colección de stickers y calcomanías Mosal Stickers" class="hero-showcase-img" />
+          <div class="hero-floating-badge">
+            <div class="floating-badge-icon">✓</div>
+            <div>
+              <div class="floating-badge-title">Vinilo Grado Industrial</div>
+              <div class="floating-badge-desc">100% Resistente al agua y al sol</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Customizer Studio Section -->
+  <section class="editor-section" id="editor">
+    <div class="editor-container">
+
+      <!-- Left Column: Interactive Viewport & Mockup Stage -->
+      <div class="editor-viewport-column">
+        <div class="viewport-stage-card">
+          <!-- Toolbar -->
+          <div class="viewport-toolbar">
+            <!-- Surface Switcher -->
+            <div class="surface-switcher">
+              <button class="surface-btn active" data-surface="studio" title="Vista de estudio limpia">
+                <span>🎯</span> Estudio
+              </button>
+              <button class="surface-btn" data-surface="laptop" title="Maqueta en portátil MacBook">
+                <span>💻</span> Portátil
+              </button>
+              <button class="surface-btn" data-surface="yeti" title="Maqueta en termo Yeti">
+                <span>🧊</span> Termo Yeti
+              </button>
+              <button class="surface-btn" data-surface="iphone" title="Maqueta en iPhone">
+                <span>📱</span> iPhone
+              </button>
+            </div>
+
+            <!-- Prepress Proof / Cutline Toggle -->
+            <div class="viewport-view-controls">
+              <button class="toggle-pill" id="toggleCutlineBtn" title="Mostrar línea de corte magenta y sangrado de imprenta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="6" cy="6" r="3"></circle>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+                  <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+                  <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+                </svg>
+                Línea de corte
+              </button>
+            </div>
+          </div>
+
+          <!-- Stage Canvas Area -->
+          <div class="stage-canvas-area" id="stageCanvas">
+            
+            <!-- Default Studio Stage: Single Interactive Sticker with 3D Tilt -->
+            <div class="sticker-host">
+              <div class="sticker-container material-holographic finish-glossy shape-die-cut has-diecut" id="mainStickerPreview">
+                <div class="sticker-card-3d">
+                  <div class="sticker-diecut-wrapper">
+                    <!-- Die Cut White Base Silhouette Outline -->
+                    <div class="sticker-diecut-outline"></div>
+
+                    <!-- Sticker Graphic Layer -->
+                    <img src="/samples/cyberpunk-cat.png" alt="Sticker Preview" class="sticker-image-layer" id="mainStickerImg" />
+
+                    <!-- Special Material Shaders -->
+                    <div class="sticker-material-shader"></div>
+                    <div class="sticker-material-glare"></div>
+
+                    <!-- Prepress Cutline SVG Overlay -->
+                    <svg class="sticker-cutline-svg" id="stickerCutlineSvg"></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Laptop Surface Overlay -->
+            <div class="surface-overlay-container mockup-laptop" data-surface="laptop">
+              <div class="sticker-host">
+                <div class="sticker-container material-holographic finish-glossy shape-die-cut">
+                  <img src="/samples/cyberpunk-cat.png" alt="Laptop Sticker" class="sticker-image-layer" />
+                  <div class="sticker-material-shader"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Yeti Tumbler Surface Overlay -->
+            <div class="surface-overlay-container mockup-yeti" data-surface="yeti">
+              <div class="sticker-host">
+                <div class="sticker-container material-holographic finish-glossy shape-die-cut">
+                  <img src="/samples/cyberpunk-cat.png" alt="Yeti Sticker" class="sticker-image-layer" />
+                  <div class="sticker-material-shader"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- iPhone Surface Overlay -->
+            <div class="surface-overlay-container mockup-iphone" data-surface="iphone">
+              <div class="sticker-host">
+                <div class="sticker-container material-holographic finish-glossy shape-die-cut">
+                  <img src="/samples/cyberpunk-cat.png" alt="iPhone Sticker" class="sticker-image-layer" />
+                  <div class="sticker-material-shader"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Proofing Legend Bar (Visible during cutline mode) -->
+          <div class="proofing-legend-bar">
+            <div class="legend-item">
+              <span class="legend-bullet diecut"></span>
+              <span>Línea de corte troquelado (0.0 mm)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-bullet safety"></span>
+              <span>Margen seguro de sangrado (2.0 mm)</span>
+            </div>
+          </div>
+
+          <!-- Quick Samples Picker Bar -->
+          <div class="samples-bar">
+            <span class="samples-label">Probar artes:</span>
+            <div class="samples-list">
+              <button class="sample-thumb-btn active" data-src="/samples/cyberpunk-cat.png" data-name="Cyberpunk Neo-Cat" title="Cyberpunk Cat">
+                <img src="/samples/cyberpunk-cat.png" alt="Cyberpunk Cat" />
+              </button>
+              <button class="sample-thumb-btn" data-src="/samples/vaporwave-skull.png" data-name="Vaporwave Skull Palm" title="Vaporwave Skull">
+                <img src="/samples/vaporwave-skull.png" alt="Vaporwave Skull" />
+              </button>
+              <button class="sample-thumb-btn" data-src="/samples/kawaii-shiba.png" data-name="Kawaii Shiba Boba" title="Kawaii Shiba">
+                <img src="/samples/kawaii-shiba.png" alt="Kawaii Shiba" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Configurator Controls -->
+      <div class="editor-controls-column">
+
+        <!-- 1. Artwork Upload -->
+        <div class="config-card">
+          <div class="config-card-header">
+            <div class="config-title">
+              <span class="config-step-number">1</span>
+              <span>Sube tu diseño o logo</span>
+            </div>
+          </div>
+          <div class="upload-dropzone" id="uploadDropzone">
+            <input type="file" id="fileInput" accept="image/*,.svg,.pdf,.ai,.psd" style="display: none;" />
+            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <div class="upload-text-main">Arrastra tu imagen aquí o haz clic para subir</div>
+            <div class="upload-text-sub">Soporta PNG, JPG, SVG, PSD, AI y PDF en alta resolución</div>
+          </div>
+          <div class="upload-tools-row" style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+            <button type="button" class="btn btn-secondary btn-sm" id="autoRemoveBgBtn" style="flex: 1; font-size: 0.82rem; padding: 0.55rem; gap: 0.4rem; justify-content: center;">
+              <span>🪄</span> Quitar fondo automáticamente
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Shape Selector -->
+        <div class="config-card">
+          <div class="config-card-header">
+            <div class="config-title">
+              <span class="config-step-number">2</span>
+              <span>Forma de corte</span>
+            </div>
+          </div>
+          <div class="shapes-grid">
+            <div class="shape-radio-card active" data-shape="die-cut">
+              <svg class="shape-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2C6.48 2 2 6.48 2 12c0 2.5 1 4.8 2.7 6.5L3 21l2.5-1.7C7.2 21 9.5 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" />
+              </svg>
+              <div class="shape-label">Troquelado</div>
+            </div>
+
+            <div class="shape-radio-card" data-shape="circle">
+              <svg class="shape-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9" />
+              </svg>
+              <div class="shape-label">Círculo</div>
+            </div>
+
+            <div class="shape-radio-card" data-shape="square">
+              <svg class="shape-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="4" width="16" height="16" />
+              </svg>
+              <div class="shape-label">Cuadrado</div>
+            </div>
+
+            <div class="shape-radio-card" data-shape="rounded">
+              <svg class="shape-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="4" width="16" height="16" rx="4" />
+              </svg>
+              <div class="shape-label">Redondeado</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Material Selector -->
+        <div class="config-card">
+          <div class="config-card-header">
+            <div class="config-title">
+              <span class="config-step-number">3</span>
+              <span>Material especial</span>
+            </div>
+          </div>
+          <div class="materials-scroller">
+            <div class="material-card active" data-material="holographic">
+              <div class="material-swatch-circle swatch-holographic"></div>
+              <div class="material-card-name">Holográfico</div>
+              <div class="material-card-tag">★ Popular</div>
+            </div>
+
+            <div class="material-card" data-material="classic">
+              <div class="material-swatch-circle swatch-classic"></div>
+              <div class="material-card-name">Vinilo Blanco</div>
+              <div class="material-card-tag">Bestseller</div>
+            </div>
+
+            <div class="material-card" data-material="transparent">
+              <div class="material-swatch-circle swatch-transparent"></div>
+              <div class="material-card-name">Transparente</div>
+              <div class="material-card-tag">Limpio</div>
+            </div>
+
+            <div class="material-card" data-material="glitter">
+              <div class="material-swatch-circle swatch-glitter"></div>
+              <div class="material-card-name">Glitter</div>
+              <div class="material-card-tag">Brillante</div>
+            </div>
+
+            <div class="material-card" data-material="metallic">
+              <div class="material-swatch-circle swatch-metallic"></div>
+              <div class="material-card-name">Metálico Oro</div>
+              <div class="material-card-tag">Lujo</div>
+            </div>
+
+            <div class="material-card" data-material="kraft">
+              <div class="material-swatch-circle swatch-kraft"></div>
+              <div class="material-card-name">Papel Kraft</div>
+              <div class="material-card-tag">Eco-friendly</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Finish Selector -->
+        <div class="config-card">
+          <div class="config-card-header">
+            <div class="config-title">
+              <span class="config-step-number">4</span>
+              <span>Acabado laminado</span>
+            </div>
+          </div>
+          <div class="pill-selector-row">
+            <button class="pill-option-btn finish-pill active" data-finish="glossy">
+              ✨ Lustroso UV (Protección extra brillante)
+            </button>
+            <button class="pill-option-btn finish-pill" data-finish="matte">
+              ☁️ Mate Sedoso (Cero reflejos)
+            </button>
+          </div>
+        </div>
+
+        <!-- 5. Size Selector -->
+        <div class="config-card">
+          <div class="config-card-header">
+            <div class="config-title">
+              <span class="config-step-number">5</span>
+              <span>Dimensiones y tamaño</span>
+            </div>
+          </div>
+          <div class="pill-selector-row">
+            <button class="pill-option-btn size-pill" data-w="5" data-h="5">5 x 5 cm</button>
+            <button class="pill-option-btn size-pill active" data-w="7.5" data-h="7.5">7.5 x 7.5 cm</button>
+            <button class="pill-option-btn size-pill" data-w="10" data-h="10">10 x 10 cm</button>
+            <button class="pill-option-btn size-pill" data-w="12.5" data-h="12.5">12.5 x 12.5 cm</button>
+            <button class="pill-option-btn size-pill" data-custom="true">Medida Personalizada</button>
+          </div>
+
+          <!-- Custom Slider Box -->
+          <div class="custom-size-box" id="customSizeBox" style="display: none;">
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>Ancho:</span>
+                <span id="widthValDisplay">7.5 cm</span>
+              </div>
+              <input type="range" id="widthSlider" min="2" max="25" step="0.5" value="7.5" class="slider-input" />
+            </div>
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>Alto:</span>
+                <span id="heightValDisplay">7.5 cm</span>
+              </div>
+              <input type="range" id="heightSlider" min="2" max="25" step="0.5" value="7.5" class="slider-input" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Quantity & Bulk Discount Matrix -->
+        <div class="config-card">
+          <div class="config-card-header">
+            <div class="config-title">
+              <span class="config-step-number">6</span>
+              <span>Cantidad y descuento por volumen</span>
+            </div>
+            <div class="vat-toggle-row">
+              <label style="display: flex; align-items: center; gap: 0.35rem; cursor: pointer;">
+                <input type="checkbox" id="vatCheckbox" checked style="accent-color: var(--color-brand-yellow);" />
+                <span>IVA incluido</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Dynamic Quantity Tiers Rendered by JS -->
+          <div class="quantity-tiers-list" id="quantityTiersList"></div>
+        </div>
+
+        <!-- Sticky Checkout Box -->
+        <div class="editor-checkout-box">
+          <div class="checkout-pricing-summary">
+            <div>
+              <div class="summary-qty-desc" id="summaryQtyDesc">100 uds • 7.5x7.5 cm • Holográfico</div>
+              <div class="summary-unit-info" id="summaryUnitPrice">Q 3.83 / ud</div>
+            </div>
+            <div class="summary-total-price" id="summaryTotalPrice">Q 382.50</div>
+          </div>
+
+          <button class="btn btn-primary btn-lg btn-block" id="addToCartBtn">
+            <span>🛒</span> Añadir al Carrito
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog Grid -->
+  <section class="categories-section" id="catalog">
+    <div class="section-header">
+      <span class="section-tag">Gama de Productos</span>
+      <h2 class="section-title">Elige tu formato de impresión</h2>
+      <p class="section-desc">Impresos con tecnología de última generación y tintas UV ecológicas. Envíos rápidos y seguros a Ciudad de Guatemala y todos los departamentos del país.</p>
+    </div>
+
+    <div class="categories-grid">
+      <!-- Die-Cut -->
+      <a href="#editor" class="category-card">
+        <div class="category-card-media">
+          <img src="/samples/cyberpunk-cat.png" alt="Stickers Troquelados" />
+        </div>
+        <div class="category-card-body">
+          <h3 class="category-card-title">Stickers Troquelados (Die-Cut)</h3>
+          <p class="category-card-desc">Cortados siguiendo la silueta exacta de tu diseño. El producto insignia para marcas, artistas, ilustradores y emprendedores.</p>
+          <div class="category-card-footer">
+            <span class="badge badge-yellow">Troquelado Pro</span>
+            <span class="category-price-from">Desde Q 160</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Sticker Sheets -->
+      <a href="#editor" class="category-card">
+        <div class="category-card-media">
+          <img src="/samples/kawaii-shiba.png" alt="Hojas de Stickers" />
+        </div>
+        <div class="category-card-body">
+          <h3 class="category-card-title">Hojas de Stickers (Sticker Sheets)</h3>
+          <p class="category-card-desc">Múltiples diseños troquelados en una sola lámina fácil de despegar. Perfectas para merchandising coleccionable y paquetes temáticos.</p>
+          <div class="category-card-footer">
+            <span class="badge badge-green">Múltiples Diseños</span>
+            <span class="category-price-from">Desde Q 200</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Roll Labels -->
+      <a href="#editor" class="category-card">
+        <div class="category-card-media">
+          <img src="/samples/vaporwave-skull.png" alt="Etiquetas en Rollo" />
+        </div>
+        <div class="category-card-body">
+          <h3 class="category-card-title">Etiquetas en Rollo</h3>
+          <p class="category-card-desc">Fáciles de despegar y aplicar en masa. Diseñadas para botellas de café, cerveza artesanal, cosméticos, frascos y packaging.</p>
+          <div class="category-card-footer">
+            <span class="badge badge-pink">Empresas & Packaging</span>
+            <span class="category-price-from">Desde Q 295</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Sample Pack -->
+      <a href="#editor" class="category-card">
+        <div class="category-card-media">
+          <img src="/assets/hero-showcase.jpg" alt="Pack de Muestras" />
+        </div>
+        <div class="category-card-body">
+          <h3 class="category-card-title">Pack de Muestras</h3>
+          <p class="category-card-desc">¿Indeciso sobre el material? Pide nuestro muestrario con acabados holográficos, glitter, transparente y mate antes de tu gran tirada.</p>
+          <div class="category-card-footer">
+            <span class="badge badge-yellow">Pack Completo</span>
+            <span class="category-price-from">Solo Q 75</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Interactive Materials Showcase Lab -->
+  <section class="materials-lab-section" id="materials">
+    <div class="materials-lab-container">
+      <div class="section-header">
+        <span class="section-tag">Laboratorio de Materiales</span>
+        <h2 class="section-title">Tecnología de vinilo que marca la diferencia</h2>
+        <p class="section-desc">Selecciona cada material para inspeccionar su comportamiento óptico y especificaciones de durabilidad.</p>
+      </div>
+
+      <!-- Material Tabs -->
+      <div class="material-tabs-row">
+        <button class="material-tab-btn active" data-mat="holographic">Holográfico</button>
+        <button class="material-tab-btn" data-mat="classic">Vinilo Blanco</button>
+        <button class="material-tab-btn" data-mat="transparent">Transparente</button>
+        <button class="material-tab-btn" data-mat="glitter">Purpurina Glitter</button>
+        <button class="material-tab-btn" data-mat="metallic">Metálico Oro</button>
+        <button class="material-tab-btn" data-mat="kraft">Papel Kraft Eco</button>
+      </div>
+
+      <!-- Detail Card -->
+      <div class="material-detail-card">
+        <div class="material-detail-preview">
+          <div class="sticker-container material-holographic finish-glossy" id="labPreviewContainer">
+            <img src="/samples/vaporwave-skull.png" alt="Material Lab Sample" id="labPreviewImg" class="sticker-image-layer" />
+            <div class="sticker-material-shader"></div>
+            <div class="sticker-material-glare"></div>
+          </div>
+        </div>
+
+        <div class="material-detail-specs">
+          <div>
+            <span class="badge badge-yellow" id="labBadge">El Más Popular</span>
+            <h3 class="section-title" id="labTitle" style="margin-top: 0.5rem; font-size: 2rem;">Holográfico Prismático</h3>
+          </div>
+
+          <p class="category-card-desc" id="labDesc" style="font-size: 1rem;">
+            Un material iridiscente y cromático que refleja los colores del arcoíris al incidir la luz solar o artificial. Ideal para logos, ilustraciones psicodélicas y marcas que buscan el máximo impacto visual.
+          </p>
+
+          <div class="specs-grid">
+            <div class="spec-item">
+              <div class="spec-label">Durabilidad Exterior</div>
+              <div class="spec-val" id="labDurability">2 - 4 años</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-label">Tipo de Acabado</div>
+              <div class="spec-val" id="labFinish">Laminado UV ultra brillante</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-label">Resistencia</div>
+              <div class="spec-val" id="labResistance">Impermeable y lavavajillas</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-label">Grosor Premium</div>
+              <div class="spec-val" id="labThickness">180 micras</div>
+            </div>
+          </div>
+
+          <a href="#editor" class="btn btn-primary" style="width: fit-content;">
+            Crear con este material →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features & Guarantees Section -->
+  <section class="features-section" id="why">
+    <div class="section-header">
+      <span class="section-tag">La Garantía Mosal</span>
+      <h2 class="section-title">Por qué somos la imprenta favorita de los creadores</h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-box">
+        <div class="feature-icon-circle">💧</div>
+        <h3 class="feature-title">100% Resistente al Agua</h3>
+        <p class="feature-desc">Nuestras pegatinas aguantan la lluvia torrencial, botellas de agua e incluso múltiples ciclos de lavado en lavavajillas.</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon-circle">☀️</div>
+        <h3 class="feature-title">Protección UV de 4 Años</h3>
+        <p class="feature-desc">Laminado protector de alta densidad que evita que los colores pierdan intensidad o se desgasten bajo el sol directo.</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon-circle">✂️</div>
+        <h3 class="feature-title">Corte Láser Ultra Preciso</h3>
+        <p class="feature-desc">Maquinaria de corte óptico guiada por computadora para lograr bordes suaves y contornos perfectos sin imperfecciones.</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon-circle">🛡️</div>
+        <h3 class="feature-title">Adhesivo Fuerte Sin Residuos</h3>
+        <p class="feature-desc">Se adhiere con máxima firmeza a metal, plástico, cristal, madera y tela, pero se despega sin dejar pegamento sucio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="faq-container">
+      <div class="section-header">
+        <span class="section-tag">Resolvemos tus dudas</span>
+        <h2 class="section-title">Preguntas Frecuentes</h2>
+      </div>
+
+      <div class="faq-accordion">
+        <div class="faq-item active">
+          <button class="faq-question-btn">
+            <span>¿Cuánto tarda la entrega de mi pedido de stickers en Guatemala?</span>
+            <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer">
+            Procesamos e imprimimos tu pedido en solo 2 a 4 días hábiles. Realizamos envíos en Ciudad de Guatemala (mensajería exprés en 24 horas) y a todos los departamentos del país por Cargo Expreso o Guatex (24 a 48 horas adicionales). Recibirás tu número de guía para rastrear tu paquete.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>¿Qué formatos de archivo puedo subir para imprimir?</span>
+            <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer">
+            Aceptamos archivos en PNG, JPG y WebP (recomendamos al menos 300 DPI), así como vectores en SVG, PDF, Illustrator (.ai) y Photoshop (.psd). Si tu archivo necesita ajustes o ayuda para definir la línea de corte, nuestro equipo de diseño te ayuda sin costo adicional.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>¿Cuál es la diferencia entre stickers troquelados y de corte suave (kiss-cut)?</span>
+            <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer">
+            Los stickers troquelados (Die Cut) se cortan a través del vinilo y del papel de soporte trasero, coincidiendo exactamente con la silueta de tu diseño. El corte suave (Kiss Cut) solo corta la lámina de vinilo, dejando un soporte cuadrado alrededor para que sea más fácil de despegar.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>¿Son realmente resistentes al agua y al clima en Guatemala?</span>
+            <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer">
+            ¡Totalmente! Nuestro vinilo adhesivo premium con laminado protector UV soporta el sol, lluvia, humedad, microondas, termos de agua e incluso lavavajillas sin despegarse ni perder intensidad de color.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>¿Puedo solicitar una cotización especial para empresas, marcas o eventos masivos?</span>
+            <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer">
+            Por supuesto. Para pedidos de más de 2,500 unidades, eventos masivos, marcas de café, restaurantes o empresas en Guatemala, ofrecemos descuentos por volumen exclusivos y soporte prioritario vía WhatsApp o correo electrónico.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide-Over Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay">
+    <div class="cart-drawer">
+      <div class="cart-drawer-header">
+        <div class="cart-drawer-title">
+          <span>🛒 Tu Carrito</span>
+          <span class="badge badge-yellow js-cart-count">1</span>
+        </div>
+        <button class="cart-close-btn" id="cartCloseBtn" aria-label="Cerrar carrito">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Free Shipping Tracker -->
+      <div class="free-shipping-bar">
+        <div id="shippingNoticeText">
+          Añade <strong>Q 35.00</strong> más para conseguir <strong>Envío Gratis</strong>
+        </div>
+        <div class="shipping-progress-track">
+          <div class="shipping-progress-fill" id="shippingProgressBar" style="width: 80%;"></div>
+        </div>
+      </div>
+
+      <!-- Items List -->
+      <div class="cart-items-list" id="cartItemsList"></div>
+
+      <!-- Drawer Footer -->
+      <div class="cart-drawer-footer">
+        <!-- Promo code -->
+        <div class="promo-code-box">
+          <input type="text" class="promo-input" id="promoInput" placeholder="Código de descuento (Ej: MOSAL10)" />
+          <button class="btn btn-secondary btn-sm" id="promoApplyBtn">Aplicar</button>
+        </div>
+
+        <!-- Discount row (if active) -->
+        <div class="cart-subtotal-row" id="cartDiscountRow" style="display: none; color: #00b67a; font-size: 1rem;">
+          <span>Descuento aplicado:</span>
+          <span id="cartDiscountAmount">-Q 0.00</span>
+        </div>
+
+        <!-- Subtotal -->
+        <div class="cart-subtotal-row">
+          <span>Total estimado:</span>
+          <span id="cartSubtotal">Q 382.50</span>
+        </div>
+
+        <button class="btn btn-primary btn-lg btn-block" id="checkoutBtn">
+          Finalizar Pedido →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Simulator Modal -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="checkout-modal-card">
+      <div class="config-card-header">
+        <h3 class="config-title">💳 Finalizar Pedido en Mosal Stickers</h3>
+        <button class="cart-close-btn" id="checkoutModalClose">✕</button>
+      </div>
+
+      <form id="checkoutForm" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div>
+          <label class="spec-label">Nombre y Apellidos</label>
+          <input type="text" required placeholder="Herbert Moscoso" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+        </div>
+
+        <div>
+          <label class="spec-label">Correo Electrónico (para tu prueba digital)</label>
+          <input type="email" required placeholder="herbert@ejemplo.com" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+        </div>
+
+        <div>
+          <label class="spec-label">Teléfono / WhatsApp</label>
+          <input type="tel" required placeholder="+502 5555-1234" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+        </div>
+
+        <div>
+          <label class="spec-label">Dirección de Entrega</label>
+          <input type="text" required placeholder="12 Calle 4-55, Zona 10, Edificio..." class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div>
+            <label class="spec-label">Municipio / Ciudad</label>
+            <input type="text" required placeholder="Ciudad de Guatemala" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+          </div>
+          <div>
+            <label class="spec-label">Departamento</label>
+            <select class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem; background: var(--bg-surface-2); color: white;">
+              <option value="Guatemala">Guatemala</option>
+              <option value="Sacatepéquez">Sacatepéquez / Antigua</option>
+              <option value="Quetzaltenango">Quetzaltenango</option>
+              <option value="Escuintla">Escuintla</option>
+              <option value="Chimaltenango">Chimaltenango</option>
+              <option value="Alta Verapaz">Alta Verapaz</option>
+              <option value="Izabal">Izabal</option>
+              <option value="Petén">Petén</option>
+              <option value="Otro">Otro Departamento</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="spec-label">Método de Pago Seguro</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.4rem;">
+            <label class="shape-radio-card active" style="flex-direction: row; padding: 0.75rem;">
+              <input type="radio" name="pay_method" checked style="accent-color: var(--color-brand-yellow);" />
+              <span class="shape-label">Tarjeta Crédito / Débito</span>
+            </label>
+            <label class="shape-radio-card" style="flex-direction: row; padding: 0.75rem;">
+              <input type="radio" name="pay_method" style="accent-color: var(--color-brand-yellow);" />
+              <span class="shape-label">Transferencia BI / BAM / G&T</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: 0.75rem;">
+          Confirmar y Procesar Pedido
+        </button>
+      </form>
+
+      <!-- Order Success Celebration Screen -->
+      <div id="checkoutOrderSuccess" style="display: none; flex-direction: column; align-items: center; text-align: center; gap: 1rem; padding: 1.5rem 0;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: #00b67a; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+          ✓
+        </div>
+        <h3 class="section-title" style="font-size: 1.8rem;">¡Pedido Confirmado con Éxito!</h3>
+        <p class="category-card-desc">Hemos recibido tu diseño. Nuestro equipo te enviará la prueba digital por WhatsApp o correo y despacharemos tus stickers por Cargo Expreso o Guatex a tu dirección en Guatemala.</p>
+        <button class="btn btn-primary" onclick="document.getElementById('checkoutModalClose').click();">
+          Volver a la tienda
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div>
+        <a href="/" class="brand-logo" style="margin-bottom: 1rem;">
+          <div class="brand-logo-badge">M</div>
+          <span>Mosal <span class="brand-name-sub">Stickers</span></span>
+        </a>
+        <p style="font-size: 0.9rem; line-height: 1.6; max-width: 280px;">
+          La imprenta líder en stickers y calcomanías troqueladas personalizadas para marcas, creadores y empresas en Guatemala y Centroamérica.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Productos</div>
+        <div class="footer-links">
+          <a href="#editor">Stickers Troquelados</a>
+          <a href="#editor">Stickers Holográficos</a>
+          <a href="#editor">Hojas de Stickers</a>
+          <a href="#editor">Etiquetas en Rollo</a>
+          <a href="#editor">Stickers Transparentes</a>
+          <a href="#editor">Pack de Muestras</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Materiales</div>
+        <div class="footer-links">
+          <a href="#materials">Vinilo Blanco Clásico</a>
+          <a href="#materials">Holográfico Prismático</a>
+          <a href="#materials">Glitter / Brillantina</a>
+          <a href="#materials">Metálico Oro y Plata</a>
+          <a href="#materials">Papel Kraft Reciclado</a>
+          <a href="#materials">Guía de Líneas de Corte</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Atención & Contacto</div>
+        <div class="footer-links">
+          <a href="#faq">Preguntas Frecuentes</a>
+          <a href="#faq">Envíos a Departamentos</a>
+          <a href="#faq">Plantillas de Diseño</a>
+          <a href="mailto:soporte@mosalstickers.com">soporte@mosalstickers.com</a>
+          <span style="color: var(--color-brand-yellow); font-weight: 700;">Lunes a Viernes 8:00 - 17:00 (Guatemala)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div>
+        © 2026 <strong>Mosal Stickers</strong>. Hecho para creadores en Guatemala.
+      </div>
+      <div style="display: flex; gap: 1.25rem;">
+        <span>Visa</span>
+        <span>Mastercard</span>
+        <span>Banco Industrial</span>
+        <span>BAM</span>
+        <span>G&T</span>
+        <span>Cargo Expreso / Guatex</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Entry Script -->
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>
