@@ -19,12 +19,32 @@ export function initCart() {
   const promoInput = document.getElementById('promoInput');
   const promoApplyBtn = document.getElementById('promoApplyBtn');
   const checkoutBtn = document.getElementById('checkoutBtn');
+  const cartWhatsAppBtn = document.getElementById('cartWhatsAppBtn');
 
   // Checkout modal elements
   const checkoutModal = document.getElementById('checkoutModal');
   const checkoutModalClose = document.getElementById('checkoutModalClose');
   const checkoutForm = document.getElementById('checkoutForm');
   const checkoutOrderSuccess = document.getElementById('checkoutOrderSuccess');
+
+  // Direct WhatsApp Order from Drawer
+  cartWhatsAppBtn?.addEventListener('click', () => {
+    const state = store.getState();
+    if (state.cart.length === 0) {
+      showToast('Tu carrito está vacío. Agrega stickers primero.', 'warning');
+      return;
+    }
+    const rawSubtotal = state.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+    let discount = 0;
+    if (state.appliedPromo) {
+      discount = rawSubtotal * state.appliedPromo.discount;
+    }
+    const finalSubtotal = Math.max(0, rawSubtotal - discount);
+    const waUrl = getWhatsAppOrderUrl(state.cart, finalSubtotal, state.currency);
+
+    window.open(waUrl, '_blank');
+    showToast('¡Abriendo WhatsApp de Mosal Solutions con tu pedido!', 'success');
+  });
 
   // Toggle cart drawer
   cartToggleBtns.forEach(btn => {
@@ -64,13 +84,34 @@ export function initCart() {
     checkoutModal?.classList.remove('open');
   });
 
-  // Submit checkout form
+  // Submit checkout form: sends complete customer info + order details to WhatsApp
   checkoutForm?.addEventListener('submit', (e) => {
     e.preventDefault();
+    const state = store.getState();
+    const customerInfo = {
+      name: document.getElementById('checkoutCustomerName')?.value || '',
+      email: document.getElementById('checkoutCustomerEmail')?.value || '',
+      phone: document.getElementById('checkoutCustomerPhone')?.value || '',
+      address: document.getElementById('checkoutCustomerAddress')?.value || '',
+      city: document.getElementById('checkoutCustomerCity')?.value || '',
+      department: document.getElementById('checkoutCustomerDept')?.value || '',
+      payMethod: document.querySelector('input[name="pay_method"]:checked')?.value || 'A coordinar por WhatsApp',
+    };
+
+    const rawSubtotal = state.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+    let discount = 0;
+    if (state.appliedPromo) {
+      discount = rawSubtotal * state.appliedPromo.discount;
+    }
+    const finalSubtotal = Math.max(0, rawSubtotal - discount);
+    const waUrl = getWhatsAppOrderUrl(state.cart, finalSubtotal, state.currency, customerInfo);
+
+    window.open(waUrl, '_blank');
+
     if (checkoutForm) checkoutForm.style.display = 'none';
     if (checkoutOrderSuccess) checkoutOrderSuccess.style.display = 'flex';
     store.clearCart();
-    showToast('¡Pedido confirmado! Gracias por confiar en Mosal Stickers', 'success');
+    showToast('¡Pedido y datos enviados por WhatsApp a Mosal Solutions!', 'success');
   });
 
   // Subscribe to store updates to render the cart
@@ -193,3 +234,50 @@ export function showToast(message, type = 'info') {
     setTimeout(() => toast.remove(), 300);
   }, 3500);
 }
+
+/**
+ * Generates formatted WhatsApp order URL for Mosal Solutions (50230292980)
+ */
+export function getWhatsAppOrderUrl(cart, finalTotal, currency = 'GTQ', customerInfo = null) {
+  const phone = '50230292980';
+  const lines = [
+    '¡Hola *Mosal Solutions*! 👋',
+    'Quiero realizar el siguiente pedido de stickers personalizados desde su sitio web:',
+    '',
+    '📦 *DETALLE DEL PEDIDO:*'
+  ];
+
+  cart.forEach((item, index) => {
+    lines.push(`${index + 1}. *${item.name}*`);
+    lines.push(`   • Cantidad: ${item.quantity} unidades`);
+    lines.push(`   • Medida: ${item.sizeText}`);
+    lines.push(`   • Material: ${item.material}`);
+    lines.push(`   • Acabado: ${item.finish}`);
+    if (item.shape) lines.push(`   • Corte: ${item.shape}`);
+    lines.push(`   • Subtotal: ${formatPrice(item.totalPrice)}`);
+    lines.push('');
+  });
+
+  lines.push('────────────────────────');
+  lines.push(`💰 *TOTAL ESTIMADO:* ${formatPrice(finalTotal)}`);
+  lines.push('────────────────────────');
+
+  if (customerInfo && (customerInfo.name || customerInfo.address)) {
+    lines.push('');
+    lines.push('📍 *DATOS DE ENTREGA EN GUATEMALA:*');
+    if (customerInfo.name) lines.push(`• Cliente: ${customerInfo.name}`);
+    if (customerInfo.phone) lines.push(`• Teléfono: ${customerInfo.phone}`);
+    if (customerInfo.email) lines.push(`• Correo (prueba digital): ${customerInfo.email}`);
+    if (customerInfo.address) lines.push(`• Dirección: ${customerInfo.address}`);
+    if (customerInfo.city || customerInfo.department) {
+      lines.push(`• Destino: ${customerInfo.city || ''} (${customerInfo.department || 'Guatemala'})`);
+    }
+    if (customerInfo.payMethod) lines.push(`• Método de pago preferido: ${customerInfo.payMethod}`);
+  }
+
+  lines.push('');
+  lines.push('¿Me confirman para enviarles mi arte en alta resolución y coordinar la entrega? ¡Muchas gracias!');
+
+  return `https://wa.me/${phone}?text=${encodeURIComponent(lines.join('\n'))}`;
+}
+

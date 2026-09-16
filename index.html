@@ -26,10 +26,10 @@
       <span>⚡</span> Envíos a toda Guatemala en 24-48 horas
     </div>
     <div class="announcement-item">
-      <span>📦</span> <strong>Envío Gratis</strong> en pedidos de más de Q 250
+      <span>💬</span> WhatsApp Oficial: <a href="https://wa.me/50230292980" target="_blank" style="color: #25D366; font-weight: 700; text-decoration: underline; margin-left: 0.25rem;">+502 3029-2980</a>
     </div>
     <div class="announcement-item">
-      <span>✨</span> Prueba digital instantánea garantizada
+      <span>📦</span> <strong>Envío Gratis</strong> en pedidos de más de Q 250
     </div>
   </div>
 
@@ -451,9 +451,15 @@
             <div class="summary-total-price" id="summaryTotalPrice">Q 382.50</div>
           </div>
 
-          <button class="btn btn-primary btn-lg btn-block" id="addToCartBtn">
-            <span>🛒</span> Añadir al Carrito
-          </button>
+          <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+            <button class="btn btn-primary btn-lg btn-block" id="addToCartBtn">
+              <span>🛒</span> Añadir al Carrito
+            </button>
+            <button class="btn btn-whatsapp btn-block" id="customizerWhatsAppBtn" style="padding: 0.85rem 1.25rem; font-size: 0.95rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+              <span>Pedir este diseño por WhatsApp (3029-2980)</span>
+            </button>
+          </div>
         </div>
 
       </div>
@@ -739,8 +745,13 @@
           <span id="cartSubtotal">Q 382.50</span>
         </div>
 
-        <button class="btn btn-primary btn-lg btn-block" id="checkoutBtn">
-          Finalizar Pedido →
+        <button class="btn btn-whatsapp btn-lg btn-block" id="cartWhatsAppBtn" style="margin-bottom: 0.6rem;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Pedir por WhatsApp (3029-2980)
+        </button>
+
+        <button class="btn btn-secondary btn-block" id="checkoutBtn">
+          Llenar datos de envío primero →
         </button>
       </div>
     </div>
@@ -750,39 +761,39 @@
   <div class="modal-overlay" id="checkoutModal">
     <div class="checkout-modal-card">
       <div class="config-card-header">
-        <h3 class="config-title">💳 Finalizar Pedido en Mosal Stickers</h3>
+        <h3 class="config-title">💳 Finalizar Pedido • Mosal Solutions</h3>
         <button class="cart-close-btn" id="checkoutModalClose">✕</button>
       </div>
 
       <form id="checkoutForm" style="display: flex; flex-direction: column; gap: 1rem;">
         <div>
           <label class="spec-label">Nombre y Apellidos</label>
-          <input type="text" required placeholder="Herbert Moscoso" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+          <input type="text" id="checkoutCustomerName" required placeholder="Tu Nombre o Empresa" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
         </div>
 
         <div>
           <label class="spec-label">Correo Electrónico (para tu prueba digital)</label>
-          <input type="email" required placeholder="herbert@ejemplo.com" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+          <input type="email" id="checkoutCustomerEmail" required placeholder="correo@ejemplo.com" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
         </div>
 
         <div>
-          <label class="spec-label">Teléfono / WhatsApp</label>
-          <input type="tel" required placeholder="+502 5555-1234" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+          <label class="spec-label">Teléfono / WhatsApp de Contacto</label>
+          <input type="tel" id="checkoutCustomerPhone" required placeholder="+502 3029-xxxx" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
         </div>
 
         <div>
           <label class="spec-label">Dirección de Entrega</label>
-          <input type="text" required placeholder="12 Calle 4-55, Zona 10, Edificio..." class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+          <input type="text" id="checkoutCustomerAddress" required placeholder="Dirección, Zona o Municipio..." class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
           <div>
             <label class="spec-label">Municipio / Ciudad</label>
-            <input type="text" required placeholder="Ciudad de Guatemala" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+            <input type="text" id="checkoutCustomerCity" required placeholder="Ciudad de Guatemala" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
           </div>
           <div>
             <label class="spec-label">Departamento</label>
-            <select class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem; background: var(--bg-surface-2); color: white;">
+            <select id="checkoutCustomerDept" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem; background: var(--bg-surface-2); color: white;">
               <option value="Guatemala">Guatemala</option>
               <option value="Sacatepéquez">Sacatepéquez / Antigua</option>
               <option value="Quetzaltenango">Quetzaltenango</option>
@@ -797,21 +808,22 @@
         </div>
 
         <div>
-          <label class="spec-label">Método de Pago Seguro</label>
+          <label class="spec-label">Preferencia de Pago</label>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.4rem;">
             <label class="shape-radio-card active" style="flex-direction: row; padding: 0.75rem;">
-              <input type="radio" name="pay_method" checked style="accent-color: var(--color-brand-yellow);" />
-              <span class="shape-label">Tarjeta Crédito / Débito</span>
+              <input type="radio" name="pay_method" value="Transferencia Bancaria (BI / Banrural / G&T)" checked style="accent-color: var(--color-brand-yellow);" />
+              <span class="shape-label">Transferencia Bancaria</span>
             </label>
             <label class="shape-radio-card" style="flex-direction: row; padding: 0.75rem;">
-              <input type="radio" name="pay_method" style="accent-color: var(--color-brand-yellow);" />
-              <span class="shape-label">Transferencia BI / BAM / G&T</span>
+              <input type="radio" name="pay_method" value="Pago Contra Entrega / Tarjeta" style="accent-color: var(--color-brand-yellow);" />
+              <span class="shape-label">Contra Entrega / Tarjeta</span>
             </label>
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: 0.75rem;">
-          Confirmar y Procesar Pedido
+        <button type="submit" class="btn btn-whatsapp btn-lg btn-block" style="margin-top: 0.75rem;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Enviar Pedido y Datos por WhatsApp (3029-2980)
         </button>
       </form>
 
@@ -820,8 +832,8 @@
         <div style="width: 64px; height: 64px; border-radius: 50%; background: #00b67a; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
           ✓
         </div>
-        <h3 class="section-title" style="font-size: 1.8rem;">¡Pedido Confirmado con Éxito!</h3>
-        <p class="category-card-desc">Hemos recibido tu diseño. Nuestro equipo te enviará la prueba digital por WhatsApp o correo y despacharemos tus stickers por Cargo Expreso o Guatex a tu dirección en Guatemala.</p>
+        <h3 class="section-title" style="font-size: 1.8rem;">¡Pedido Enviado a WhatsApp!</h3>
+        <p class="category-card-desc">Hemos preparado tu mensaje para <strong>Mosal Solutions</strong>. Nuestro equipo te responderá de inmediato al <strong>WhatsApp 3029-2980</strong> para enviarte la prueba digital y coordinar la entrega en Guatemala.</p>
         <button class="btn btn-primary" onclick="document.getElementById('checkoutModalClose').click();">
           Volver a la tienda
         </button>
@@ -836,13 +848,25 @@
   <footer class="site-footer">
     <div class="footer-container">
       <div>
-        <a href="/" class="brand-logo" style="margin-bottom: 1rem;">
+        <a href="/" class="brand-logo" style="margin-bottom: 0.8rem;">
           <div class="brand-logo-badge">M</div>
-          <span>Mosal <span class="brand-name-sub">Stickers</span></span>
+          <span>Mosal <span class="brand-name-sub">Solutions</span></span>
         </a>
-        <p style="font-size: 0.9rem; line-height: 1.6; max-width: 280px;">
-          La imprenta líder en stickers y calcomanías troqueladas personalizadas para marcas, creadores y empresas en Guatemala y Centroamérica.
+        <p style="font-size: 0.9rem; line-height: 1.6; max-width: 280px; color: var(--text-gray-300);">
+          Impresión profesional de stickers troquelados, calcomanías y soluciones gráficas de alta durabilidad en Guatemala.
         </p>
+
+        <!-- Official Social Links -->
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/mosal_solutions?stkn=MTJjeGxpZGhkMzdxbA==" target="_blank" rel="noopener noreferrer" class="social-pill-btn instagram" title="Instagram @mosal_solutions">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span>@mosal_solutions</span>
+          </a>
+          <a href="https://www.facebook.com/share/1KBKygi8FE/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-pill-btn facebook" title="Facebook Mosal Solutions">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.583 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z"/></svg>
+            <span>Mosal Solutions</span>
+          </a>
+        </div>
       </div>
 
       <div>
@@ -870,31 +894,46 @@
       </div>
 
       <div>
-        <div class="footer-col-title">Atención & Contacto</div>
+        <div class="footer-col-title">Atención & Contacto Oficial</div>
         <div class="footer-links">
-          <a href="#faq">Preguntas Frecuentes</a>
-          <a href="#faq">Envíos a Departamentos</a>
-          <a href="#faq">Plantillas de Diseño</a>
-          <a href="mailto:soporte@mosalstickers.com">soporte@mosalstickers.com</a>
-          <span style="color: var(--color-brand-yellow); font-weight: 700;">Lunes a Viernes 8:00 - 17:00 (Guatemala)</span>
+          <a href="https://wa.me/50230292980" target="_blank" style="color: #25D366; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem;">
+            <span>💬</span> WhatsApp: +502 3029-2980
+          </a>
+          <a href="mailto:mosalsolutionsgt@gmail.com" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+            <span>✉️</span> mosalsolutionsgt@gmail.com
+          </a>
+          <a href="https://www.instagram.com/mosal_solutions?stkn=MTJjeGxpZGhkMzdxbA==" target="_blank" rel="noopener noreferrer">
+            <span>📷</span> Instagram: @mosal_solutions
+          </a>
+          <a href="https://www.facebook.com/share/1KBKygi8FE/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
+            <span>👍</span> Facebook: Mosal Solutions
+          </a>
+          <span style="color: var(--color-brand-yellow); font-size: 0.85rem; font-weight: 600;">Envíos a toda Guatemala 🇬🇹</span>
         </div>
       </div>
     </div>
 
     <div class="footer-bottom-bar">
       <div>
-        © 2026 <strong>Mosal Stickers</strong>. Hecho para creadores en Guatemala.
+        © 2026 <strong>Mosal Solutions</strong> • Todos los derechos reservados.
       </div>
       <div style="display: flex; gap: 1.25rem;">
         <span>Visa</span>
         <span>Mastercard</span>
         <span>Banco Industrial</span>
-        <span>BAM</span>
-        <span>G&T</span>
+        <span>Banrural</span>
+        <span>G&T Continental</span>
         <span>Cargo Expreso / Guatex</span>
       </div>
     </div>
   </footer>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="https://wa.me/50230292980?text=Hola%20Mosal%20Solutions%2C%20quisiera%20cotizar%20stickers%20personalizados" target="_blank" rel="noopener noreferrer" class="whatsapp-floating-btn" id="whatsappFloatingBtn" aria-label="Escríbenos por WhatsApp">
+    <div class="whatsapp-pulse"></div>
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span class="whatsapp-floating-tooltip">¿Dudas o pedidos? Escríbenos al 3029-2980</span>
+  </a>
 
   <!-- Entry Script -->
   <script type="module" src="/src/js/main.js"></script>

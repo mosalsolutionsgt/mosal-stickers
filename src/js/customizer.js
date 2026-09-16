@@ -6,7 +6,7 @@
 import { store } from './state.js';
 import { calculateStickerPricing, formatPrice, QUANTITY_TIERS } from './pricing.js';
 import { renderCutlinePaths } from './cutline-generator.js';
-import { showToast } from './cart.js';
+import { showToast, getWhatsAppOrderUrl } from './cart.js';
 import { processStickerImage } from './bg-remover.js';
 
 export function initCustomizer() {
@@ -240,6 +240,27 @@ export function initCustomizer() {
     };
     store.addToCart(item);
     showToast('¡Stickers añadidos al carrito!', 'success');
+  });
+
+  // Direct WhatsApp Quote Handler
+  const customizerWhatsAppBtn = document.getElementById('customizerWhatsAppBtn');
+  customizerWhatsAppBtn?.addEventListener('click', () => {
+    const state = store.getState();
+    const pricing = calculateStickerPricing(state.sticker);
+    const item = {
+      name: state.sticker.name,
+      imageSrc: state.sticker.imageSrc,
+      shape: state.sticker.shape,
+      material: state.sticker.material,
+      finish: state.sticker.finish,
+      sizeText: `${state.sticker.widthCm} x ${state.sticker.heightCm} cm`,
+      quantity: state.sticker.quantity,
+      unitPrice: pricing.unitPrice,
+      totalPrice: pricing.totalPrice,
+    };
+    const waUrl = getWhatsAppOrderUrl([item], pricing.totalPrice, state.currency);
+    window.open(waUrl, '_blank');
+    showToast('¡Abriendo WhatsApp para cotizar este diseño con Mosal Solutions!', 'success');
   });
 
   // 9. Subscribe to Store Updates to Sync UI
