@@ -98,7 +98,7 @@
         </h1>
 
         <p class="hero-subtitle">
-          Corte troquelado de ultra precisión, vinilo impermeable resistente a los rayos UV y envíos a Ciudad de Guatemala y departamentos. Personaliza materiales holográficos, glitter, transparentes o vinilo clásico.
+          Corte troquelado de ultra precisión, vinilo impermeable con 6 a 12 meses de durabilidad y envíos a toda Guatemala. Personaliza acabados brillosos o mate en materiales holográficos, glitter, transparentes o vinilo blanco.
         </p>
 
         <div class="hero-trust-row">
@@ -241,17 +241,23 @@
               </div>
             </div>
 
+            <!-- Real-time Dimension Badge in Canvas -->
+            <div class="stage-dimension-badge" id="stageDimensionBadge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 3L3 21M21 3h-6M21 3v6M3 21h6M3 21v-6"/></svg>
+              <span id="stageDimensionText">7.5 × 7.5 cm</span>
+            </div>
+
           </div>
 
           <!-- Proofing Legend Bar (Visible during cutline mode) -->
           <div class="proofing-legend-bar">
             <div class="legend-item">
               <span class="legend-bullet diecut"></span>
-              <span>Línea de corte troquelado (0.0 mm)</span>
+              <span>Línea de corte (0.0 mm)</span>
             </div>
             <div class="legend-item">
               <span class="legend-bullet safety"></span>
-              <span>Margen seguro de sangrado (2.0 mm)</span>
+              <span>Sangrado y margen de seguridad (±2.0 mm)</span>
             </div>
           </div>
 
@@ -380,12 +386,6 @@
               <div class="material-card-name">Metálico Oro</div>
               <div class="material-card-tag">Lujo</div>
             </div>
-
-            <div class="material-card" data-material="kraft">
-              <div class="material-swatch-circle swatch-kraft"></div>
-              <div class="material-card-name">Papel Kraft</div>
-              <div class="material-card-tag">Eco-friendly</div>
-            </div>
           </div>
         </div>
 
@@ -400,11 +400,11 @@
           <div class="pill-selector-row">
             <button class="pill-option-btn finish-pill active" data-finish="glossy" style="display: inline-flex; align-items: center; gap: 0.45rem;">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="#FFC837"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
-              <span>Lustroso UV (Protección extra brillante)</span>
+              <span>Brillante (protección extra brillante)</span>
             </button>
             <button class="pill-option-btn finish-pill" data-finish="matte" style="display: inline-flex; align-items: center; gap: 0.45rem;">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: #cbd5e1;"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
-              <span>Mate Sedoso (Cero reflejos)</span>
+              <span>Mate (cero reflejos)</span>
             </button>
           </div>
         </div>
@@ -494,7 +494,7 @@
     <div class="section-header">
       <span class="section-tag">Gama de Productos</span>
       <h2 class="section-title">Elige tu formato de impresión</h2>
-      <p class="section-desc">Impresos con tecnología de última generación y tintas UV ecológicas. Envíos rápidos y seguros a Ciudad de Guatemala y todos los departamentos del país.</p>
+      <p class="section-desc">Impresos con tecnología de última generación y tintas ecológicas de alta definición. Envíos rápidos y seguros a Ciudad de Guatemala y todos los departamentos del país.</p>
     </div>
 
     <div class="categories-grid">
@@ -524,21 +524,6 @@
           <div class="category-card-footer">
             <span class="badge badge-green">Múltiples Diseños</span>
             <span class="category-price-from">Desde Q 200</span>
-          </div>
-        </div>
-      </a>
-
-      <!-- Roll Labels -->
-      <a href="#editor" class="category-card">
-        <div class="category-card-media">
-          <img src="/samples/vaporwave-skull.png" alt="Etiquetas en Rollo" />
-        </div>
-        <div class="category-card-body">
-          <h3 class="category-card-title">Etiquetas en Rollo</h3>
-          <p class="category-card-desc">Fáciles de despegar y aplicar en masa. Diseñadas para botellas de café, cerveza artesanal, cosméticos, frascos y packaging.</p>
-          <div class="category-card-footer">
-            <span class="badge badge-pink">Empresas & Packaging</span>
-            <span class="category-price-from">Desde Q 295</span>
           </div>
         </div>
       </a>
@@ -576,7 +561,6 @@
         <button class="material-tab-btn" data-mat="transparent">Transparente</button>
         <button class="material-tab-btn" data-mat="glitter">Purpurina Glitter</button>
         <button class="material-tab-btn" data-mat="metallic">Metálico Oro</button>
-        <button class="material-tab-btn" data-mat="kraft">Papel Kraft Eco</button>
       </div>
 
       <!-- Detail Card -->
@@ -602,11 +586,11 @@
           <div class="specs-grid">
             <div class="spec-item">
               <div class="spec-label">Durabilidad Exterior</div>
-              <div class="spec-val" id="labDurability">2 - 4 años</div>
+              <div class="spec-val" id="labDurability">1 año (12 meses)</div>
             </div>
             <div class="spec-item">
               <div class="spec-label">Tipo de Acabado</div>
-              <div class="spec-val" id="labFinish">Laminado UV ultra brillante</div>
+              <div class="spec-val" id="labFinish">Acabado brilloso o mate</div>
             </div>
             <div class="spec-item">
               <div class="spec-label">Resistencia</div>
@@ -644,10 +628,10 @@
 
       <div class="feature-box">
         <div class="feature-icon-circle">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFC837" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFC837" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
         </div>
-        <h3 class="feature-title">Protección UV de 4 Años</h3>
-        <p class="feature-desc">Laminado protector de alta densidad que evita que los colores pierdan intensidad o se desgasten bajo el sol directo.</p>
+        <h3 class="feature-title">Durabilidad de 6 a 12 Meses</h3>
+        <p class="feature-desc">Durabilidad garantizada de 6 a 12 meses en todos nuestros stickers (hasta 1 año en holográfico), resistentes al agua, humedad e intemperie.</p>
       </div>
 
       <div class="feature-box">
@@ -713,7 +697,7 @@
             <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </button>
           <div class="faq-answer">
-            ¡Totalmente! Nuestro vinilo adhesivo premium con laminado protector UV soporta el sol, lluvia, humedad, microondas, termos de agua e incluso lavavajillas sin despegarse ni perder intensidad de color.
+            ¡Totalmente! Nuestro vinilo adhesivo premium con laminado protector soporta salpicaduras, lluvia, humedad, termos de agua e incluso lavavajillas con una durabilidad garantizada de 6 a 12 meses (1 año en holográficos).
           </div>
         </div>
 
@@ -912,7 +896,6 @@
           <a href="#editor">Stickers Troquelados</a>
           <a href="#editor">Stickers Holográficos</a>
           <a href="#editor">Hojas de Stickers</a>
-          <a href="#editor">Etiquetas en Rollo</a>
           <a href="#editor">Stickers Transparentes</a>
           <a href="#editor">Pack de Muestras</a>
         </div>
@@ -925,7 +908,6 @@
           <a href="#materials">Holográfico Prismático</a>
           <a href="#materials">Glitter / Brillantina</a>
           <a href="#materials">Metálico Oro y Plata</a>
-          <a href="#materials">Papel Kraft Reciclado</a>
           <a href="#materials">Guía de Líneas de Corte</a>
         </div>
       </div>

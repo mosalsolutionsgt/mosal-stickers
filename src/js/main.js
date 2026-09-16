@@ -11,9 +11,9 @@ import { initCart } from './cart.js';
 const MATERIALS_DATA = {
   holographic: {
     title: 'Holográfico Prismático',
-    desc: 'Un material iridiscente y cromático que refleja los colores del arcoíris al incidir la luz solar o artificial. Ideal para logos, ilustraciones psicodélicas y marcas que buscan el máximo impacto visual.',
-    durability: '2 - 4 años al exterior',
-    finish: 'Laminado UV ultra brillante',
+    desc: 'Un material iridiscente y cromático que refleja los colores del arcoíris al incidir la luz. Ideal para logos, ilustraciones y marcas que buscan el máximo impacto visual.',
+    durability: '1 año de durabilidad (12 meses)',
+    finish: 'Acabado brilloso o mate',
     resistance: 'Impermeable 100% y lavavajillas',
     thickness: '180 micras de vinilo premium',
     sampleImg: '/samples/vaporwave-skull.png',
@@ -22,9 +22,9 @@ const MATERIALS_DATA = {
   classic: {
     title: 'Vinilo Blanco Clásico',
     desc: 'La base estándar de mayor calidad de la industria. Base blanca opaca con una fidelidad de color inigualable, colores saturados y negros profundos.',
-    durability: '3 - 5 años al exterior',
-    finish: 'Lustroso o Mate sedoso',
-    resistance: 'Totalmente resistente al agua y rayos UV',
+    durability: '6 a 12 meses de durabilidad',
+    finish: 'Brilloso o Mate',
+    resistance: 'Totalmente resistente al agua y humedad',
     thickness: '150 micras de vinilo de alta densidad',
     sampleImg: '/samples/cyberpunk-cat.png',
     badge: 'Bestseller',
@@ -32,8 +32,8 @@ const MATERIALS_DATA = {
   transparent: {
     title: 'Transparente Cristalino',
     desc: 'Vinilo ultra transparente sin opacidad de fondo. Diseñado con impresión de tinta blanca selectiva para que tus diseños destaquen sobre ventanas, frascos y botellas.',
-    durability: '2 - 3 años al exterior',
-    finish: 'Brillante transparente',
+    durability: '6 a 12 meses de durabilidad',
+    finish: 'Brilloso transparente',
     resistance: 'Apto para lavavajillas y exteriores',
     thickness: '140 micras de film óptico',
     sampleImg: '/samples/kawaii-shiba.png',
@@ -42,8 +42,8 @@ const MATERIALS_DATA = {
   glitter: {
     title: 'Purpurina / Glitter Radiante',
     desc: 'Incrustaciones de micro-purpurina metálica integradas en el vinilo que brillan intensamente bajo cualquier fuente de luz directa.',
-    durability: '2 - 4 años al exterior',
-    finish: 'Laminado UV protector',
+    durability: '6 a 12 meses de durabilidad',
+    finish: 'Brilloso protector',
     resistance: '100% resistente al agua y lluvia',
     thickness: '190 micras texturizadas',
     sampleImg: '/samples/vaporwave-skull.png',
@@ -52,22 +52,12 @@ const MATERIALS_DATA = {
   metallic: {
     title: 'Metálico Oro / Plata Cepillado',
     desc: 'Aspecto metálico de lujo que simula aluminio pulido u oro pulido. Añade una estética industrial y de alta gama a packaging y marcas de autor.',
-    durability: '3 - 5 años al exterior',
-    finish: 'Lustroso de alta reflexión',
-    resistance: 'Resistente a arañazos y clima extremo',
+    durability: '6 a 12 meses de durabilidad',
+    finish: 'Brilloso de alta reflexión',
+    resistance: 'Resistente a arañazos y agua',
     thickness: '160 micras metalizadas',
     sampleImg: '/samples/cyberpunk-cat.png',
     badge: 'Look Premium',
-  },
-  kraft: {
-    title: 'Papel Kraft Reciclado',
-    desc: 'Hecho con fibras 100% recicladas con textura natural orgánica. La opción preferida por marcas ecológicas y cafeterías de especialidad.',
-    durability: '1 - 2 años (recomendado interiores)',
-    finish: 'Mate sin revestir agradable al tacto',
-    resistance: 'Resistente a salpicaduras ligeras',
-    thickness: '120 gr/m² papel kraft con adhesivo fuerte',
-    sampleImg: '/samples/kawaii-shiba.png',
-    badge: '100% Sostenible',
   }
 };
 

@@ -11,7 +11,6 @@ const MATERIAL_MULTIPLIERS = {
   transparent: 1.12,
   glitter: 1.28,
   metallic: 1.24,
-  kraft: 1.08,
 };
 
 // Finish Multipliers

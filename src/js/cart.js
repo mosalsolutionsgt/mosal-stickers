@@ -248,11 +248,21 @@ export function getWhatsAppOrderUrl(cart, finalTotal, currency = 'GTQ', customer
   ];
 
   cart.forEach((item, index) => {
+    const matNames = {
+      holographic: 'Holográfico Prismático',
+      classic: 'Vinilo Blanco Clásico',
+      transparent: 'Transparente Cristalino',
+      glitter: 'Purpurina Glitter',
+      metallic: 'Metálico Oro / Plata'
+    };
+    const finishLabel = item.finish === 'glossy' ? 'Brillante' : 'Mate';
+    const matLabel = matNames[item.material] || item.material;
+
     lines.push(`${index + 1}. *${item.name}*`);
     lines.push(`   • Cantidad: ${item.quantity} unidades`);
     lines.push(`   • Medida: ${item.sizeText}`);
-    lines.push(`   • Material: ${item.material}`);
-    lines.push(`   • Acabado: ${item.finish}`);
+    lines.push(`   • Material: ${matLabel}`);
+    lines.push(`   • Acabado: ${finishLabel}`);
     if (item.shape) lines.push(`   • Corte: ${item.shape}`);
     lines.push(`   • Subtotal: ${formatPrice(item.totalPrice)}`);
     lines.push('');

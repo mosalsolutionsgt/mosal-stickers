@@ -319,9 +319,24 @@ export function initCustomizer() {
       if (s.shape === 'die-cut') container.classList.add('has-diecut');
     });
 
-    // Render Cutline SVG
+    // Dynamic Visual Dimension Scaling (Studio Stage & Mockups)
+    const baseCm = 7.5;
+    const scaleX = Math.min(1.65, Math.max(0.48, s.widthCm / baseCm));
+    const scaleY = Math.min(1.65, Math.max(0.48, s.heightCm / baseCm));
+    const stageCanvas = document.getElementById('stageCanvas');
+    if (stageCanvas) {
+      stageCanvas.style.setProperty('--size-scale-x', scaleX);
+      stageCanvas.style.setProperty('--size-scale-y', scaleY);
+      stageCanvas.style.setProperty('--size-scale', Math.max(scaleX, scaleY));
+    }
+    const stageDimensionText = document.getElementById('stageDimensionText');
+    if (stageDimensionText) {
+      stageDimensionText.textContent = `${s.widthCm} × ${s.heightCm} cm`;
+    }
+
+    // Render Precision Centered Cutline SVG
     if (stickerCutlineSvg) {
-      renderCutlinePaths(stickerCutlineSvg, s.shape);
+      renderCutlinePaths(stickerCutlineSvg, s.shape, s.imageSrc);
     }
 
     // Render Bulk Quantity Tiers Table
@@ -336,7 +351,16 @@ export function initCustomizer() {
       summaryUnitPrice.textContent = `${formatPrice(pricing.unitPrice)} / ud`;
     }
     if (summaryQtyDesc) {
-      summaryQtyDesc.textContent = `${s.quantity} uds • ${s.widthCm}x${s.heightCm} cm • ${s.material}`;
+      const finishLabel = s.finish === 'glossy' ? 'Brillante' : 'Mate';
+      const materialLabels = {
+        holographic: 'Holográfico',
+        classic: 'Vinilo Blanco',
+        transparent: 'Transparente',
+        glitter: 'Glitter',
+        metallic: 'Metálico'
+      };
+      const matLabel = materialLabels[s.material] || s.material;
+      summaryQtyDesc.textContent = `${s.quantity} uds • ${s.widthCm}×${s.heightCm} cm • ${matLabel} • ${finishLabel}`;
     }
   });
 

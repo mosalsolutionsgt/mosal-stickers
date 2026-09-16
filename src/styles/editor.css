@@ -155,6 +155,13 @@
   display: block;
 }
 
+/* Studio Stage Main Sticker Scaling */
+.stage-canvas-area > .sticker-host {
+  transform: scale(var(--size-scale-x, 1), var(--size-scale-y, 1));
+  transform-origin: center center;
+  transition: transform 0.28s cubic-bezier(0.34, 1.25, 0.64, 1);
+}
+
 /* Laptop Surface Mockup */
 .mockup-laptop {
   background-image: url('/assets/laptop-mockup.jpg');
@@ -164,7 +171,8 @@
   position: absolute;
   top: 51%;
   left: 51%;
-  transform: translate(-50%, -50%) scale(0.68) rotate(-2deg);
+  transform: translate(-50%, -50%) scale(calc(0.68 * var(--size-scale-x, 1)), calc(0.68 * var(--size-scale-y, 1))) rotate(-2deg);
+  transition: transform 0.28s ease;
 }
 
 /* Yeti Tumbler Surface Mockup */
@@ -178,7 +186,8 @@
   position: absolute;
   top: 55%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.55);
+  transform: translate(-50%, -50%) scale(calc(0.55 * var(--size-scale-x, 1)), calc(0.55 * var(--size-scale-y, 1)));
+  transition: transform 0.28s ease;
 }
 
 .mockup-yeti .sticker-container {
@@ -196,11 +205,34 @@
   position: absolute;
   top: 58%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.55);
+  transform: translate(-50%, -50%) scale(calc(0.55 * var(--size-scale-x, 1)), calc(0.55 * var(--size-scale-y, 1)));
+  transition: transform 0.28s ease;
 }
 
 .mockup-iphone .sticker-container {
   filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
+}
+
+/* Live Dimension Badge in Stage Canvas */
+.stage-dimension-badge {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  background: rgba(15, 18, 23, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 200, 55, 0.4);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--color-brand-yellow);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  z-index: 8;
+  pointer-events: none;
+  transition: all var(--transition-fast);
 }
 
 .phone-camera-bump {
@@ -239,11 +271,20 @@
   transition: transform 0.1s ease-out;
   border-radius: var(--radius-md);
   transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 290px;
+  height: 290px;
 }
 
 .sticker-diecut-wrapper {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.45)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
   transition: filter var(--transition-fast);
 }
@@ -251,43 +292,49 @@
 /* The actual sticker image */
 .sticker-image-layer {
   display: block;
-  width: 290px;
-  height: 290px;
+  width: 270px;
+  height: 270px;
   object-fit: contain;
   position: relative;
   z-index: 2;
   user-select: none;
   pointer-events: none;
+  transition: width var(--transition-fast), height var(--transition-fast);
 }
 
 /* Shapes styling for preview */
 .shape-die-cut .sticker-card-3d {
   background: transparent;
   padding: 0;
+  box-shadow: none;
 }
 
 .shape-circle .sticker-card-3d {
   background: #ffffff;
   border-radius: 50%;
-  padding: 12px;
-  overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  overflow: visible;
 }
 
 .shape-square .sticker-card-3d {
   background: #ffffff;
   border-radius: 6px;
-  padding: 12px;
-  overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  overflow: visible;
 }
 
 .shape-rounded .sticker-card-3d {
   background: #ffffff;
   border-radius: 34px;
-  padding: 12px;
-  overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  overflow: visible;
+}
+
+.shape-circle .sticker-image-layer,
+.shape-square .sticker-image-layer,
+.shape-rounded .sticker-image-layer {
+  width: 236px;
+  height: 236px;
 }
 
 .shape-kiss-cut .sticker-card-3d {
@@ -388,22 +435,20 @@
   opacity: 0.88;
 }
 
-/* Kraft Eco Paper */
-.material-kraft .sticker-image-layer {
-  filter: sepia(0.35) contrast(1.05);
-}
-
 /* ==========================================================================
    PREPRESS DIE-CUT LINE & PROOF OVERLAY (StickerApp Signature)
    ========================================================================== */
 .sticker-cutline-svg {
   position: absolute;
-  inset: -16px;
-  width: calc(100% + 32px);
-  height: calc(100% + 32px);
-  z-index: 6;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: 10;
   pointer-events: none;
   opacity: 0;
+  overflow: visible;
   transition: opacity var(--transition-fast);
 }
 
@@ -416,7 +461,7 @@
   stroke: var(--border-cutline);
   stroke-width: 2.5;
   stroke-dasharray: 6 4;
-  filter: drop-shadow(0 0 4px rgba(255, 0, 127, 0.8));
+  filter: drop-shadow(0 0 5px rgba(255, 0, 127, 0.9));
   animation: dashAnimation 20s linear infinite;
 }
 
@@ -431,6 +476,14 @@
   stroke: #00f0ff;
   stroke-width: 1.5;
   stroke-dasharray: 3 3;
+}
+
+.cutline-bleed-path {
+  fill: none;
+  stroke: #00f0ff;
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+  opacity: 0.6;
 }
 
 /* Proofing Legend Bar */
@@ -723,10 +776,6 @@
 
 .swatch-metallic {
   background: linear-gradient(135deg, #d4af37, #fff6cc, #aa820a);
-}
-
-.swatch-kraft {
-  background: #cbb28d;
 }
 
 .material-card-name {
