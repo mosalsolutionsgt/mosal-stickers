@@ -310,6 +310,7 @@ export function initCustomizer() {
     }
 
     // Update container classes for shaders & materials
+    const maskVal = `url("${s.imageSrc}")`;
     stickerContainers.forEach(container => {
       // Remove all material-* classes
       container.className = 'sticker-container';
@@ -317,12 +318,13 @@ export function initCustomizer() {
       container.classList.add(`finish-${s.finish}`);
       container.classList.add(`shape-${s.shape}`);
       if (s.shape === 'die-cut') container.classList.add('has-diecut');
+      container.style.setProperty('--sticker-mask-url', maskVal);
     });
 
-    // Dynamic Visual Dimension Scaling (Studio Stage & Mockups)
-    const baseCm = 7.5;
-    const scaleX = Math.min(1.65, Math.max(0.48, s.widthCm / baseCm));
-    const scaleY = Math.min(1.65, Math.max(0.48, s.heightCm / baseCm));
+    // Dynamic Visual Dimension Scaling (Studio Stage & Mockups, 5x5 cm baseline)
+    const baseCm = 5.0;
+    const scaleX = Math.min(1.65, Math.max(0.55, s.widthCm / baseCm));
+    const scaleY = Math.min(1.65, Math.max(0.55, s.heightCm / baseCm));
     const stageCanvas = document.getElementById('stageCanvas');
     if (stageCanvas) {
       stageCanvas.style.setProperty('--size-scale-x', scaleX);

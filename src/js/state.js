@@ -13,8 +13,8 @@ class StateStore {
         shape: 'die-cut', // 'die-cut', 'circle', 'square', 'rounded'
         material: 'holographic', // 'classic', 'holographic', 'transparent', 'glitter', 'metallic'
         finish: 'glossy', // 'glossy', 'matte'
-        widthCm: 7.5,
-        heightCm: 7.5,
+        widthCm: 5,
+        heightCm: 5,
         isCustomSize: false,
         quantity: 100,
         surface: 'studio', // 'studio', 'laptop', 'yeti', 'iphone'
@@ -24,7 +24,7 @@ class StateStore {
       // Currency & Locale
       currency: 'GTQ', // 'GTQ' | 'USD' | 'EUR'
       currencySymbols: { GTQ: 'Q', USD: '$', EUR: '€' },
-      exchangeRates: { GTQ: 8.5, USD: 1.08, EUR: 1.0 },
+      exchangeRates: { GTQ: 1.0, USD: 0.128, EUR: 0.118 },
       includeVat: true,
 
       // Shopping Cart
@@ -36,10 +36,10 @@ class StateStore {
           shape: 'die-cut',
           material: 'holographic',
           finish: 'glossy',
-          sizeText: '7.5 x 7.5 cm',
+          sizeText: '5 x 5 cm',
           quantity: 100,
-          unitPrice: 3.83,
-          totalPrice: 382.50,
+          unitPrice: 1.10,
+          totalPrice: 110.00,
         }
       ],
       isCartOpen: false,

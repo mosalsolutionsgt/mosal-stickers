@@ -350,15 +350,80 @@
 
 /* ==========================================================================
    MATERIAL SHADERS (Holographic, Glitter, Metallic, Clear)
+   Adapts cleanly to each sticker contour (no square artifacts)
    ========================================================================== */
 .sticker-material-shader {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 270px;
+  height: 270px;
   z-index: 3;
   pointer-events: none;
-  border-radius: inherit;
   opacity: 0;
   transition: opacity var(--transition-normal);
+}
+
+/* Holographic Specular Glare */
+.sticker-material-glare {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 270px;
+  height: 270px;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0) 55%
+  );
+  mix-blend-mode: overlay;
+  transition: opacity var(--transition-fast);
+}
+
+/* For die-cut stickers: mask holographic, glitter & metallic shaders to the exact image alpha contour */
+.shape-die-cut .sticker-material-shader,
+.shape-die-cut .sticker-material-glare {
+  -webkit-mask-image: var(--sticker-mask-url);
+  mask-image: var(--sticker-mask-url);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* For geometric shapes: match shape cards */
+.shape-circle .sticker-material-shader,
+.shape-circle .sticker-material-glare {
+  width: 290px;
+  height: 290px;
+  border-radius: 50%;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.shape-square .sticker-material-shader,
+.shape-square .sticker-material-glare {
+  width: 290px;
+  height: 290px;
+  border-radius: 6px;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.shape-rounded .sticker-material-shader,
+.shape-rounded .sticker-material-glare {
+  width: 290px;
+  height: 290px;
+  border-radius: 34px;
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 /* Holographic Shimmer */
@@ -378,22 +443,6 @@
   background-position: var(--glare-x, 50%) var(--glare-y, 50%);
   mix-blend-mode: color-dodge;
   filter: contrast(130%) brightness(110%);
-}
-
-/* Holographic Specular Glare */
-.sticker-material-glare {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(255, 255, 255, 0.7) 0%,
-    rgba(255, 255, 255, 0) 55%
-  );
-  mix-blend-mode: overlay;
-  transition: opacity var(--transition-fast);
 }
 
 .material-holographic .sticker-material-glare,
@@ -796,6 +845,59 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+/* Official Size Pills Grid (8 sizes + Custom) */
+.size-pills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.55rem;
+}
+
+@media (max-width: 680px) {
+  .size-pills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.size-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.4rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  cursor: pointer;
+}
+
+.size-pill-dim {
+  font-weight: 800;
+  font-size: 0.84rem;
+  line-height: 1.2;
+}
+
+.size-pill-price {
+  font-size: 0.74rem;
+  color: var(--color-brand-yellow);
+  font-weight: 800;
+  margin-top: 0.18rem;
+  line-height: 1.2;
+  transition: color var(--transition-fast);
+}
+
+.size-pill.active .size-pill-price {
+  color: #0d1015;
+}
+
+.size-pill-custom {
+  grid-column: span 4;
+}
+
+@media (max-width: 680px) {
+  .size-pill-custom {
+    grid-column: span 2;
+  }
 }
 
 .pill-option-btn {

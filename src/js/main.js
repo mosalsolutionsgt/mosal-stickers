@@ -127,12 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (labPreviewContainer) {
-        labPreviewContainer.className = 'sticker-container';
+        labPreviewContainer.className = 'sticker-container shape-die-cut';
         labPreviewContainer.classList.add(`material-${matKey}`);
         labPreviewContainer.classList.add('finish-glossy');
+        labPreviewContainer.style.setProperty('--sticker-mask-url', `url("${data.sampleImg}")`);
       }
     });
   });
+
+  // Initial mask for lab preview
+  if (labPreviewContainer) {
+    labPreviewContainer.classList.add('shape-die-cut');
+    labPreviewContainer.style.setProperty('--sticker-mask-url', 'url("/samples/vaporwave-skull.png")');
+  }
 
   // 6. Smooth Scroll on Anchor Links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
