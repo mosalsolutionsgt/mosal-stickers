@@ -520,21 +520,6 @@
   }
 }
 
-.cutline-safety-path {
-  fill: none;
-  stroke: #00f0ff;
-  stroke-width: 1.5;
-  stroke-dasharray: 3 3;
-}
-
-.cutline-bleed-path {
-  fill: none;
-  stroke: #00f0ff;
-  stroke-width: 1.2;
-  stroke-dasharray: 4 4;
-  opacity: 0.6;
-}
-
 /* Proofing Legend Bar */
 .proofing-legend-bar {
   display: flex;
@@ -562,10 +547,6 @@
 
 .legend-bullet.diecut {
   background-color: #ff007f;
-}
-
-.legend-bullet.safety {
-  background-color: #00f0ff;
 }
 
 /* Sample Art Quick Picker */

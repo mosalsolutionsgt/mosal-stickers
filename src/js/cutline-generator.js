@@ -1,13 +1,13 @@
 /* ==========================================================================
-   MOSAL STICKERS - CUTLINE & PREPRESS PROOF GENERATOR
-   Generates precision magenta die-cut contours, safety margins and bleed lines
+   MOSAL STICKERS - CUTLINE PREPRESS PROOF GENERATOR
+   Generates precision magenta die-cut contour (0.0 mm)
    Centered accurately to each sticker design with SVG viewBox 0 0 300 300
    ========================================================================== */
 
 const contourCache = new Map();
 
 /**
- * Updates the SVG cutline overlay paths based on current sticker shape & image
+ * Updates the SVG cutline overlay path based on current sticker shape & image
  */
 export function renderCutlinePaths(svgElement, shape = 'die-cut', imageSrc = null) {
   if (!svgElement) return;
@@ -20,34 +20,22 @@ export function renderCutlinePaths(svgElement, shape = 'die-cut', imageSrc = nul
   const cy = 150;
 
   let cutPathD = '';
-  let safetyPathD = '';
-  let bleedPathD = '';
 
   switch (shape) {
     case 'circle': {
       const r = 138;
-      const sr = 124;
-      const br = 146;
       cutPathD = `M ${cx},${cy - r} A ${r},${r} 0 1,0 ${cx},${cy + r} A ${r},${r} 0 1,0 ${cx},${cy - r} Z`;
-      safetyPathD = `M ${cx},${cy - sr} A ${sr},${sr} 0 1,0 ${cx},${cy + sr} A ${sr},${sr} 0 1,0 ${cx},${cy - sr} Z`;
-      bleedPathD = `M ${cx},${cy - br} A ${br},${br} 0 1,0 ${cx},${cy + br} A ${br},${br} 0 1,0 ${cx},${cy - br} Z`;
       break;
     }
 
     case 'square': {
       cutPathD = `M 12,12 H 288 V 288 H 12 Z`;
-      safetyPathD = `M 26,26 H 274 V 274 H 26 Z`;
-      bleedPathD = `M 4,4 H 296 V 296 H 4 Z`;
       break;
     }
 
     case 'rounded': {
       const rx = 34;
-      const srx = 22;
-      const brx = 42;
       cutPathD = `M ${12 + rx},12 H ${288 - rx} A ${rx},${rx} 0 0 1 288,${12 + rx} V ${288 - rx} A ${rx},${rx} 0 0 1 ${288 - rx},288 H ${12 + rx} A ${rx},${rx} 0 0 1 12,${288 - rx} V ${12 + rx} A ${rx},${rx} 0 0 1 ${12 + rx},12 Z`;
-      safetyPathD = `M ${26 + srx},26 H ${274 - srx} A ${srx},${srx} 0 0 1 274,${26 + srx} V ${274 - srx} A ${srx},${srx} 0 0 1 ${274 - srx},274 H ${26 + srx} A ${srx},${srx} 0 0 1 26,${274 - srx} V ${26 + srx} A ${srx},${srx} 0 0 1 ${26 + srx},26 Z`;
-      bleedPathD = `M ${4 + brx},4 H ${296 - brx} A ${brx},${brx} 0 0 1 296,${4 + brx} V ${296 - brx} A ${brx},${brx} 0 0 1 ${296 - brx},296 H ${4 + brx} A ${brx},${brx} 0 0 1 4,${296 - brx} V ${4 + brx} A ${brx},${brx} 0 0 1 ${4 + brx},4 Z`;
       break;
     }
 
@@ -55,32 +43,22 @@ export function renderCutlinePaths(svgElement, shape = 'die-cut', imageSrc = nul
     default: {
       // Check cache first for this image
       if (imageSrc && contourCache.has(imageSrc)) {
-        const cached = contourCache.get(imageSrc);
-        cutPathD = cached.cutPathD;
-        safetyPathD = cached.safetyPathD;
-        bleedPathD = cached.bleedPathD;
+        cutPathD = contourCache.get(imageSrc);
       } else if (imageSrc) {
         // Initial fallback while dynamic contour renders
-        const defaultPaths = getDefaultDiecutContour(cx, cy);
-        cutPathD = defaultPaths.cutPathD;
-        safetyPathD = defaultPaths.safetyPathD;
-        bleedPathD = defaultPaths.bleedPathD;
+        cutPathD = getDefaultDiecutContour(cx, cy);
 
         // Trace asynchronously
-        computeImageAlphaContour(imageSrc).then(res => {
-          contourCache.set(imageSrc, res);
-          // If svgElement is still displaying die-cut, refresh
+        computeImageAlphaContour(imageSrc).then(resD => {
+          contourCache.set(imageSrc, resD);
           if (svgElement.dataset.currentShape === 'die-cut' && svgElement.dataset.currentSrc === imageSrc) {
-            applySvgPaths(svgElement, res.cutPathD, res.safetyPathD, res.bleedPathD);
+            applySvgPaths(svgElement, resD);
           }
         }).catch(err => {
           console.warn('Contour trace fallback used:', err);
         });
       } else {
-        const defaultPaths = getDefaultDiecutContour(cx, cy);
-        cutPathD = defaultPaths.cutPathD;
-        safetyPathD = defaultPaths.safetyPathD;
-        bleedPathD = defaultPaths.bleedPathD;
+        cutPathD = getDefaultDiecutContour(cx, cy);
       }
       break;
     }
@@ -89,14 +67,12 @@ export function renderCutlinePaths(svgElement, shape = 'die-cut', imageSrc = nul
   svgElement.dataset.currentShape = shape;
   if (imageSrc) svgElement.dataset.currentSrc = imageSrc;
 
-  applySvgPaths(svgElement, cutPathD, safetyPathD, bleedPathD);
+  applySvgPaths(svgElement, cutPathD);
 }
 
-function applySvgPaths(svgElement, cutPathD, safetyPathD, bleedPathD) {
+function applySvgPaths(svgElement, cutPathD) {
   svgElement.innerHTML = `
-    ${bleedPathD ? `<path class="cutline-bleed-path" d="${bleedPathD}" />` : ''}
     <path class="cutline-diecut-path" d="${cutPathD}" />
-    <path class="cutline-safety-path" d="${safetyPathD}" />
   `;
 }
 
@@ -106,36 +82,19 @@ function applySvgPaths(svgElement, cutPathD, safetyPathD, bleedPathD) {
 function getDefaultDiecutContour(cx, cy) {
   const steps = 48;
   const pointsCut = [];
-  const pointsSafety = [];
-  const pointsBleed = [];
 
   for (let i = 0; i < steps; i++) {
     const angle = (i / steps) * Math.PI * 2;
-    // Harmonic organic wave centered around radius 132
     const wave = Math.sin(angle * 3) * 6 + Math.cos(angle * 5) * 4;
     const rCut = 130 + wave;
-    const rSafety = 114 + wave;
-    const rBleed = 140 + wave;
 
     pointsCut.push({
       x: cx + rCut * Math.cos(angle),
       y: cy + rCut * Math.sin(angle)
     });
-    pointsSafety.push({
-      x: cx + rSafety * Math.cos(angle),
-      y: cy + rSafety * Math.sin(angle)
-    });
-    pointsBleed.push({
-      x: cx + rBleed * Math.cos(angle),
-      y: cy + rBleed * Math.sin(angle)
-    });
   }
 
-  return {
-    cutPathD: pointsToSvgSmoothPath(pointsCut),
-    safetyPathD: pointsToSvgSmoothPath(pointsSafety),
-    bleedPathD: pointsToSvgSmoothPath(pointsBleed),
-  };
+  return pointsToSvgSmoothPath(pointsCut);
 }
 
 /**
@@ -197,32 +156,20 @@ function computeImageAlphaContour(imageSrc) {
         const scale = 2.5;
         const viewCx = 150;
         const viewCy = 150;
-
         const pointsCut = [];
-        const pointsSafety = [];
-        const pointsBleed = [];
 
         for (let i = 0; i < steps; i++) {
           const angle = (i / steps) * Math.PI * 2;
           const cos = Math.cos(angle);
           const sin = Math.sin(angle);
 
-          // Clamped radii
           const rBase = Math.max(30, smoothedRadii[i]) * scale;
           const rCut = Math.min(142, rBase + 10);
-          const rSafety = Math.max(20, rCut - 16);
-          const rBleed = Math.min(148, rCut + 8);
 
           pointsCut.push({ x: viewCx + cos * rCut, y: viewCy + sin * rCut });
-          pointsSafety.push({ x: viewCx + cos * rSafety, y: viewCy + sin * rSafety });
-          pointsBleed.push({ x: viewCx + cos * rBleed, y: viewCy + sin * rBleed });
         }
 
-        resolve({
-          cutPathD: pointsToSvgSmoothPath(pointsCut),
-          safetyPathD: pointsToSvgSmoothPath(pointsSafety),
-          bleedPathD: pointsToSvgSmoothPath(pointsBleed)
-        });
+        resolve(pointsToSvgSmoothPath(pointsCut));
       } catch (e) {
         reject(e);
       }
