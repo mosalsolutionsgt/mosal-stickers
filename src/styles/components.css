@@ -364,3 +364,43 @@
   box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
 }
 
+/* Payment & Logistics Badges */
+.payment-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.payment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-gray-200);
+  transition: all var(--transition-fast);
+}
+
+.payment-badge:hover {
+  background: var(--bg-surface-3);
+  border-color: var(--border-medium);
+  color: var(--text-white);
+}
+
+.payment-badge svg {
+  display: block;
+}
+
+/* Badge Stars */
+.badge-stars {
+  display: inline-flex;
+  gap: 0.2rem;
+  align-items: center;
+}
+
+

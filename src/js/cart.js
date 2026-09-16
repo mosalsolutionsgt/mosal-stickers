@@ -155,7 +155,7 @@ export function initCart() {
     if (shippingNoticeText) {
       if (finalSubtotal >= freeShippingGoal) {
         const savedAmount = formatPrice(state.currency === 'GTQ' ? 35.0 : (state.currency === 'USD' ? 5.0 : 4.95));
-        shippingNoticeText.innerHTML = `🎉 <strong>¡Envío GRATIS activado!</strong> (Ahorras ${savedAmount})`;
+        shippingNoticeText.innerHTML = `<span style="color: #00b67a; display: inline-flex; align-items: center; gap: 0.35rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>¡Envío GRATIS activado!</strong></span> (Ahorras ${savedAmount})`;
       } else {
         const diff = formatPrice(Math.max(0, freeShippingGoal - finalSubtotal));
         shippingNoticeText.innerHTML = `Añade <strong>${diff}</strong> más para conseguir <strong>Envío Gratis</strong>`;
