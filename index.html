@@ -7,8 +7,8 @@
   <meta name="description" content="Imprime stickers y calcomanías personalizadas en Guatemala con Mosal Stickers. Prueba instantánea, troquelado de ultra precisión, vinilo impermeable y envíos a todo el país." />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="apple-touch-icon" href="/assets/mosal-icon-gold.png" />
+  <link rel="icon" type="image/png" href="./favicon.png" />
+  <link rel="apple-touch-icon" href="./assets/mosal-icon-gold.png" />
 
   <!-- Google Fonts: Outfit (Display) & Inter (Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +45,7 @@
     <div class="header-inner">
       <!-- Logo -->
       <a href="/" class="brand-logo" aria-label="Mosal Solutions">
-        <img src="/assets/mosal-logo-accent.png" alt="Mosal Solutions" class="brand-logo-img" />
+        <img src="./assets/mosal-logo-accent.png" alt="Mosal Solutions" class="brand-logo-img" />
         <span class="brand-sub-badge">STICKERS</span>
       </a>
 
@@ -77,10 +77,39 @@
           <span class="cart-badge-count js-cart-count">1</span>
         </button>
 
-        <a href="#editor" class="btn btn-primary btn-sm" style="display: none;">Empezar</a>
+        <!-- Mobile Hamburger Button -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú de navegación">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+    <div class="mobile-nav-content">
+      <div class="mobile-nav-header">
+        <img src="./assets/mosal-logo-accent.png" alt="Mosal Solutions" class="brand-logo-img" style="height: 30px;" />
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Cerrar menú">✕</button>
+      </div>
+      <div class="mobile-nav-links">
+        <a href="#editor" class="mobile-nav-link">🎨 Crear Stickers</a>
+        <a href="#catalog" class="mobile-nav-link">📦 Gama de Productos</a>
+        <a href="#materials" class="mobile-nav-link">✨ Laboratorio de Materiales</a>
+        <a href="#why" class="mobile-nav-link">🛡️ Garantía Mosal</a>
+        <a href="#faq" class="mobile-nav-link">❓ Preguntas Frecuentes</a>
+      </div>
+      <div class="mobile-nav-footer">
+        <a href="https://wa.me/50230292980" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%; justify-content: center; gap: 0.5rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          <span>WhatsApp Oficial 3029-2980</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero-section">
@@ -100,6 +129,11 @@
         <h1 class="hero-title">
           ¡Imprime tus stickers con <span class="highlight-yellow">calidad insuperable!</span>
         </h1>
+
+        <div class="hero-price-badge">
+          <span class="hero-price-tag">⚡ Precios Reales</span>
+          <span>Desde solo <strong>Q 0.40 por sticker</strong> (100 stickers por solo Q 40)</span>
+        </div>
 
         <p class="hero-subtitle">
           Corte troquelado de ultra precisión, vinilo impermeable con 6 a 12 meses de durabilidad y envíos a toda Guatemala. Personaliza acabados brillosos o mate en materiales holográficos, glitter, transparentes o vinilo blanco.
@@ -131,7 +165,7 @@
 
       <div class="hero-showcase-visual">
         <div class="hero-image-frame">
-          <img src="/assets/hero-showcase.jpg" alt="Colección de stickers y calcomanías Mosal Stickers" class="hero-showcase-img" />
+          <img src="./assets/hero-showcase.jpg" alt="Colección de stickers y calcomanías Mosal Stickers" class="hero-showcase-img" />
           <div class="hero-floating-badge">
             <div class="floating-badge-icon">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -202,7 +236,7 @@
                     <div class="sticker-diecut-outline"></div>
 
                     <!-- Sticker Graphic Layer -->
-                    <img src="/samples/cyberpunk-cat.png" alt="Sticker Preview" class="sticker-image-layer" id="mainStickerImg" />
+                    <img src="./samples/cyberpunk-cat.png" alt="Sticker Preview" class="sticker-image-layer" id="mainStickerImg" />
 
                     <!-- Special Material Shaders -->
                     <div class="sticker-material-shader"></div>
@@ -219,7 +253,7 @@
             <div class="surface-overlay-container mockup-laptop" data-surface="laptop">
               <div class="sticker-host">
                 <div class="sticker-container material-holographic finish-glossy shape-die-cut">
-                  <img src="/samples/cyberpunk-cat.png" alt="Laptop Sticker" class="sticker-image-layer" />
+                  <img src="./samples/cyberpunk-cat.png" alt="Laptop Sticker" class="sticker-image-layer" />
                   <div class="sticker-material-shader"></div>
                 </div>
               </div>
@@ -229,7 +263,7 @@
             <div class="surface-overlay-container mockup-yeti" data-surface="yeti">
               <div class="sticker-host">
                 <div class="sticker-container material-holographic finish-glossy shape-die-cut">
-                  <img src="/samples/cyberpunk-cat.png" alt="Yeti Sticker" class="sticker-image-layer" />
+                  <img src="./samples/cyberpunk-cat.png" alt="Yeti Sticker" class="sticker-image-layer" />
                   <div class="sticker-material-shader"></div>
                 </div>
               </div>
@@ -239,7 +273,7 @@
             <div class="surface-overlay-container mockup-iphone" data-surface="iphone">
               <div class="sticker-host">
                 <div class="sticker-container material-holographic finish-glossy shape-die-cut">
-                  <img src="/samples/cyberpunk-cat.png" alt="iPhone Sticker" class="sticker-image-layer" />
+                  <img src="./samples/cyberpunk-cat.png" alt="iPhone Sticker" class="sticker-image-layer" />
                   <div class="sticker-material-shader"></div>
                 </div>
               </div>
@@ -265,14 +299,14 @@
           <div class="samples-bar">
             <span class="samples-label">Probar artes:</span>
             <div class="samples-list">
-              <button class="sample-thumb-btn active" data-src="/samples/cyberpunk-cat.png" data-name="Cyberpunk Neo-Cat" title="Cyberpunk Cat">
-                <img src="/samples/cyberpunk-cat.png" alt="Cyberpunk Cat" />
+              <button class="sample-thumb-btn active" data-src="./samples/cyberpunk-cat.png" data-name="Cyberpunk Neo-Cat" title="Cyberpunk Cat">
+                <img src="./samples/cyberpunk-cat.png" alt="Cyberpunk Cat" />
               </button>
-              <button class="sample-thumb-btn" data-src="/samples/vaporwave-skull.png" data-name="Vaporwave Skull Palm" title="Vaporwave Skull">
-                <img src="/samples/vaporwave-skull.png" alt="Vaporwave Skull" />
+              <button class="sample-thumb-btn" data-src="./samples/vaporwave-skull.png" data-name="Vaporwave Skull Palm" title="Vaporwave Skull">
+                <img src="./samples/vaporwave-skull.png" alt="Vaporwave Skull" />
               </button>
-              <button class="sample-thumb-btn" data-src="/samples/kawaii-shiba.png" data-name="Kawaii Shiba Boba" title="Kawaii Shiba">
-                <img src="/samples/kawaii-shiba.png" alt="Kawaii Shiba" />
+              <button class="sample-thumb-btn" data-src="./samples/kawaii-shiba.png" data-name="Kawaii Shiba Boba" title="Kawaii Shiba">
+                <img src="./samples/kawaii-shiba.png" alt="Kawaii Shiba" />
               </button>
             </div>
           </div>
@@ -532,14 +566,14 @@
       <!-- Die-Cut -->
       <a href="#editor" class="category-card">
         <div class="category-card-media">
-          <img src="/samples/cyberpunk-cat.png" alt="Stickers Troquelados" />
+          <img src="./samples/cyberpunk-cat.png" alt="Stickers Troquelados" />
         </div>
         <div class="category-card-body">
           <h3 class="category-card-title">Stickers Troquelados (Die-Cut)</h3>
           <p class="category-card-desc">Cortados siguiendo la silueta exacta de tu diseño. El producto insignia para marcas, artistas, ilustradores y emprendedores.</p>
           <div class="category-card-footer">
             <span class="badge badge-yellow">Troquelado Pro</span>
-            <span class="category-price-from">Desde Q 160</span>
+            <span class="category-price-from">Desde Q 0.40 <small style="font-size: 0.78rem; opacity: 0.85; font-weight: 600;">/ ud (Packs Q 40)</small></span>
           </div>
         </div>
       </a>
@@ -547,14 +581,14 @@
       <!-- Sticker Sheets -->
       <a href="#editor" class="category-card">
         <div class="category-card-media">
-          <img src="/samples/kawaii-shiba.png" alt="Hojas de Stickers" />
+          <img src="./samples/kawaii-shiba.png" alt="Hojas de Stickers" />
         </div>
         <div class="category-card-body">
           <h3 class="category-card-title">Hojas de Stickers (Sticker Sheets)</h3>
           <p class="category-card-desc">Múltiples diseños troquelados en una sola lámina fácil de despegar. Perfectas para merchandising coleccionable y paquetes temáticos.</p>
           <div class="category-card-footer">
             <span class="badge badge-green">Múltiples Diseños</span>
-            <span class="category-price-from">Desde Q 200</span>
+            <span class="category-price-from">Desde Q 2.00 <small style="font-size: 0.78rem; opacity: 0.85; font-weight: 600;">/ sticker</small></span>
           </div>
         </div>
       </a>
@@ -562,14 +596,14 @@
       <!-- Sample Pack -->
       <a href="#editor" class="category-card">
         <div class="category-card-media">
-          <img src="/assets/hero-showcase.jpg" alt="Pack de Muestras" />
+          <img src="./assets/hero-showcase.jpg" alt="Pack de Muestras" />
         </div>
         <div class="category-card-body">
           <h3 class="category-card-title">Pack de Muestras</h3>
           <p class="category-card-desc">¿Indeciso sobre el material? Pide nuestro muestrario con acabados holográficos, glitter, transparente y mate antes de tu gran tirada.</p>
           <div class="category-card-footer">
             <span class="badge badge-yellow">Pack Completo</span>
-            <span class="category-price-from">Solo Q 75</span>
+            <span class="category-price-from">Solo Q 35 <small style="font-size: 0.78rem; opacity: 0.85; font-weight: 600;">(Muestrario)</small></span>
           </div>
         </div>
       </a>
@@ -598,7 +632,7 @@
       <div class="material-detail-card">
         <div class="material-detail-preview">
           <div class="sticker-container material-holographic finish-glossy" id="labPreviewContainer">
-            <img src="/samples/vaporwave-skull.png" alt="Material Lab Sample" id="labPreviewImg" class="sticker-image-layer" />
+            <img src="./samples/vaporwave-skull.png" alt="Material Lab Sample" id="labPreviewImg" class="sticker-image-layer" />
             <div class="sticker-material-shader"></div>
             <div class="sticker-material-glare"></div>
           </div>
@@ -901,7 +935,7 @@
     <div class="footer-container">
       <div>
         <a href="/" class="brand-logo footer-brand" style="margin-bottom: 0.8rem;" aria-label="Mosal Solutions">
-          <img src="/assets/mosal-logo-white.png" alt="Mosal Solutions" class="brand-logo-img footer-logo" />
+          <img src="./assets/mosal-logo-white.png" alt="Mosal Solutions" class="brand-logo-img footer-logo" />
         </a>
         <p style="font-size: 0.9rem; line-height: 1.6; max-width: 280px; color: var(--text-gray-300);">
           Impresión profesional de stickers troquelados, calcomanías y soluciones gráficas de alta durabilidad en Guatemala.

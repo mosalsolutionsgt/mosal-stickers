@@ -2,6 +2,9 @@
    MOSAL STICKERS - GLOBAL REACTIVE STATE STORE
    ========================================================================== */
 
+const BASE_URL = import.meta.env.BASE_URL || './';
+const defaultSampleImg = `${BASE_URL}samples/cyberpunk-cat.png`.replace(/\/\//g, '/');
+
 class StateStore {
   constructor() {
     this.state = {
@@ -9,7 +12,7 @@ class StateStore {
       sticker: {
         id: 'stk_' + Date.now(),
         name: 'Cyberpunk Cat Troquelado',
-        imageSrc: '/samples/cyberpunk-cat.png',
+        imageSrc: defaultSampleImg,
         shape: 'die-cut', // 'die-cut', 'circle', 'square', 'rounded'
         material: 'holographic', // 'classic', 'holographic', 'transparent', 'glitter', 'metallic'
         finish: 'glossy', // 'glossy', 'matte'
@@ -32,7 +35,7 @@ class StateStore {
         {
           id: 'cart_1',
           name: 'Cyberpunk Cat Troquelado',
-          imageSrc: '/samples/cyberpunk-cat.png',
+          imageSrc: defaultSampleImg,
           shape: 'die-cut',
           material: 'holographic',
           finish: 'glossy',

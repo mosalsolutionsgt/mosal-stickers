@@ -15,16 +15,31 @@
   gap: 1.5rem;
   border-bottom: 1px solid var(--border-subtle);
   letter-spacing: 0.02em;
+  max-width: 100%;
 }
 
 .announcement-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .announcement-item span {
   color: var(--color-brand-yellow);
+}
+
+@media (max-width: 768px) {
+  .top-announcement-bar {
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.72rem;
+    padding: 0.35rem 0.5rem;
+    text-align: center;
+  }
+  .top-announcement-bar .announcement-item:nth-child(3) {
+    display: none;
+  }
 }
 
 /* Header & Sticky Nav */
@@ -32,10 +47,11 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(7, 8, 10, 0.85);
+  background: rgba(7, 8, 10, 0.88);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
   height: var(--header-height);
+  transition: height var(--transition-fast);
 }
 
 .header-inner {
@@ -47,6 +63,16 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    height: 62px;
+  }
+  .header-inner {
+    padding: 0 0.85rem;
+    gap: 0.6rem;
+  }
 }
 
 /* Brand Logo */
@@ -152,7 +178,7 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .currency-selector {
@@ -203,6 +229,145 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
+/* Mobile Hamburger Button */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  padding: 9px;
+  transition: all var(--transition-fast);
+}
+
+.mobile-menu-btn:hover {
+  border-color: var(--color-brand-yellow);
+}
+
+.mobile-menu-btn span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-white);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+
+@media (max-width: 900px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
+}
+
+/* Mobile Navigation Drawer */
+.mobile-nav-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0.3s ease;
+}
+
+.mobile-nav-drawer.open {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.mobile-nav-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-nav-drawer.open .mobile-nav-backdrop {
+  opacity: 1;
+}
+
+.mobile-nav-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 82%;
+  max-width: 320px;
+  background: #0d1015;
+  border-left: 1px solid var(--border-medium);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.mobile-nav-drawer.open .mobile-nav-content {
+  transform: translateX(0);
+}
+
+.mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.mobile-nav-close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-white);
+  border-radius: var(--radius-sm);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.mobile-nav-link {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-gray-200);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-link:hover, .mobile-nav-link:active {
+  background: var(--bg-surface-3);
+  color: var(--color-brand-yellow);
+  border-color: rgba(255, 200, 55, 0.4);
+}
+
+.mobile-nav-footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
 /* ==========================================================================
    HERO SECTION (High Energy, Sticker Showcase)
    ========================================================================== */
@@ -232,7 +397,42 @@
 .hero-content {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 1.5rem;
+}
+
+.hero-price-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.95rem;
+  background: rgba(255, 200, 55, 0.12);
+  border: 1px solid rgba(255, 200, 55, 0.35);
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  color: var(--text-gray-200);
+  width: fit-content;
+  box-shadow: 0 4px 14px rgba(255, 200, 55, 0.15);
+}
+
+.hero-price-tag {
+  background: var(--color-brand-yellow);
+  color: #0d1015;
+  font-weight: 900;
+  font-size: 0.72rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2.5rem 1rem 3rem;
+  }
+  .hero-price-badge {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.75rem;
+  }
 }
 
 .hero-tagline-badge {
@@ -336,6 +536,17 @@
   box-shadow: var(--shadow-lg);
   transform: rotate(-3deg);
   animation: floatBounce 4s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .hero-floating-badge {
+    left: 12px;
+    bottom: 12px;
+    transform: none;
+    animation: none;
+    padding: 0.55rem 0.85rem;
+    gap: 0.65rem;
+  }
 }
 
 @keyframes floatBounce {
@@ -549,6 +760,32 @@
 @media (min-width: 900px) {
   .material-detail-card {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .materials-lab-section {
+    padding: 3rem 1rem;
+  }
+  .material-tabs-row {
+    justify-content: flex-start;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .material-tab-btn {
+    padding: 0.55rem 1rem;
+    font-size: 0.8rem;
+  }
+  .material-detail-card {
+    padding: 1.25rem 1rem;
+    gap: 1.5rem;
+  }
+  .material-detail-preview {
+    height: 260px;
+  }
+  .specs-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
   }
 }
 

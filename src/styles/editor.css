@@ -8,6 +8,13 @@
   background: radial-gradient(circle at 50% 0%, #161b24 0%, #07080a 100%);
   border-top: 1px solid var(--border-subtle);
   position: relative;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .editor-section {
+    padding: 2rem 0.75rem 4rem;
+  }
 }
 
 .editor-container {
@@ -27,11 +34,16 @@
 
 /* Left Column: Interactive Viewport & Mockup Stage */
 .editor-viewport-column {
-  position: sticky;
-  top: 90px;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .editor-viewport-column {
+    position: sticky;
+    top: 90px;
+  }
 }
 
 .viewport-stage-card {
@@ -54,6 +66,14 @@
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-subtle);
   z-index: 10;
+}
+
+@media (max-width: 680px) {
+  .viewport-toolbar {
+    padding: 0.6rem 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 }
 
 .surface-switcher {
@@ -1047,4 +1067,137 @@
   gap: 0.5rem;
   font-size: 0.75rem;
   color: var(--text-gray-400);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS (< 680px & < 400px)
+   Guarantees fluid scaling and zero horizontal overflow on any smartphone
+   ========================================================================== */
+@media (max-width: 680px) {
+  .stage-canvas-area {
+    height: 330px;
+  }
+
+  .sticker-card-3d {
+    width: 230px;
+    height: 230px;
+  }
+
+  .sticker-image-layer {
+    width: 210px;
+    height: 210px;
+  }
+
+  .sticker-material-shader,
+  .sticker-material-glare {
+    width: 210px;
+    height: 210px;
+  }
+
+  .shape-circle .sticker-material-shader,
+  .shape-circle .sticker-material-glare,
+  .shape-square .sticker-material-shader,
+  .shape-square .sticker-material-glare,
+  .shape-rounded .sticker-material-shader,
+  .shape-rounded .sticker-material-glare {
+    width: 230px;
+    height: 230px;
+  }
+
+  .mockup-laptop .sticker-host,
+  .mockup-yeti .sticker-host,
+  .mockup-iphone .sticker-host {
+    transform: translate(-50%, -50%) scale(calc(0.48 * var(--size-scale-x, 1)), calc(0.48 * var(--size-scale-y, 1)));
+  }
+
+  .surface-switcher {
+    overflow-x: auto;
+    scrollbar-width: none;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .surface-btn {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.74rem;
+    white-space: nowrap;
+  }
+
+  .toggle-pill {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.72rem;
+  }
+
+  .samples-bar {
+    padding: 0.7rem 0.85rem;
+    gap: 0.6rem;
+  }
+
+  .config-card {
+    padding: 1.15rem 0.95rem;
+  }
+
+  .materials-scroller {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  .material-card {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .material-swatch-circle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .quantity-tier-row {
+    grid-template-columns: 1.3fr 1fr auto;
+    padding: 0.65rem 0.75rem;
+    gap: 0.35rem;
+  }
+
+  .tier-qty {
+    font-size: 0.88rem;
+  }
+
+  .tier-unit-price {
+    font-size: 0.74rem;
+  }
+
+  .tier-total-price {
+    font-size: 0.92rem;
+  }
+
+  .summary-total-price {
+    font-size: 1.7rem;
+  }
+
+  .editor-checkout-box {
+    padding: 1.15rem 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .stage-canvas-area {
+    height: 290px;
+  }
+
+  .sticker-card-3d {
+    width: 200px;
+    height: 200px;
+  }
+
+  .sticker-image-layer,
+  .sticker-material-shader,
+  .sticker-material-glare {
+    width: 185px;
+    height: 185px;
+  }
+
+  .quantity-tier-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

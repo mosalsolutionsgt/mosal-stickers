@@ -9,6 +9,15 @@ import { renderCutlinePaths } from './cutline-generator.js';
 import { showToast, getWhatsAppOrderUrl } from './cart.js';
 import { processStickerImage } from './bg-remover.js';
 
+const BASE_URL = import.meta.env.BASE_URL || './';
+export const resolvePath = (p) => {
+  if (!p) return p;
+  if (p.startsWith('data:') || p.startsWith('blob:') || p.startsWith('http')) return p;
+  if (p.startsWith('./')) return `${BASE_URL}${p.slice(2)}`.replace(/\/\//g, '/');
+  if (p.startsWith('/')) return `${BASE_URL}${p.slice(1)}`.replace(/\/\//g, '/');
+  return `${BASE_URL}${p}`.replace(/\/\//g, '/');
+};
+
 export function initCustomizer() {
   // DOM Elements
   const dropzone = document.getElementById('uploadDropzone');
@@ -112,7 +121,7 @@ export function initCustomizer() {
   // 2. Sample Art Selection
   sampleThumbBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const src = btn.dataset.src;
+      const src = resolvePath(btn.dataset.src);
       const name = btn.dataset.name;
       store.updateSticker({ imageSrc: src, name });
     });
@@ -276,7 +285,7 @@ export function initCustomizer() {
 
     // Update sample active states
     sampleThumbBtns.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.src === s.imageSrc);
+      btn.classList.toggle('active', resolvePath(btn.dataset.src) === s.imageSrc);
     });
 
     // Update shape active states

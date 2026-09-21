@@ -7,6 +7,9 @@ import { initCustomizer } from './customizer.js';
 import { initMockupSwitcher } from './mockups.js';
 import { initCart } from './cart.js';
 
+const BASE_URL = import.meta.env.BASE_URL || './';
+const getAssetUrl = (path) => `${BASE_URL}${path}`.replace(/\/\//g, '/');
+
 // Materials Lab Specifications Data
 const MATERIALS_DATA = {
   holographic: {
@@ -16,7 +19,7 @@ const MATERIALS_DATA = {
     finish: 'Acabado brilloso o mate',
     resistance: 'Impermeable 100% y lavavajillas',
     thickness: '180 micras de vinilo premium',
-    sampleImg: '/samples/vaporwave-skull.png',
+    sampleImg: getAssetUrl('samples/vaporwave-skull.png'),
     badge: 'El Más Popular',
   },
   classic: {
@@ -26,7 +29,7 @@ const MATERIALS_DATA = {
     finish: 'Brilloso o Mate',
     resistance: 'Totalmente resistente al agua y humedad',
     thickness: '150 micras de vinilo de alta densidad',
-    sampleImg: '/samples/cyberpunk-cat.png',
+    sampleImg: getAssetUrl('samples/cyberpunk-cat.png'),
     badge: 'Bestseller',
   },
   transparent: {
@@ -36,7 +39,7 @@ const MATERIALS_DATA = {
     finish: 'Brilloso transparente',
     resistance: 'Apto para lavavajillas y exteriores',
     thickness: '140 micras de film óptico',
-    sampleImg: '/samples/kawaii-shiba.png',
+    sampleImg: getAssetUrl('samples/kawaii-shiba.png'),
     badge: 'Especial Packaging',
   },
   glitter: {
@@ -46,7 +49,7 @@ const MATERIALS_DATA = {
     finish: 'Brilloso protector',
     resistance: '100% resistente al agua y lluvia',
     thickness: '190 micras texturizadas',
-    sampleImg: '/samples/vaporwave-skull.png',
+    sampleImg: getAssetUrl('samples/vaporwave-skull.png'),
     badge: 'Edición Exclusiva',
   },
   metallic: {
@@ -56,7 +59,7 @@ const MATERIALS_DATA = {
     finish: 'Brilloso de alta reflexión',
     resistance: 'Resistente a arañazos y agua',
     thickness: '160 micras metalizadas',
-    sampleImg: '/samples/cyberpunk-cat.png',
+    sampleImg: getAssetUrl('samples/cyberpunk-cat.png'),
     badge: 'Look Premium',
   }
 };
@@ -73,11 +76,42 @@ document.addEventListener('DOMContentLoaded', () => {
     store.setCurrency(e.target.value);
   });
 
-  // 3. Mobile Navigation Menu Toggle
+  // 3. Mobile Navigation Drawer Toggle
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const navMenu = document.getElementById('navMenu');
-  mobileMenuBtn?.addEventListener('click', () => {
-    navMenu?.classList.toggle('open');
+  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+  const mobileNavClose = document.getElementById('mobileNavClose');
+  const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  const openMobileNav = () => {
+    if (mobileNavDrawer) {
+      mobileNavDrawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (mobileMenuBtn) mobileMenuBtn.setAttribute('aria-expanded', 'true');
+    }
+  };
+
+  const closeMobileNav = () => {
+    if (mobileNavDrawer) {
+      mobileNavDrawer.classList.remove('open');
+      document.body.style.overflow = '';
+      if (mobileMenuBtn) mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+  };
+
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', openMobileNav);
+  }
+  if (mobileNavClose) {
+    mobileNavClose.addEventListener('click', closeMobileNav);
+  }
+  if (mobileNavBackdrop) {
+    mobileNavBackdrop.addEventListener('click', closeMobileNav);
+  }
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      closeMobileNav();
+    });
   });
 
   // 4. FAQ Accordion
@@ -138,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial mask for lab preview
   if (labPreviewContainer) {
     labPreviewContainer.classList.add('shape-die-cut');
-    labPreviewContainer.style.setProperty('--sticker-mask-url', 'url("/samples/vaporwave-skull.png")');
+    labPreviewContainer.style.setProperty('--sticker-mask-url', `url("${getAssetUrl('samples/vaporwave-skull.png')}")`);
   }
 
   // 6. Smooth Scroll on Anchor Links
