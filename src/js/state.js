@@ -21,7 +21,7 @@ class StateStore {
         isCustomSize: false,
         quantity: 100,
         surface: 'studio', // 'studio', 'laptop', 'yeti', 'iphone'
-        showCutline: false,
+        showCutline: true,
       },
 
       // Currency & Locale

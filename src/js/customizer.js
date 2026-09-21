@@ -349,6 +349,8 @@ export function initCustomizer() {
     if (stickerCutlineSvg) {
       renderCutlinePaths(stickerCutlineSvg, s.shape, s.imageSrc);
     }
+    toggleCutlineBtn?.classList.toggle('active', s.showCutline);
+    stageCanvas?.classList.toggle('show-cutline', s.showCutline);
 
     // Render Bulk Quantity Tiers Table
     renderQuantityTiers(s, quantityTiersList);

@@ -1084,14 +1084,14 @@
   }
 
   .sticker-image-layer {
-    width: 210px;
-    height: 210px;
+    width: 214px;
+    height: 214px;
   }
 
   .sticker-material-shader,
   .sticker-material-glare {
-    width: 210px;
-    height: 210px;
+    width: 214px;
+    height: 214px;
   }
 
   .shape-circle .sticker-material-shader,
@@ -1191,8 +1191,8 @@
   .sticker-image-layer,
   .sticker-material-shader,
   .sticker-material-glare {
-    width: 185px;
-    height: 185px;
+    width: 186px;
+    height: 186px;
   }
 
   .quantity-tier-row {
