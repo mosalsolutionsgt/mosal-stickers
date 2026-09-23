@@ -82,13 +82,13 @@ function applySvgPath(svgElement, cutPathD) {
   svgElement.innerHTML = `<path class="cutline-diecut-path" d="${cutPathD}" />`;
 }
 
-/**
- * Universal 2D Image Contour Algorithm
- * Uses offscreen canvas, aspect-ratio preservation, alpha/white-background detection,
- * circular morphological dilation, and Moore-Neighbor 8-connected boundary tracing.
- */
-function computeUniversalContour(imageSrc, cutMarginMm = 2.0) {
-  return new Promise((resolve) => {
+const imageGridCache = new Map();
+
+function getOrComputeImageGrid(imageSrc) {
+  if (imageGridCache.has(imageSrc)) {
+    return Promise.resolve(imageGridCache.get(imageSrc));
+  }
+  return new Promise((resolve, reject) => {
     const img = new Image();
     img.crossOrigin = 'anonymous';
 
@@ -165,46 +165,82 @@ function computeUniversalContour(imageSrc, cutMarginMm = 2.0) {
           }
         }
 
-        // Morphological Dilation based on cut margin (radius 2px to 16px)
-        const radius = Math.min(18, Math.max(2, Math.round(cutMarginMm * 2.8)));
-        const dilated = new Uint8Array(viewBoxSize * viewBoxSize);
-        const r2 = radius * radius;
-
+        // Extract perimeter pixels for fast dilation
+        const perimeter = [];
         for (let y = 0; y < viewBoxSize; y++) {
           for (let x = 0; x < viewBoxSize; x++) {
             if (grid[y * viewBoxSize + x] === 1) {
-              for (let dy = -radius; dy <= radius; dy++) {
-                const ny = y + dy;
-                if (ny < 0 || ny >= viewBoxSize) continue;
-                for (let dx = -radius; dx <= radius; dx++) {
-                  const nx = x + dx;
-                  if (nx < 0 || nx >= viewBoxSize) continue;
-                  if (dx * dx + dy * dy <= r2) {
-                    dilated[ny * viewBoxSize + nx] = 1;
-                  }
-                }
+              const isPerimeter = (
+                x === 0 || x === viewBoxSize - 1 || y === 0 || y === viewBoxSize - 1 ||
+                grid[y * viewBoxSize + (x - 1)] === 0 ||
+                grid[y * viewBoxSize + (x + 1)] === 0 ||
+                grid[(y - 1) * viewBoxSize + x] === 0 ||
+                grid[(y + 1) * viewBoxSize + x] === 0
+              );
+              if (isPerimeter) {
+                perimeter.push(x, y);
               }
             }
           }
         }
 
-        // Find start point: topmost, then leftmost foreground pixel
-        let startX = -1, startY = -1;
-        for (let y = 0; y < viewBoxSize; y++) {
-          for (let x = 0; x < viewBoxSize; x++) {
-            if (dilated[y * viewBoxSize + x] === 1) {
-              startX = x;
-              startY = y;
-              break;
-            }
-          }
-          if (startX !== -1) break;
-        }
+        const data = { grid, perimeter, drawX, drawY, drawW, drawH };
+        imageGridCache.set(imageSrc, data);
+        resolve(data);
+      } catch (err) {
+        reject(err);
+      }
+    };
+    img.onerror = reject;
+    img.src = imageSrc;
+  });
+}
 
-        if (startX === -1) {
-          resolve(getAspectBoundedCutContour(drawX, drawY, drawW, drawH, cutMarginMm));
-          return;
+/**
+ * Universal 2D Image Contour Algorithm
+ * Uses offscreen canvas, aspect-ratio preservation, alpha/white-background detection,
+ * circular morphological dilation, and Moore-Neighbor 8-connected boundary tracing.
+ */
+function computeUniversalContour(imageSrc, cutMarginMm = 2.0) {
+  return getOrComputeImageGrid(imageSrc).then(({ grid, perimeter, drawX, drawY, drawW, drawH }) => {
+    const viewBoxSize = 290;
+    const radius = Math.min(18, Math.max(2, Math.round(cutMarginMm * 2.8)));
+    const dilated = new Uint8Array(grid);
+    const r2 = radius * radius;
+
+    // Fast boundary-only morphological dilation
+    for (let i = 0; i < perimeter.length; i += 2) {
+      const px = perimeter[i];
+      const py = perimeter[i + 1];
+      for (let dy = -radius; dy <= radius; dy++) {
+        const ny = py + dy;
+        if (ny < 0 || ny >= viewBoxSize) continue;
+        for (let dx = -radius; dx <= radius; dx++) {
+          const nx = px + dx;
+          if (nx < 0 || nx >= viewBoxSize) continue;
+          if (dx * dx + dy * dy <= r2) {
+            dilated[ny * viewBoxSize + nx] = 1;
+          }
         }
+      }
+    }
+
+    // Find start point: topmost, then leftmost foreground pixel
+    let startX = -1, startY = -1;
+    for (let y = 0; y < viewBoxSize; y++) {
+      for (let x = 0; x < viewBoxSize; x++) {
+        if (dilated[y * viewBoxSize + x] === 1) {
+          startX = x;
+          startY = y;
+          break;
+        }
+      }
+      if (startX !== -1) break;
+    }
+
+    if (startX === -1) {
+      return getAspectBoundedCutContour(drawX, drawY, drawW, drawH, cutMarginMm);
+    }
 
         // 8-neighborhood ordered clockwise starting from West (-1, 0)
         const nbrs = [
@@ -273,29 +309,18 @@ function computeUniversalContour(imageSrc, cutMarginMm = 2.0) {
         }
 
         if (contour.length < 8) {
-          resolve(getAspectBoundedCutContour(drawX, drawY, drawW, drawH));
-          return;
+          return getAspectBoundedCutContour(drawX, drawY, drawW, drawH);
         }
 
         // Simplify polygon using Ramer-Douglas-Peucker
         const simplified = ramerDouglasPeucker(contour, 1.8);
 
         // Convert points to smooth cubic Bézier SVG path
-        const svgPathD = pointsToSmoothSvg(simplified);
-        resolve(svgPathD);
-      } catch (err) {
+        return pointsToSmoothSvg(simplified);
+      }).catch((err) => {
         console.error('Error in computeUniversalContour:', err);
-        resolve(getFallbackDiecutContour(145, 145));
-      }
-    };
-
-    img.onerror = (e) => {
-      console.warn('Image load error for contour trace:', e);
-      resolve(getFallbackDiecutContour(145, 145));
-    };
-
-    img.src = imageSrc;
-  });
+        return getFallbackDiecutContour(145, 145);
+      });
 }
 
 /**

@@ -615,16 +615,9 @@
 .cutline-diecut-path {
   fill: none;
   stroke: var(--border-cutline);
-  stroke-width: 2.5;
-  stroke-dasharray: 6 4;
-  filter: drop-shadow(0 0 5px rgba(255, 0, 127, 0.9));
-  animation: dashAnimation 20s linear infinite;
-}
-
-@keyframes dashAnimation {
-  to {
-    stroke-dashoffset: -100;
-  }
+  stroke-width: 2;
+  stroke-dasharray: 6 3;
+  vector-effect: non-scaling-stroke;
 }
 
 /* Proofing Legend Bar */

@@ -202,6 +202,8 @@ export function initCustomizer() {
   });
 
   // Cut Margin Thickness Sliders (Toolbar & Step 2 Synchronized)
+  // Cut Margin Thickness Sliders (Toolbar & Step 2 Synchronized with rAF)
+  let cutMarginRaf = null;
   function handleCutMarginChange(val) {
     const numVal = parseFloat(val);
     if (isNaN(numVal)) return;
@@ -215,41 +217,59 @@ export function initCustomizer() {
     if (cutMarginStepSlider && parseFloat(cutMarginStepSlider.value) !== numVal) {
       cutMarginStepSlider.value = numVal;
     }
-    store.updateSticker({ cutMarginMm: numVal });
+    if (cutMarginRaf) cancelAnimationFrame(cutMarginRaf);
+    cutMarginRaf = requestAnimationFrame(() => {
+      cutMarginRaf = null;
+      store.updateSticker({ cutMarginMm: numVal });
+    });
   }
 
   cutMarginSlider?.addEventListener('input', (e) => handleCutMarginChange(e.target.value));
   cutMarginStepSlider?.addEventListener('input', (e) => handleCutMarginChange(e.target.value));
 
-  // 7. Interactive 3D Tilt & Holographic Lighting (Mouse Move)
+  // 7. Interactive 3D Tilt & Holographic Lighting (rAF Throttled)
   stickerContainers.forEach(container => {
+    let tiltRaf = null;
+    let lastEvt = null;
+
     container.addEventListener('mousemove', (e) => {
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const xPercent = (x / rect.width) * 100;
-      const yPercent = (y / rect.height) * 100;
+      lastEvt = e;
+      if (tiltRaf) return;
+      tiltRaf = requestAnimationFrame(() => {
+        tiltRaf = null;
+        if (!lastEvt) return;
+        const rect = container.getBoundingClientRect();
+        const x = lastEvt.clientX - rect.left;
+        const y = lastEvt.clientY - rect.top;
+        const xPercent = (x / rect.width) * 100;
+        const yPercent = (y / rect.height) * 100;
 
-      // 3D Tilt angles
-      const rotateX = ((y / rect.height) - 0.5) * -22;
-      const rotateY = ((x / rect.width) - 0.5) * 22;
+        // 3D Tilt angles
+        const rotateX = ((y / rect.height) - 0.5) * -22;
+        const rotateY = ((x / rect.width) - 0.5) * 22;
 
-      // Conic / linear gradient angle
-      const angleDeg = Math.round(Math.atan2(y - rect.height / 2, x - rect.width / 2) * (180 / Math.PI) + 180);
+        // Conic / linear gradient angle
+        const angleDeg = Math.round(Math.atan2(y - rect.height / 2, x - rect.width / 2) * (180 / Math.PI) + 180);
 
-      container.style.setProperty('--mouse-x', `${xPercent}%`);
-      container.style.setProperty('--mouse-y', `${yPercent}%`);
-      container.style.setProperty('--glare-x', `${xPercent}%`);
-      container.style.setProperty('--glare-y', `${yPercent}%`);
-      container.style.setProperty('--angle', `${angleDeg}deg`);
+        container.style.setProperty('--mouse-x', `${xPercent}%`);
+        container.style.setProperty('--mouse-y', `${yPercent}%`);
+        container.style.setProperty('--glare-x', `${xPercent}%`);
+        container.style.setProperty('--glare-y', `${yPercent}%`);
+        container.style.setProperty('--angle', `${angleDeg}deg`);
 
-      const card3d = container.querySelector('.sticker-card-3d');
-      if (card3d) {
-        card3d.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      }
+        const card3d = container.querySelector('.sticker-card-3d');
+        if (card3d) {
+          card3d.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+      });
     });
 
     container.addEventListener('mouseleave', () => {
+      if (tiltRaf) {
+        cancelAnimationFrame(tiltRaf);
+        tiltRaf = null;
+      }
+      lastEvt = null;
       const card3d = container.querySelector('.sticker-card-3d');
       if (card3d) {
         card3d.style.transform = `rotateX(0deg) rotateY(0deg)`;
