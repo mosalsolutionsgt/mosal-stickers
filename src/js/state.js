@@ -22,6 +22,7 @@ class StateStore {
         quantity: 100,
         surface: 'studio', // 'studio', 'laptop', 'yeti', 'iphone'
         showCutline: true,
+        cutMarginMm: 2.0,
       },
 
       // Currency & Locale

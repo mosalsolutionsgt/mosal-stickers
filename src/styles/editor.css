@@ -137,6 +137,65 @@
   border-color: #ff007f;
 }
 
+/* Cutline Thickness Inline Toolbar Slider */
+.cutline-thickness-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-gray-300);
+  transition: all var(--transition-fast);
+}
+
+.cutline-thickness-inline:hover {
+  border-color: var(--border-medium);
+}
+
+.cutline-thickness-label {
+  white-space: nowrap;
+  color: var(--text-gray-400);
+  font-size: 0.72rem;
+}
+
+.cutline-slider-input {
+  width: 65px;
+  height: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--bg-surface-3);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+.cutline-slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #ff007f;
+  box-shadow: 0 0 6px rgba(255, 0, 127, 0.7);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.cutline-slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.cutline-thickness-val {
+  color: #ff3399;
+  font-weight: 800;
+  font-size: 0.74rem;
+  min-width: 44px;
+}
+
 /* Stage Canvas Area */
 .stage-canvas-area {
   position: relative;
@@ -182,20 +241,24 @@
   transition: transform 0.28s cubic-bezier(0.34, 1.25, 0.64, 1);
 }
 
-/* Laptop Surface Mockup */
+/* Laptop Surface Mockup (MacBook 14" Lid) */
 .mockup-laptop {
   background-image: url('/assets/laptop-mockup.jpg');
 }
 
 .mockup-laptop .sticker-host {
   position: absolute;
-  top: 51%;
-  left: 51%;
-  transform: translate(-50%, -50%) scale(calc(0.68 * var(--size-scale-x, 1)), calc(0.68 * var(--size-scale-y, 1))) rotate(-2deg);
+  top: 51.5%;
+  left: 51.8%;
+  transform: translate(-50%, -50%) scale(var(--laptop-scale-x, 0.179), var(--laptop-scale-y, 0.179)) rotate(-1.5deg);
   transition: transform 0.28s ease;
 }
 
-/* Yeti Tumbler Surface Mockup */
+.mockup-laptop .sticker-container {
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+}
+
+/* Yeti Tumbler Surface Mockup (Yeti 26/36 oz Tumbler) */
 .mockup-yeti {
   background-image: url('/assets/yeti-mockup.jpg');
   background-position: center 25%;
@@ -204,17 +267,17 @@
 
 .mockup-yeti .sticker-host {
   position: absolute;
-  top: 55%;
+  top: 56%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(calc(0.55 * var(--size-scale-x, 1)), calc(0.55 * var(--size-scale-y, 1)));
+  transform: translate(-50%, -50%) scale(var(--yeti-scale-x, 0.230), var(--yeti-scale-y, 0.230));
   transition: transform 0.28s ease;
 }
 
 .mockup-yeti .sticker-container {
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
 }
 
-/* iPhone Pro Surface Mockup */
+/* iPhone Pro Surface Mockup (iPhone 15 Pro) */
 .mockup-iphone {
   background-image: url('/assets/iphone-mockup.jpg');
   background-position: center;
@@ -223,14 +286,38 @@
 
 .mockup-iphone .sticker-host {
   position: absolute;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(calc(0.55 * var(--size-scale-x, 1)), calc(0.55 * var(--size-scale-y, 1)));
+  top: 61%;
+  left: 50.4%;
+  transform: translate(-50%, -50%) scale(var(--iphone-scale-x, 0.503), var(--iphone-scale-y, 0.503));
   transition: transform 0.28s ease;
 }
 
 .mockup-iphone .sticker-container {
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.45));
+}
+
+/* Surface Overlay Realistic Shapes Support */
+.surface-overlay-container .sticker-container.shape-circle {
+  border-radius: 50%;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.surface-overlay-container .sticker-container.shape-square {
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.surface-overlay-container .sticker-container.shape-rounded {
+  border-radius: 30px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.surface-overlay-container .sticker-container.shape-die-cut {
+  background: transparent;
+  padding: 0;
 }
 
 /* Live Dimension Badge in Stage Canvas */
@@ -760,6 +847,75 @@
   color: var(--text-gray-200);
 }
 
+/* Cut Margin Thickness Config Box (Step 2) */
+.cut-margin-config-box {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  transition: border-color var(--transition-fast);
+}
+
+.cut-margin-config-box:hover {
+  border-color: var(--border-medium);
+}
+
+.cut-margin-config-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cut-margin-config-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-white);
+}
+
+.cut-margin-badge {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #ff3399;
+  background: rgba(255, 0, 127, 0.12);
+  border: 1px solid rgba(255, 0, 127, 0.3);
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--radius-full);
+}
+
+.cut-margin-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cut-slider-limit {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-gray-400);
+  white-space: nowrap;
+}
+
+.cut-thickness-range {
+  flex: 1;
+}
+
+.cut-thickness-range::-webkit-slider-thumb {
+  background: #ff007f !important;
+  box-shadow: 0 0 8px rgba(255, 0, 127, 0.6) !important;
+}
+
+.cut-margin-desc {
+  font-size: 0.72rem;
+  color: var(--text-gray-400);
+}
+
 /* Materials Selector Horizontal Scroller */
 .materials-scroller {
   display: grid;
@@ -1104,10 +1260,25 @@
     height: 230px;
   }
 
-  .mockup-laptop .sticker-host,
-  .mockup-yeti .sticker-host,
+  .mockup-laptop .sticker-host {
+    transform: translate(-50%, -50%) scale(calc(var(--laptop-scale-x, 0.179) * 0.69), calc(var(--laptop-scale-y, 0.179) * 0.69)) rotate(-1.5deg);
+  }
+
+  .mockup-yeti .sticker-host {
+    transform: translate(-50%, -50%) scale(calc(var(--yeti-scale-x, 0.230) * 0.69), calc(var(--yeti-scale-y, 0.230) * 0.69));
+  }
+
   .mockup-iphone .sticker-host {
-    transform: translate(-50%, -50%) scale(calc(0.48 * var(--size-scale-x, 1)), calc(0.48 * var(--size-scale-y, 1)));
+    transform: translate(-50%, -50%) scale(calc(var(--iphone-scale-x, 0.503) * 0.69), calc(var(--iphone-scale-y, 0.503) * 0.69));
+  }
+
+  .cutline-thickness-inline {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.68rem;
+  }
+
+  .cutline-slider-input {
+    width: 48px;
   }
 
   .surface-switcher {

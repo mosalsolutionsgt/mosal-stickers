@@ -8,9 +8,9 @@
 const contourCache = new Map();
 
 /**
- * Updates the SVG cutline overlay path based on current sticker shape & image
+ * Updates the SVG cutline overlay path based on current sticker shape, image & cut margin thickness
  */
-export function renderCutlinePaths(svgElement, shape = 'die-cut', imageSrc = null) {
+export function renderCutlinePaths(svgElement, shape = 'die-cut', imageSrc = null, cutMarginMm = 2.0) {
   if (!svgElement) return;
 
   const viewBoxSize = 290;
@@ -24,20 +24,20 @@ export function renderCutlinePaths(svgElement, shape = 'die-cut', imageSrc = nul
 
   switch (shape) {
     case 'circle': {
-      const r = 141;
+      const r = Math.min(143, Math.max(135, Math.round(136 + cutMarginMm * 1.8)));
       cutPathD = `M ${cx},${cy - r} A ${r},${r} 0 1,0 ${cx},${cy + r} A ${r},${r} 0 1,0 ${cx},${cy - r} Z`;
       break;
     }
 
     case 'square': {
-      const pad = 4;
+      const pad = Math.max(2, Math.round(8 - cutMarginMm * 1.2));
       const r = 6;
       cutPathD = `M ${pad + r},${pad} H ${viewBoxSize - pad - r} A ${r},${r} 0 0 1 ${viewBoxSize - pad},${pad + r} V ${viewBoxSize - pad - r} A ${r},${r} 0 0 1 ${viewBoxSize - pad - r},${viewBoxSize - pad} H ${pad + r} A ${r},${r} 0 0 1 ${pad},${viewBoxSize - pad - r} V ${pad + r} A ${r},${r} 0 0 1 ${pad + r},${pad} Z`;
       break;
     }
 
     case 'rounded': {
-      const pad = 4;
+      const pad = Math.max(2, Math.round(8 - cutMarginMm * 1.2));
       const rx = 34;
       cutPathD = `M ${pad + rx},${pad} H ${viewBoxSize - pad - rx} A ${rx},${rx} 0 0 1 ${viewBoxSize - pad},${pad + rx} V ${viewBoxSize - pad - rx} A ${rx},${rx} 0 0 1 ${viewBoxSize - pad - rx},${viewBoxSize - pad} H ${pad + rx} A ${rx},${rx} 0 0 1 ${pad},${viewBoxSize - pad - rx} V ${pad + rx} A ${rx},${rx} 0 0 1 ${pad + rx},${pad} Z`;
       break;
@@ -45,16 +45,19 @@ export function renderCutlinePaths(svgElement, shape = 'die-cut', imageSrc = nul
 
     case 'die-cut':
     default: {
-      if (imageSrc && contourCache.has(imageSrc)) {
-        cutPathD = contourCache.get(imageSrc);
+      const cacheKey = `${imageSrc}__m${cutMarginMm}`;
+      if (imageSrc && contourCache.has(cacheKey)) {
+        cutPathD = contourCache.get(cacheKey);
       } else if (imageSrc) {
         // Immediate smooth organic fallback while image contour processes
-        cutPathD = getFallbackDiecutContour(cx, cy);
+        cutPathD = getFallbackDiecutContour(cx, cy, cutMarginMm);
 
-        computeUniversalContour(imageSrc).then(resD => {
+        computeUniversalContour(imageSrc, cutMarginMm).then(resD => {
           if (resD) {
-            contourCache.set(imageSrc, resD);
-            if (svgElement.dataset.currentShape === 'die-cut' && svgElement.dataset.currentSrc === imageSrc) {
+            contourCache.set(cacheKey, resD);
+            if (svgElement.dataset.currentShape === 'die-cut' &&
+                svgElement.dataset.currentSrc === imageSrc &&
+                parseFloat(svgElement.dataset.currentMargin) === cutMarginMm) {
               applySvgPath(svgElement, resD);
             }
           }
@@ -62,13 +65,14 @@ export function renderCutlinePaths(svgElement, shape = 'die-cut', imageSrc = nul
           console.warn('Contour generation fallback used:', err);
         });
       } else {
-        cutPathD = getFallbackDiecutContour(cx, cy);
+        cutPathD = getFallbackDiecutContour(cx, cy, cutMarginMm);
       }
       break;
     }
   }
 
   svgElement.dataset.currentShape = shape;
+  svgElement.dataset.currentMargin = cutMarginMm;
   if (imageSrc) svgElement.dataset.currentSrc = imageSrc;
 
   applySvgPath(svgElement, cutPathD);
@@ -83,7 +87,7 @@ function applySvgPath(svgElement, cutPathD) {
  * Uses offscreen canvas, aspect-ratio preservation, alpha/white-background detection,
  * circular morphological dilation, and Moore-Neighbor 8-connected boundary tracing.
  */
-function computeUniversalContour(imageSrc) {
+function computeUniversalContour(imageSrc, cutMarginMm = 2.0) {
   return new Promise((resolve) => {
     const img = new Image();
     img.crossOrigin = 'anonymous';
@@ -161,8 +165,8 @@ function computeUniversalContour(imageSrc) {
           }
         }
 
-        // Morphological Dilation (radius 5 for prepress cutline margin)
-        const radius = 5;
+        // Morphological Dilation based on cut margin (radius 2px to 16px)
+        const radius = Math.min(18, Math.max(2, Math.round(cutMarginMm * 2.8)));
         const dilated = new Uint8Array(viewBoxSize * viewBoxSize);
         const r2 = radius * radius;
 
@@ -198,7 +202,7 @@ function computeUniversalContour(imageSrc) {
         }
 
         if (startX === -1) {
-          resolve(getAspectBoundedCutContour(drawX, drawY, drawW, drawH));
+          resolve(getAspectBoundedCutContour(drawX, drawY, drawW, drawH, cutMarginMm));
           return;
         }
 
@@ -357,24 +361,25 @@ function pointsToSmoothSvg(pts) {
   return d + ' Z';
 }
 
-function getAspectBoundedCutContour(x, y, w, h) {
-  const pad = 6;
-  const rx = Math.max(6, x - pad);
-  const ry = Math.max(6, y - pad);
-  const rw = Math.min(278, w + pad * 2);
-  const rh = Math.min(278, h + pad * 2);
-  const radius = 22;
+function getAspectBoundedCutContour(x, y, w, h, cutMarginMm = 2.0) {
+  const pad = Math.round(3 + cutMarginMm * 1.5);
+  const rx = Math.max(4, x - pad);
+  const ry = Math.max(4, y - pad);
+  const rw = Math.min(282, w + pad * 2);
+  const rh = Math.min(282, h + pad * 2);
+  const radius = Math.min(24, Math.round(18 + cutMarginMm * 2));
 
   return `M ${rx + radius},${ry} H ${rx + rw - radius} A ${radius},${radius} 0 0 1 ${rx + rw},${ry + radius} V ${ry + rh - radius} A ${radius},${radius} 0 0 1 ${rx + rw - radius},${ry + rh} H ${rx + radius} A ${radius},${radius} 0 0 1 ${rx},${ry + rh - radius} V ${ry + radius} A ${radius},${radius} 0 0 1 ${rx + radius},${ry} Z`;
 }
 
-function getFallbackDiecutContour(cx, cy) {
+function getFallbackDiecutContour(cx, cy, cutMarginMm = 2.0) {
   const steps = 48;
   const points = [];
+  const offset = (cutMarginMm - 2.0) * 2.5;
   for (let i = 0; i < steps; i++) {
     const angle = (i / steps) * Math.PI * 2;
     const wave = Math.sin(angle * 3) * 6 + Math.cos(angle * 5) * 4;
-    const r = 126 + wave;
+    const r = Math.min(142, Math.max(115, 126 + wave + offset));
     points.push({
       x: cx + r * Math.cos(angle),
       y: cy + r * Math.sin(angle)

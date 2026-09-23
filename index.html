@@ -209,8 +209,13 @@
               </button>
             </div>
 
-            <!-- Prepress Proof / Cutline Toggle -->
+            <!-- Prepress Proof / Cutline Toggle & Thickness Slider -->
             <div class="viewport-view-controls">
+              <div class="cutline-thickness-inline" id="cutlineThicknessInline" title="Ajustar grosor / margen de corte">
+                <span class="cutline-thickness-label">Grosor corte:</span>
+                <input type="range" id="cutMarginSlider" min="0.5" max="3.0" step="0.5" value="2.0" class="cutline-slider-input" aria-label="Grosor de corte" />
+                <span class="cutline-thickness-val" id="cutMarginValDisplay">2.0 mm</span>
+              </div>
               <button class="toggle-pill" id="toggleCutlineBtn" title="Mostrar línea de corte magenta">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <circle cx="6" cy="6" r="3"></circle>
@@ -288,10 +293,10 @@
           </div>
 
           <!-- Proofing Legend Bar (Visible during cutline mode) -->
-          <div class="proofing-legend-bar">
+          <div class="proofing-legend-bar" id="proofingLegendBar">
             <div class="legend-item">
               <span class="legend-bullet diecut"></span>
-              <span>Línea de corte (0.0 mm)</span>
+              <span>Línea de corte (<strong id="cutMarginLegendVal">2.0 mm</strong>)</span>
             </div>
           </div>
 
@@ -376,6 +381,25 @@
               </svg>
               <div class="shape-label">Redondeado</div>
             </div>
+          </div>
+
+          <!-- Cut Margin Thickness Slider Control -->
+          <div class="cut-margin-config-box" id="cutMarginConfigBox">
+            <div class="cut-margin-config-header">
+              <div class="cut-margin-config-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-brand-yellow);">
+                  <path d="m15 15 6 6m-6-6v4.5m0-4.5h4.5M9 9 3 3m6 6V4.5M9 9H4.5M15 9l6-6m-6 6V4.5m0 4.5h4.5M9 15l-6 6m6-6v4.5m0-4.5H4.5"/>
+                </svg>
+                <span>Grosor del margen de corte:</span>
+              </div>
+              <span class="cut-margin-badge" id="cutMarginStepValDisplay">2.0 mm</span>
+            </div>
+            <div class="cut-margin-slider-row">
+              <span class="cut-slider-limit">Fino (0.5 mm)</span>
+              <input type="range" id="cutMarginStepSlider" min="0.5" max="3.0" step="0.5" value="2.0" class="slider-input cut-thickness-range" aria-label="Grosor de corte paso 2" />
+              <span class="cut-slider-limit">Ancho (3.0 mm)</span>
+            </div>
+            <div class="cut-margin-desc">Ajusta la separación del contorno de corte de tu sticker</div>
           </div>
         </div>
 

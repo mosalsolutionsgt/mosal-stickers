@@ -37,6 +37,11 @@ export function initCustomizer() {
   const vatCheckbox = document.getElementById('vatCheckbox');
   const addToCartBtn = document.getElementById('addToCartBtn');
   const toggleCutlineBtn = document.getElementById('toggleCutlineBtn');
+  const cutMarginSlider = document.getElementById('cutMarginSlider');
+  const cutMarginValDisplay = document.getElementById('cutMarginValDisplay');
+  const cutMarginStepSlider = document.getElementById('cutMarginStepSlider');
+  const cutMarginStepValDisplay = document.getElementById('cutMarginStepValDisplay');
+  const cutMarginLegendVal = document.getElementById('cutMarginLegendVal');
 
   // Preview elements
   const stickerContainers = document.querySelectorAll('.sticker-container');
@@ -196,6 +201,26 @@ export function initCustomizer() {
     document.getElementById('stageCanvas')?.classList.toggle('show-cutline', nextVal);
   });
 
+  // Cut Margin Thickness Sliders (Toolbar & Step 2 Synchronized)
+  function handleCutMarginChange(val) {
+    const numVal = parseFloat(val);
+    if (isNaN(numVal)) return;
+    const formatted = numVal.toFixed(1) + ' mm';
+    if (cutMarginValDisplay) cutMarginValDisplay.textContent = formatted;
+    if (cutMarginStepValDisplay) cutMarginStepValDisplay.textContent = formatted;
+    if (cutMarginLegendVal) cutMarginLegendVal.textContent = formatted;
+    if (cutMarginSlider && parseFloat(cutMarginSlider.value) !== numVal) {
+      cutMarginSlider.value = numVal;
+    }
+    if (cutMarginStepSlider && parseFloat(cutMarginStepSlider.value) !== numVal) {
+      cutMarginStepSlider.value = numVal;
+    }
+    store.updateSticker({ cutMarginMm: numVal });
+  }
+
+  cutMarginSlider?.addEventListener('input', (e) => handleCutMarginChange(e.target.value));
+  cutMarginStepSlider?.addEventListener('input', (e) => handleCutMarginChange(e.target.value));
+
   // 7. Interactive 3D Tilt & Holographic Lighting (Mouse Move)
   stickerContainers.forEach(container => {
     container.addEventListener('mousemove', (e) => {
@@ -330,24 +355,76 @@ export function initCustomizer() {
       container.style.setProperty('--sticker-mask-url', maskVal);
     });
 
-    // Dynamic Visual Dimension Scaling (Studio Stage & Mockups, 5x5 cm baseline)
+    // Sync cut margin sliders and displays
+    const cutMargin = s.cutMarginMm || 2.0;
+    if (cutMarginSlider && parseFloat(cutMarginSlider.value) !== cutMargin) {
+      cutMarginSlider.value = cutMargin;
+    }
+    if (cutMarginStepSlider && parseFloat(cutMarginStepSlider.value) !== cutMargin) {
+      cutMarginStepSlider.value = cutMargin;
+    }
+    const cutMarginStr = cutMargin.toFixed(1) + ' mm';
+    if (cutMarginValDisplay) cutMarginValDisplay.textContent = cutMarginStr;
+    if (cutMarginStepValDisplay) cutMarginStepValDisplay.textContent = cutMarginStr;
+    if (cutMarginLegendVal) cutMarginLegendVal.textContent = cutMarginStr;
+
+    // Physical Real-Scale Calibrations:
+    // Base sticker element size: 290 px
+    // Studio View: balanced visual display for inspecting detail (base 5x5 cm)
     const baseCm = 5.0;
-    const scaleX = Math.min(1.65, Math.max(0.55, s.widthCm / baseCm));
-    const scaleY = Math.min(1.65, Math.max(0.55, s.heightCm / baseCm));
+    const studioScaleX = Math.min(1.45, Math.max(0.65, s.widthCm / baseCm));
+    const studioScaleY = Math.min(1.45, Math.max(0.65, s.heightCm / baseCm));
+
+    // MacBook 14" Lid Mockup:
+    // Real MacBook lid: 31.2 cm wide. Mockup image lid: 605 px wide out of 1200 px.
+    // At container nominal height 480px, lid width is 324.1 px -> 1 cm = 10.388 px.
+    // Ratio to 290px card: scale = (cm * 10.388) / 290
+    const laptopScaleX = (s.widthCm * 10.388) / 290;
+    const laptopScaleY = (s.heightCm * 10.388) / 290;
+
+    // Yeti Tumbler 26/36 oz Mockup:
+    // Real bottle cylinder diameter: 9.0 cm. Mockup image bottle: 224 px wide out of 1200 px.
+    // At container nominal height 480px, bottle width is 120.0 px -> 1 cm = 13.333 px.
+    // Ratio to 290px card: scale = (cm * 13.333) / 290
+    const yetiScaleX = (s.widthCm * 13.333) / 290;
+    const yetiScaleY = (s.heightCm * 13.333) / 290;
+
+    // iPhone 15 Pro Mockup:
+    // Real iPhone 15 Pro width: 7.06 cm. Mockup image phone: 385 px wide out of 1200 px.
+    // At container nominal height 480px, phone width is 206.2 px -> 1 cm = 29.214 px.
+    // Ratio to 290px card: scale = (cm * 29.214) / 290
+    const iphoneScaleX = (s.widthCm * 29.214) / 290;
+    const iphoneScaleY = (s.heightCm * 29.214) / 290;
+
     const stageCanvas = document.getElementById('stageCanvas');
     if (stageCanvas) {
-      stageCanvas.style.setProperty('--size-scale-x', scaleX);
-      stageCanvas.style.setProperty('--size-scale-y', scaleY);
-      stageCanvas.style.setProperty('--size-scale', Math.max(scaleX, scaleY));
-    }
-    const stageDimensionText = document.getElementById('stageDimensionText');
-    if (stageDimensionText) {
-      stageDimensionText.textContent = `${s.widthCm} × ${s.heightCm} cm`;
+      stageCanvas.style.setProperty('--size-scale-x', studioScaleX.toFixed(4));
+      stageCanvas.style.setProperty('--size-scale-y', studioScaleY.toFixed(4));
+      stageCanvas.style.setProperty('--size-scale', Math.max(studioScaleX, studioScaleY).toFixed(4));
+      stageCanvas.style.setProperty('--laptop-scale-x', laptopScaleX.toFixed(4));
+      stageCanvas.style.setProperty('--laptop-scale-y', laptopScaleY.toFixed(4));
+      stageCanvas.style.setProperty('--yeti-scale-x', yetiScaleX.toFixed(4));
+      stageCanvas.style.setProperty('--yeti-scale-y', yetiScaleY.toFixed(4));
+      stageCanvas.style.setProperty('--iphone-scale-x', iphoneScaleX.toFixed(4));
+      stageCanvas.style.setProperty('--iphone-scale-y', iphoneScaleY.toFixed(4));
     }
 
-    // Render Precision Centered Cutline SVG
+    // Dynamic Context Dimension Badge (Real dimensions + surface identification)
+    const stageDimensionText = document.getElementById('stageDimensionText');
+    if (stageDimensionText) {
+      const surfaceLabels = {
+        studio: 'Vista de estudio',
+        laptop: 'MacBook 14″ (Escala real 1:1)',
+        yeti: 'Termo Yeti 26 oz (Escala real 1:1)',
+        iphone: 'iPhone 15 Pro (Escala real 1:1)'
+      };
+      const surfaceText = surfaceLabels[s.surface] || 'Escala real 1:1';
+      stageDimensionText.textContent = `${s.widthCm} × ${s.heightCm} cm • ${surfaceText}`;
+    }
+
+    // Render Precision Centered Cutline SVG with current cutMarginMm
     if (stickerCutlineSvg) {
-      renderCutlinePaths(stickerCutlineSvg, s.shape, s.imageSrc);
+      renderCutlinePaths(stickerCutlineSvg, s.shape, s.imageSrc, cutMargin);
     }
     toggleCutlineBtn?.classList.toggle('active', s.showCutline);
     stageCanvas?.classList.toggle('show-cutline', s.showCutline);
