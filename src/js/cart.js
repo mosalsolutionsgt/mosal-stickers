@@ -92,18 +92,15 @@ export function initCart() {
       name: document.getElementById('checkoutCustomerName')?.value || '',
       email: document.getElementById('checkoutCustomerEmail')?.value || '',
       phone: document.getElementById('checkoutCustomerPhone')?.value || '',
+      nit: document.getElementById('checkoutCustomerNit')?.value || '',
+      billingName: document.getElementById('checkoutCustomerBillingName')?.value || '',
       address: document.getElementById('checkoutCustomerAddress')?.value || '',
       city: document.getElementById('checkoutCustomerCity')?.value || '',
       department: document.getElementById('checkoutCustomerDept')?.value || '',
       payMethod: document.querySelector('input[name="pay_method"]:checked')?.value || 'A coordinar por WhatsApp',
     };
 
-    const rawSubtotal = state.cart.reduce((sum, item) => sum + item.totalPrice, 0);
-    let discount = 0;
-    if (state.appliedPromo) {
-      discount = rawSubtotal * state.appliedPromo.discount;
-    }
-    const finalSubtotal = Math.max(0, rawSubtotal - discount);
+    const finalSubtotal = state.cart.reduce((sum, item) => sum + item.totalPrice, 0);
     const waUrl = getWhatsAppOrderUrl(state.cart, finalSubtotal, state.currency, customerInfo);
 
     window.open(waUrl, '_blank');
@@ -128,20 +125,23 @@ export function initCart() {
     // Render cart items
     renderCartItems(state.cart, cartItemsList);
 
-    // Calculate totals
-    const rawSubtotal = state.cart.reduce((sum, item) => sum + item.totalPrice, 0);
-    let discount = 0;
-    if (state.appliedPromo) {
-      discount = rawSubtotal * state.appliedPromo.discount;
-      if (cartDiscountRow) cartDiscountRow.style.display = 'flex';
-      if (cartDiscountAmountEl) cartDiscountAmountEl.textContent = `-${formatPrice(discount)}`;
-    } else {
-      if (cartDiscountRow) cartDiscountRow.style.display = 'none';
-    }
+    // Calculate totals & Guatemalan 12% IVA (Régimen General)
+    const finalSubtotal = state.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+    const vatRate = 0.12;
+    const baseNeto = parseFloat((finalSubtotal / (1 + vatRate)).toFixed(2));
+    const ivaMonto = parseFloat((finalSubtotal - baseNeto).toFixed(2));
 
-    const finalSubtotal = Math.max(0, rawSubtotal - discount);
+    const cartBaseNetoEl = document.getElementById('cartBaseNeto');
+    const cartIvaAmountEl = document.getElementById('cartIvaAmount');
+    if (cartBaseNetoEl) cartBaseNetoEl.textContent = formatPrice(baseNeto);
+    if (cartIvaAmountEl) cartIvaAmountEl.textContent = formatPrice(ivaMonto);
+
     if (cartSubtotalEl) {
       cartSubtotalEl.textContent = formatPrice(finalSubtotal);
+    }
+
+    if (cartDiscountRow) {
+      cartDiscountRow.style.display = 'none';
     }
 
     // Free shipping threshold (250 GTQ / 35 USD / 30 EUR)
@@ -253,7 +253,9 @@ export function getWhatsAppOrderUrl(cart, finalTotal, currency = 'GTQ', customer
       classic: 'Vinilo Blanco Clásico',
       transparent: 'Transparente Cristalino',
       glitter: 'Purpurina Glitter',
-      metallic: 'Metálico Oro / Plata'
+      metallic: 'Metálico Oro / Plata',
+      dtf_uv: 'DTF UV (Barniz y Relieve 3D para Rígidos)',
+      dtf_textil: 'DTF Textil (Transfer Digital para Prendas y Telas)',
     };
     const finishLabel = item.finish === 'glossy' ? 'Brillante' : 'Mate';
     const matLabel = matNames[item.material] || item.material;
@@ -268,14 +270,22 @@ export function getWhatsAppOrderUrl(cart, finalTotal, currency = 'GTQ', customer
     lines.push('');
   });
 
+  const baseNeto = parseFloat((finalTotal / 1.12).toFixed(2));
+  const iva12 = parseFloat((finalTotal - baseNeto).toFixed(2));
+
   lines.push('────────────────────────');
-  lines.push(`💰 *TOTAL ESTIMADO:* ${formatPrice(finalTotal)}`);
+  lines.push(`💰 *TOTAL A PAGAR:* ${formatPrice(finalTotal)} (IVA del 12% incluido)`);
+  lines.push(`   • Base Imponible: ${formatPrice(baseNeto)}`);
+  lines.push(`   • IVA Crédito Fiscal (12%): ${formatPrice(iva12)}`);
+  lines.push('   • Factura Electrónica FEL: Régimen General de Guatemala');
   lines.push('────────────────────────');
 
-  if (customerInfo && (customerInfo.name || customerInfo.address)) {
+  if (customerInfo && (customerInfo.name || customerInfo.address || customerInfo.nit)) {
     lines.push('');
-    lines.push('📍 *DATOS DE ENTREGA EN GUATEMALA:*');
+    lines.push('📍 *DATOS DE ENTREGA Y FACTURACIÓN (GUATEMALA):*');
     if (customerInfo.name) lines.push(`• Cliente: ${customerInfo.name}`);
+    if (customerInfo.nit) lines.push(`• NIT / CF: ${customerInfo.nit}`);
+    if (customerInfo.billingName) lines.push(`• Razón Social / Facturación: ${customerInfo.billingName}`);
     if (customerInfo.phone) lines.push(`• Teléfono: ${customerInfo.phone}`);
     if (customerInfo.email) lines.push(`• Correo (prueba digital): ${customerInfo.email}`);
     if (customerInfo.address) lines.push(`• Dirección: ${customerInfo.address}`);

@@ -444,6 +444,18 @@
               <div class="material-card-name">Metálico Oro</div>
               <div class="material-card-tag">Lujo</div>
             </div>
+
+            <div class="material-card" data-material="dtf_uv">
+              <div class="material-swatch-circle swatch-dtf-uv"></div>
+              <div class="material-card-name">DTF UV</div>
+              <div class="material-card-tag">Relieve Rígidos</div>
+            </div>
+
+            <div class="material-card" data-material="dtf_textil">
+              <div class="material-swatch-circle swatch-dtf-textil"></div>
+              <div class="material-card-name">DTF Textil</div>
+              <div class="material-card-tag">Prendas / Telas</div>
+            </div>
           </div>
         </div>
 
@@ -533,18 +545,17 @@
           </div>
         </div>
 
-        <!-- 6. Quantity & Bulk Discount Matrix -->
+        <!-- 6. Quantity Matrix (100 uds en adelante) -->
         <div class="config-card">
           <div class="config-card-header">
             <div class="config-title">
               <span class="config-step-number">6</span>
-              <span>Cantidad y descuento por volumen</span>
+              <span>Cantidad (desde 100 unidades)</span>
             </div>
             <div class="vat-toggle-row">
-              <label style="display: flex; align-items: center; gap: 0.35rem; cursor: pointer;">
-                <input type="checkbox" id="vatCheckbox" checked style="accent-color: var(--color-brand-yellow);" />
-                <span>IVA incluido</span>
-              </label>
+              <span class="badge badge-green" style="font-size: 0.75rem; padding: 0.25rem 0.55rem; font-weight: 700;">
+                IVA 12% Régimen General incluido
+              </span>
             </div>
           </div>
 
@@ -650,6 +661,8 @@
         <button class="material-tab-btn" data-mat="transparent">Transparente</button>
         <button class="material-tab-btn" data-mat="glitter">Purpurina Glitter</button>
         <button class="material-tab-btn" data-mat="metallic">Metálico Oro</button>
+        <button class="material-tab-btn" data-mat="dtf_uv">DTF UV</button>
+        <button class="material-tab-btn" data-mat="dtf_textil">DTF Textil</button>
       </div>
 
       <!-- Detail Card -->
@@ -832,22 +845,27 @@
 
       <!-- Drawer Footer -->
       <div class="cart-drawer-footer">
-        <!-- Promo code -->
-        <div class="promo-code-box">
-          <input type="text" class="promo-input" id="promoInput" placeholder="Código de descuento (Ej: MOSAL10)" />
-          <button class="btn btn-secondary btn-sm" id="promoApplyBtn">Aplicar</button>
+        <!-- Fiscal Breakdown (Régimen General 12% IVA Guatemala) -->
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 0.75rem 0.9rem; margin-bottom: 0.75rem; font-size: 0.85rem;">
+          <div style="display: flex; justify-content: space-between; color: var(--text-muted); margin-bottom: 0.35rem;">
+            <span>Base Imponible (sin IVA):</span>
+            <strong id="cartBaseNeto" style="color: var(--text-white);">Q 0.00</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; color: #38bdf8; margin-bottom: 0.35rem;">
+            <span>IVA Crédito Fiscal (12%):</span>
+            <strong id="cartIvaAmount">Q 0.00</strong>
+          </div>
+          <div style="font-size: 0.72rem; color: #a1a1aa; line-height: 1.3; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 0.35rem;">
+            ✓ Factura Electrónica FEL - Régimen General SAT
+          </div>
         </div>
 
-        <!-- Discount row (if active) -->
-        <div class="cart-subtotal-row" id="cartDiscountRow" style="display: none; color: #00b67a; font-size: 1rem;">
-          <span>Descuento aplicado:</span>
-          <span id="cartDiscountAmount">-Q 0.00</span>
-        </div>
+        <div id="cartDiscountRow" style="display: none;"></div>
 
-        <!-- Subtotal -->
+        <!-- Total con IVA -->
         <div class="cart-subtotal-row">
-          <span>Total estimado:</span>
-          <span id="cartSubtotal">Q 382.50</span>
+          <span>Total a pagar:</span>
+          <span id="cartSubtotal" style="color: var(--color-brand-yellow); font-size: 1.4rem;">Q 0.00</span>
         </div>
 
         <button class="btn btn-whatsapp btn-lg btn-block" id="cartWhatsAppBtn" style="margin-bottom: 0.6rem;">
@@ -917,12 +935,23 @@
           </div>
         </div>
 
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div>
+            <label class="spec-label">NIT o C/F (Factura Régimen General)</label>
+            <input type="text" id="checkoutCustomerNit" placeholder="Ej: 1234567-8 o C/F" class="promo-input" style="width: 100%; text-transform: uppercase; margin-top: 0.25rem;" />
+          </div>
+          <div>
+            <label class="spec-label">Nombre / Razón Social para Factura</label>
+            <input type="text" id="checkoutCustomerBillingName" placeholder="Nombre para la factura FEL" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+          </div>
+        </div>
+
         <div>
           <label class="spec-label">Preferencia de Pago</label>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.4rem;">
             <label class="shape-radio-card active" style="flex-direction: row; padding: 0.75rem;">
-              <input type="radio" name="pay_method" value="Transferencia Bancaria (BI / Banrural / G&T)" checked style="accent-color: var(--color-brand-yellow);" />
-              <span class="shape-label">Transferencia Bancaria</span>
+              <input type="radio" name="pay_method" value="Transferencia Bancaria (Banco Industrial / BAC)" checked style="accent-color: var(--color-brand-yellow);" />
+              <span class="shape-label">Transferencia Bancaria (BI / BAC)</span>
             </label>
             <label class="shape-radio-card" style="flex-direction: row; padding: 0.75rem;">
               <input type="radio" name="pay_method" value="Pago Contra Entrega / Tarjeta" style="accent-color: var(--color-brand-yellow);" />
@@ -1045,16 +1074,6 @@
         <span class="payment-badge" style="color: #60a5fa;" title="Transferencias Banco Industrial">
           <svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#0A3871"/><text x="12" y="16" font-size="11" font-weight="900" fill="#FFCC00" text-anchor="middle" font-family="sans-serif">BI</text></svg>
           <span>Banco Industrial</span>
-        </span>
-        <!-- Banrural -->
-        <span class="payment-badge" style="color: #4ade80;" title="Transferencias Banrural">
-          <svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#006837"/><text x="12" y="16" font-size="10" font-weight="900" fill="#FFF" text-anchor="middle" font-family="sans-serif">B</text></svg>
-          <span>Banrural</span>
-        </span>
-        <!-- G&T Continental -->
-        <span class="payment-badge" style="color: #38bdf8;" title="Transferencias G&T Continental">
-          <svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00529B"/><text x="12" y="16" font-size="9" font-weight="900" fill="#FFF" text-anchor="middle" font-family="sans-serif">G&T</text></svg>
-          <span>G&T</span>
         </span>
         <!-- Cargo Expreso / Guatex -->
         <span class="payment-badge" style="color: #FFC837;" title="Envíos con Cargo Expreso y Guatex">

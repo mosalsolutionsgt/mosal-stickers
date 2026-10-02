@@ -14,7 +14,7 @@ class StateStore {
         name: 'Cyberpunk Cat Troquelado',
         imageSrc: defaultSampleImg,
         shape: 'die-cut', // 'die-cut', 'circle', 'square', 'rounded'
-        material: 'holographic', // 'classic', 'holographic', 'transparent', 'glitter', 'metallic'
+        material: 'holographic', // 'classic', 'holographic', 'transparent', 'glitter', 'metallic', 'dtf_uv', 'dtf_textil'
         finish: 'glossy', // 'glossy', 'matte'
         widthCm: 5,
         heightCm: 5,

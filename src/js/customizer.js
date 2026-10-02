@@ -467,10 +467,17 @@ export function initCustomizer() {
         classic: 'Vinilo Blanco',
         transparent: 'Transparente',
         glitter: 'Glitter',
-        metallic: 'Metálico'
+        metallic: 'Metálico',
+        dtf_uv: 'DTF UV',
+        dtf_textil: 'DTF Textil',
       };
       const matLabel = materialLabels[s.material] || s.material;
-      summaryQtyDesc.textContent = `${s.quantity} uds • ${s.widthCm}×${s.heightCm} cm • ${matLabel} • ${finishLabel}`;
+      summaryQtyDesc.innerHTML = `
+        <div>${s.quantity} uds • ${s.widthCm}×${s.heightCm} cm • ${matLabel} • ${finishLabel}</div>
+        <div style="font-size: 0.72rem; color: #38bdf8; margin-top: 0.2rem; font-weight: 600;">
+          Incluye 12% de IVA (Régimen General FEL) • Base: ${formatPrice(pricing.subtotalNeto)} + IVA: ${formatPrice(pricing.ivaMonto)}
+        </div>
+      `;
     }
   });
 
@@ -489,7 +496,6 @@ function renderQuantityTiers(sticker, container) {
       <div class="quantity-tier-row ${isSelected ? 'active' : ''}" data-qty="${tier.qty}">
         <div class="tier-qty">
           ${tier.qty} uds
-          ${tier.discountPercent > 0 ? `<span class="tier-discount-badge">-${tier.discountPercent}%</span>` : ''}
         </div>
         <div class="tier-unit-price">${formatPrice(tierPricing.unitPrice)}/ud</div>
         <div class="tier-total-price">${formatPrice(tierPricing.totalPrice)}</div>

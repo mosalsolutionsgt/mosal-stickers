@@ -61,6 +61,26 @@ const MATERIALS_DATA = {
     thickness: '160 micras metalizadas',
     sampleImg: getAssetUrl('samples/cyberpunk-cat.png'),
     badge: 'Look Premium',
+  },
+  dtf_uv: {
+    title: 'DTF UV (Relieve 3D & Barniz Cristal)',
+    desc: 'Tecnología de impresión ultravioleta directa a film con barniz sectorizado en relieve. Se transfiere en frío por simple presión sobre cualquier superficie rígida: termos metálicos Yeti, vidrio, madera, acrílico, cerámica o carcasas de celular, sin requerir plancha ni calor.',
+    durability: 'Ultra resistente de uso rudo',
+    finish: 'Relieve táctil brillante',
+    resistance: '100% impermeable, fricción y rayos UV',
+    thickness: 'Film adhesivo curado de alta fijación',
+    sampleImg: getAssetUrl('samples/cyberpunk-cat.png'),
+    badge: 'Nuevo • Rígidos',
+  },
+  dtf_textil: {
+    title: 'DTF Textil (Transfer para Prendas)',
+    desc: 'Impresión digital textil con base de tinta blanca de alta opacidad y poliamida elástica de última generación. Listo para transferir con plancha térmica o doméstica sobre cualquier tela (algodón, poliéster, mezclilla o lona).',
+    durability: 'Más de 50 lavadas sin cuartearse',
+    finish: 'Tacto suave y flexible sobre tela',
+    resistance: 'Lavado a máquina y estiramiento',
+    thickness: 'Película elástica termosoldable',
+    sampleImg: getAssetUrl('samples/kawaii-shiba.png'),
+    badge: 'Nuevo • Prendas',
   }
 };
 
