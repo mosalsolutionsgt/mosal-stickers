@@ -472,12 +472,7 @@ export function initCustomizer() {
         dtf_textil: 'DTF Textil',
       };
       const matLabel = materialLabels[s.material] || s.material;
-      summaryQtyDesc.innerHTML = `
-        <div>${s.quantity} uds • ${s.widthCm}×${s.heightCm} cm • ${matLabel} • ${finishLabel}</div>
-        <div style="font-size: 0.72rem; color: #38bdf8; margin-top: 0.2rem; font-weight: 600;">
-          Incluye 12% de IVA (Régimen General FEL) • Base: ${formatPrice(pricing.subtotalNeto)} + IVA: ${formatPrice(pricing.ivaMonto)}
-        </div>
-      `;
+      summaryQtyDesc.textContent = `${s.quantity} uds • ${s.widthCm}×${s.heightCm} cm • ${matLabel} • ${finishLabel}`;
     }
   });
 

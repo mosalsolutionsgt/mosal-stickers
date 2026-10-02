@@ -125,16 +125,8 @@ export function initCart() {
     // Render cart items
     renderCartItems(state.cart, cartItemsList);
 
-    // Calculate totals & Guatemalan 12% IVA (Régimen General)
+    // Calculate totals
     const finalSubtotal = state.cart.reduce((sum, item) => sum + item.totalPrice, 0);
-    const vatRate = 0.12;
-    const baseNeto = parseFloat((finalSubtotal / (1 + vatRate)).toFixed(2));
-    const ivaMonto = parseFloat((finalSubtotal - baseNeto).toFixed(2));
-
-    const cartBaseNetoEl = document.getElementById('cartBaseNeto');
-    const cartIvaAmountEl = document.getElementById('cartIvaAmount');
-    if (cartBaseNetoEl) cartBaseNetoEl.textContent = formatPrice(baseNeto);
-    if (cartIvaAmountEl) cartIvaAmountEl.textContent = formatPrice(ivaMonto);
 
     if (cartSubtotalEl) {
       cartSubtotalEl.textContent = formatPrice(finalSubtotal);
@@ -270,29 +262,23 @@ export function getWhatsAppOrderUrl(cart, finalTotal, currency = 'GTQ', customer
     lines.push('');
   });
 
-  const baseNeto = parseFloat((finalTotal / 1.12).toFixed(2));
-  const iva12 = parseFloat((finalTotal - baseNeto).toFixed(2));
-
   lines.push('────────────────────────');
-  lines.push(`💰 *TOTAL A PAGAR:* ${formatPrice(finalTotal)} (IVA del 12% incluido)`);
-  lines.push(`   • Base Imponible: ${formatPrice(baseNeto)}`);
-  lines.push(`   • IVA Crédito Fiscal (12%): ${formatPrice(iva12)}`);
-  lines.push('   • Factura Electrónica FEL: Régimen General de Guatemala');
+  lines.push(`💰 *TOTAL:* ${formatPrice(finalTotal)}`);
   lines.push('────────────────────────');
 
   if (customerInfo && (customerInfo.name || customerInfo.address || customerInfo.nit)) {
     lines.push('');
-    lines.push('📍 *DATOS DE ENTREGA Y FACTURACIÓN (GUATEMALA):*');
+    lines.push('📍 *DATOS DE ENTREGA:*');
     if (customerInfo.name) lines.push(`• Cliente: ${customerInfo.name}`);
-    if (customerInfo.nit) lines.push(`• NIT / CF: ${customerInfo.nit}`);
-    if (customerInfo.billingName) lines.push(`• Razón Social / Facturación: ${customerInfo.billingName}`);
+    if (customerInfo.nit) lines.push(`• NIT: ${customerInfo.nit}`);
+    if (customerInfo.billingName) lines.push(`• Facturación: ${customerInfo.billingName}`);
     if (customerInfo.phone) lines.push(`• Teléfono: ${customerInfo.phone}`);
     if (customerInfo.email) lines.push(`• Correo (prueba digital): ${customerInfo.email}`);
     if (customerInfo.address) lines.push(`• Dirección: ${customerInfo.address}`);
     if (customerInfo.city || customerInfo.department) {
       lines.push(`• Destino: ${customerInfo.city || ''} (${customerInfo.department || 'Guatemala'})`);
     }
-    if (customerInfo.payMethod) lines.push(`• Método de pago preferido: ${customerInfo.payMethod}`);
+    if (customerInfo.payMethod) lines.push(`• Método de pago: ${customerInfo.payMethod}`);
   }
 
   lines.push('');
