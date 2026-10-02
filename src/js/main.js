@@ -15,7 +15,7 @@ const MATERIALS_DATA = {
   holographic: {
     title: 'Holográfico Prismático',
     desc: 'Un material iridiscente y cromático que refleja los colores del arcoíris al incidir la luz. Ideal para logos, ilustraciones y marcas que buscan el máximo impacto visual.',
-    durability: '1 año de durabilidad (12 meses)',
+    durability: 'Alta durabilidad garantizada',
     finish: 'Acabado brilloso o mate',
     resistance: 'Impermeable 100% y lavavajillas',
     thickness: '180 micras de vinilo premium',
@@ -25,7 +25,7 @@ const MATERIALS_DATA = {
   classic: {
     title: 'Vinilo Blanco Clásico',
     desc: 'La base estándar de mayor calidad de la industria. Base blanca opaca con una fidelidad de color inigualable, colores saturados y negros profundos.',
-    durability: '6 a 12 meses de durabilidad',
+    durability: 'Alta durabilidad garantizada',
     finish: 'Brilloso o Mate',
     resistance: 'Totalmente resistente al agua y humedad',
     thickness: '150 micras de vinilo de alta densidad',
@@ -35,7 +35,7 @@ const MATERIALS_DATA = {
   transparent: {
     title: 'Transparente Cristalino',
     desc: 'Vinilo ultra transparente sin opacidad de fondo. Diseñado con impresión de tinta blanca selectiva para que tus diseños destaquen sobre ventanas, frascos y botellas.',
-    durability: '6 a 12 meses de durabilidad',
+    durability: 'Alta durabilidad garantizada',
     finish: 'Brilloso transparente',
     resistance: 'Apto para lavavajillas y exteriores',
     thickness: '140 micras de film óptico',
@@ -45,7 +45,7 @@ const MATERIALS_DATA = {
   glitter: {
     title: 'Purpurina / Glitter Radiante',
     desc: 'Incrustaciones de micro-purpurina metálica integradas en el vinilo que brillan intensamente bajo cualquier fuente de luz directa.',
-    durability: '6 a 12 meses de durabilidad',
+    durability: 'Alta durabilidad garantizada',
     finish: 'Brilloso protector',
     resistance: '100% resistente al agua y lluvia',
     thickness: '190 micras texturizadas',
@@ -55,7 +55,7 @@ const MATERIALS_DATA = {
   metallic: {
     title: 'Metálico Oro / Plata Cepillado',
     desc: 'Aspecto metálico de lujo que simula aluminio pulido u oro pulido. Añade una estética industrial y de alta gama a packaging y marcas de autor.',
-    durability: '6 a 12 meses de durabilidad',
+    durability: 'Alta durabilidad garantizada',
     finish: 'Brilloso de alta reflexión',
     resistance: 'Resistente a arañazos y agua',
     thickness: '160 micras metalizadas',
