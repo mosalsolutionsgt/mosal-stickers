@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Stylesheets -->
-  <script type="module" crossorigin src="./assets/index-rFzyrh4a.js"></script>
+  <script type="module" crossorigin src="./assets/index-DPP5p171.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-D8PaSlQi.css">
 </head>
 <body>
@@ -550,8 +550,8 @@
               <span>Cantidad (desde 100 unidades)</span>
             </div>
             <div class="vat-toggle-row">
-              <span class="badge badge-green" style="font-size: 0.75rem; padding: 0.25rem 0.55rem; font-weight: 700;">
-                IVA 12% Régimen General incluido
+              <span class="badge badge-yellow" style="font-size: 0.75rem; padding: 0.25rem 0.55rem; font-weight: 700;">
+                Calidad Garantizada
               </span>
             </div>
           </div>
@@ -842,24 +842,9 @@
 
       <!-- Drawer Footer -->
       <div class="cart-drawer-footer">
-        <!-- Fiscal Breakdown (Régimen General 12% IVA Guatemala) -->
-        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 0.75rem 0.9rem; margin-bottom: 0.75rem; font-size: 0.85rem;">
-          <div style="display: flex; justify-content: space-between; color: var(--text-muted); margin-bottom: 0.35rem;">
-            <span>Base Imponible (sin IVA):</span>
-            <strong id="cartBaseNeto" style="color: var(--text-white);">Q 0.00</strong>
-          </div>
-          <div style="display: flex; justify-content: space-between; color: #38bdf8; margin-bottom: 0.35rem;">
-            <span>IVA Crédito Fiscal (12%):</span>
-            <strong id="cartIvaAmount">Q 0.00</strong>
-          </div>
-          <div style="font-size: 0.72rem; color: #a1a1aa; line-height: 1.3; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 0.35rem;">
-            ✓ Factura Electrónica FEL - Régimen General SAT
-          </div>
-        </div>
-
         <div id="cartDiscountRow" style="display: none;"></div>
 
-        <!-- Total con IVA -->
+        <!-- Total -->
         <div class="cart-subtotal-row">
           <span>Total a pagar:</span>
           <span id="cartSubtotal" style="color: var(--color-brand-yellow); font-size: 1.4rem;">Q 0.00</span>
@@ -934,12 +919,12 @@
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
           <div>
-            <label class="spec-label">NIT o C/F (Factura Régimen General)</label>
+            <label class="spec-label">NIT o C/F (Opcional)</label>
             <input type="text" id="checkoutCustomerNit" placeholder="Ej: 1234567-8 o C/F" class="promo-input" style="width: 100%; text-transform: uppercase; margin-top: 0.25rem;" />
           </div>
           <div>
-            <label class="spec-label">Nombre / Razón Social para Factura</label>
-            <input type="text" id="checkoutCustomerBillingName" placeholder="Nombre para la factura FEL" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
+            <label class="spec-label">Nombre para Facturación (Opcional)</label>
+            <input type="text" id="checkoutCustomerBillingName" placeholder="Nombre personal o empresa" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem;" />
           </div>
         </div>
 
