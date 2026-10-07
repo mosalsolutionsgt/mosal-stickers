@@ -19,8 +19,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Stylesheets -->
-  <script type="module" crossorigin src="./assets/index-B7vhMCH6.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-D1AGALGC.css">
+  <script type="module" crossorigin src="./assets/index-CuHiSkUg.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DA4leHGd.css">
 </head>
 <body>
 
@@ -932,6 +932,35 @@
           </div>
         </div>
 
+        <!-- Archivo de Impresión en Alta Resolución (Google Drive) -->
+        <div class="checkout-upload-box">
+          <label class="spec-label" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>📁 Adjuntar Archivo de Impresión (Alta Resolución)</span>
+            <span style="font-size: 0.72rem; color: var(--color-brand-yellow); font-weight: 700; display: inline-flex; align-items: center; gap: 0.25rem;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              Envío a Google Drive
+            </span>
+          </label>
+          <div class="artwork-drop-zone" id="checkoutArtworkDropzone">
+            <input type="file" id="checkoutArtworkInput" accept="image/*,.pdf,.ai,.psd,.svg,.eps,.zip" style="display: none;" />
+            <div class="artwork-drop-content" id="checkoutArtworkPrompt">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-brand-yellow); flex-shrink: 0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <div style="text-align: left;">
+                <div style="font-weight: 700; font-size: 0.86rem; color: white;">Haz clic aquí para cargar tu archivo</div>
+                <div style="font-size: 0.74rem; color: var(--text-gray-400);">Aceptamos PNG, JPG, PDF, SVG, AI, PSD o ZIP (Hasta 50 MB)</div>
+              </div>
+            </div>
+            <div class="artwork-selected-file" id="checkoutArtworkSelected" style="display: none;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; overflow: hidden;">
+                <span style="color: #00B67A; font-weight: 800; font-size: 0.95rem;">✓</span>
+                <span id="checkoutArtworkName" style="font-weight: 700; font-size: 0.85rem; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">archivo.pdf</span>
+                <span id="checkoutArtworkSize" style="font-size: 0.74rem; color: var(--text-gray-400);">(2.4 MB)</span>
+              </div>
+              <button type="button" class="btn-remove-file" id="checkoutArtworkRemove" title="Cambiar archivo">✕</button>
+            </div>
+          </div>
+        </div>
+
         <div>
           <label class="spec-label" style="display: flex; justify-content: space-between; align-items: center;">
             <span>Método de Pago</span>
@@ -962,50 +991,7 @@
               </div>
             </label>
 
-            <!-- Opción 2: Transferencia Bancaria Directa -->
-            <label class="payment-method-card" id="payMethodCardBank">
-              <input type="radio" name="pay_method" value="bank_transfer" class="payment-method-radio" id="payRadioBank" />
-              <div class="payment-method-content">
-                <div class="payment-method-header">
-                  <span class="payment-method-title">
-                    🏦 Transferencia Bancaria (BI / BAC)
-                  </span>
-                  <span class="badge badge-yellow" style="font-size: 0.68rem;">Sin Comisión</span>
-                </div>
-                <p class="payment-method-desc">
-                  Transfiere por tu banca en línea y confirma tu pedido enviando la boleta por WhatsApp.
-                </p>
-
-                <!-- Bank details box (visible when bank_transfer is active) -->
-                <div class="bank-transfer-details-box" id="bankTransferDetailsBox" style="display: none;">
-                  <div class="bank-account-item">
-                    <div class="bank-account-info">
-                      <span class="bank-account-name" style="color: #4da3ff;">Banco Industrial (BI) • Monetaria</span>
-                      <span class="bank-account-number" id="biAccountNumber">085-0123456-7</span>
-                      <span class="bank-account-holder">Mosal Solutions</span>
-                    </div>
-                    <button type="button" class="btn-copy-account js-copy-account" data-target="biAccountNumber">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                      <span>Copiar No.</span>
-                    </button>
-                  </div>
-
-                  <div class="bank-account-item">
-                    <div class="bank-account-info">
-                      <span class="bank-account-name" style="color: #ff5b5b;">BAC Credomatic • Monetaria</span>
-                      <span class="bank-account-number" id="bacAccountNumber">9012345678</span>
-                      <span class="bank-account-holder">Mosal Solutions</span>
-                    </div>
-                    <button type="button" class="btn-copy-account js-copy-account" data-target="bacAccountNumber">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                      <span>Copiar No.</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </label>
-
-            <!-- Opción 3: Coordinar por WhatsApp / Contra Entrega -->
+            <!-- Opción 2: Coordinar por WhatsApp / Contra Entrega -->
             <label class="payment-method-card" id="payMethodCardWhatsapp">
               <input type="radio" name="pay_method" value="whatsapp" class="payment-method-radio" id="payRadioWhatsapp" />
               <div class="payment-method-content">
