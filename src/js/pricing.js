@@ -144,9 +144,13 @@ export function formatPrice(amount, currency = null) {
   const state = store.getState();
   const curr = currency || state.currency || 'GTQ';
   const symbol = state.currencySymbols[curr] || 'Q';
+  const num = Number(amount) || 0;
 
   if (curr === 'GTQ') {
-    return `${symbol} ${Math.round(amount).toLocaleString('es-GT')}`;
+    if (num % 1 === 0) {
+      return `${symbol} ${Math.round(num).toLocaleString('es-GT')}`;
+    }
+    return `${symbol} ${num.toFixed(2)}`;
   }
-  return `${symbol} ${Number(amount).toFixed(2)}`;
+  return `${symbol} ${num.toFixed(2)}`;
 }

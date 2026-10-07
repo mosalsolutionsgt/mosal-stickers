@@ -60,11 +60,15 @@ export async function processRecurrentePayment(orderPayload, submitButton) {
     const itemsTotal = items.reduce((sum, it) => sum + it.amount_in_cents, 0);
     const expectedTotal = Math.round(orderPayload.finalTotal * 100);
 
-    // Si hubo cupón de descuento o discrepancia de centavos, unificar en un item exacto
+    // Si hubo cupón de descuento, ajuste de tarjeta o discrepancia de centavos, unificar en un item exacto
     if (items.length === 0 || itemsTotal !== expectedTotal) {
+      const summaryTitle = orderPayload.cart && orderPayload.cart.length === 1
+        ? `${orderPayload.cart[0].quantity}x ${orderPayload.cart[0].name} (${orderPayload.cart[0].sizeText})`
+        : `Pedido Mosal Stickers #${orderId} (${orderPayload.cart?.length || 1} productos)`;
+
       items = [
         {
-          name: `Pedido Mosal Stickers #${orderId} (${orderPayload.cart.length} item${orderPayload.cart.length > 1 ? 's' : ''})`,
+          name: summaryTitle,
           amount_in_cents: expectedTotal,
           currency: orderPayload.currency || 'GTQ',
           quantity: 1
