@@ -181,13 +181,13 @@ export function openSuccessModal(orderId, orderData = null) {
   // Configurar botón para notificar a Mosal por WhatsApp
   if (waBtn) {
     const waText = [
-      `¡Hola Mosal Solutions! 👋 Acabo de completar el pago con tarjeta por Recurrente en su sitio web.`,
+      `¡Hola Mosal Solutions! 👋 Acabo de completar el pago de mi pedido con tarjeta por Recurrente en su sitio web.`,
       `📦 *No. de Orden:* #${orderId}`,
       `👤 *Cliente:* ${clientName}`,
       orderData && orderData.customer && orderData.customer.phone ? `📞 *Teléfono:* ${orderData.customer.phone}` : '',
       `💰 *Total Pagado:* ${totalAmount}`,
       '',
-      'Les escribo para enviarles el archivo de arte en alta resolución y coordinar la entrega. ¡Gracias!'
+      'Les escribo para consultar el estado de producción de mis stickers y coordinar la entrega. ¡Muchas gracias!'
     ].filter(Boolean).join('\n');
 
     waBtn.href = `https://wa.me/50230292980?text=${encodeURIComponent(waText)}`;
