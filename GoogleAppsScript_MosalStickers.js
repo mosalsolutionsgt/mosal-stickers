@@ -26,6 +26,14 @@
  * ============================================================================
  */
 
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    status: "ok",
+    service: "Mosal Stickers - Google Drive & Sheets Connector",
+    time: new Date().toISOString()
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
 function doPost(e) {
   try {
     var contents = e.postData ? e.postData.contents : "{}";
