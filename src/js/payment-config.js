@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MOSAL STICKERS - CONFIGURACIÓN DE PASARELA DE PAGOS Y CUENTAS
+   MOSAL STICKERS - CONFIGURACIÓN DE PASARELA DE PAGOS Y GOOGLE DRIVE
    ========================================================================== */
 
 export const PAYMENT_CONFIG = {
@@ -27,25 +27,11 @@ export const PAYMENT_CONFIG = {
     apiEndpoint: 'https://app.recurrente.com/api/checkouts',
   },
 
-  // Cuentas Bancarias Oficiales de Mosal Solutions para Transferencias
-  bankAccounts: [
-    {
-      id: 'bi',
-      bankName: 'Banco Industrial (BI)',
-      accountType: 'Monetaria en Quetzales',
-      accountNumber: '085-0123456-7',
-      accountHolder: 'Mosal Solutions',
-      badgeColor: '#003882'
-    },
-    {
-      id: 'bac',
-      bankName: 'BAC Credomatic',
-      accountType: 'Monetaria en Quetzales',
-      accountNumber: '9012345678',
-      accountHolder: 'Mosal Solutions',
-      badgeColor: '#D81920'
-    }
-  ],
+  // Integración con Google Drive y Google Sheets (Opción A)
+  // Al crear tu Web App en script.google.com, pega aquí la URL generada (termina en /exec)
+  googleDrive: {
+    webhookUrl: '', // Ej: 'https://script.google.com/macros/s/AKfycbx.../exec'
+  },
 
   // Contacto oficial de Mosal Solutions
   contact: {

@@ -5,6 +5,7 @@
 import { store } from './state.js';
 import { formatPrice } from './pricing.js';
 import { processRecurrentePayment } from './recurrente.js';
+import { sendOrderToGoogleDrive } from './google-drive.js';
 
 export function initCart() {
   const cartDrawerOverlay = document.getElementById('cartDrawerOverlay');
@@ -29,7 +30,77 @@ export function initCart() {
   const checkoutOrderSuccess = document.getElementById('checkoutOrderSuccess');
   const checkoutSubmitBtn = document.getElementById('checkoutSubmitBtn');
   const checkoutSubmitBtnText = document.getElementById('checkoutSubmitBtnText');
-  const bankTransferDetailsBox = document.getElementById('bankTransferDetailsBox');
+
+  // Artwork upload elements
+  let currentArtworkFile = null;
+  const checkoutArtworkDropzone = document.getElementById('checkoutArtworkDropzone');
+  const checkoutArtworkInput = document.getElementById('checkoutArtworkInput');
+  const checkoutArtworkPrompt = document.getElementById('checkoutArtworkPrompt');
+  const checkoutArtworkSelected = document.getElementById('checkoutArtworkSelected');
+  const checkoutArtworkName = document.getElementById('checkoutArtworkName');
+  const checkoutArtworkSize = document.getElementById('checkoutArtworkSize');
+  const checkoutArtworkRemove = document.getElementById('checkoutArtworkRemove');
+
+  // Handle artwork file selection
+  checkoutArtworkDropzone?.addEventListener('click', (e) => {
+    if (e.target !== checkoutArtworkRemove && !checkoutArtworkRemove?.contains(e.target)) {
+      checkoutArtworkInput?.click();
+    }
+  });
+
+  checkoutArtworkDropzone?.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    checkoutArtworkDropzone.classList.add('dragover');
+  });
+
+  ['dragleave', 'dragend'].forEach(evt => {
+    checkoutArtworkDropzone?.addEventListener(evt, () => checkoutArtworkDropzone.classList.remove('dragover'));
+  });
+
+  checkoutArtworkDropzone?.addEventListener('drop', (e) => {
+    e.preventDefault();
+    checkoutArtworkDropzone.classList.remove('dragover');
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleArtworkFile(e.dataTransfer.files[0]);
+    }
+  });
+
+  checkoutArtworkInput?.addEventListener('change', (e) => {
+    if (e.target.files && e.target.files[0]) {
+      handleArtworkFile(e.target.files[0]);
+    }
+  });
+
+  function handleArtworkFile(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUrl = e.target.result;
+      const base64Content = dataUrl.split(',')[1];
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+
+      currentArtworkFile = {
+        name: file.name,
+        sizeText: `${sizeMb} MB`,
+        mimeType: file.type || 'application/octet-stream',
+        base64: base64Content
+      };
+
+      if (checkoutArtworkPrompt) checkoutArtworkPrompt.style.display = 'none';
+      if (checkoutArtworkSelected) checkoutArtworkSelected.style.display = 'flex';
+      if (checkoutArtworkName) checkoutArtworkName.textContent = file.name;
+      if (checkoutArtworkSize) checkoutArtworkSize.textContent = `(${sizeMb} MB)`;
+      showToast(`✓ Archivo ${file.name} listo para Google Drive`, 'success');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  checkoutArtworkRemove?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentArtworkFile = null;
+    if (checkoutArtworkInput) checkoutArtworkInput.value = '';
+    if (checkoutArtworkPrompt) checkoutArtworkPrompt.style.display = 'flex';
+    if (checkoutArtworkSelected) checkoutArtworkSelected.style.display = 'none';
+  });
 
   // Update payment UI based on selected method
   const updatePaymentMethodUI = () => {
@@ -44,11 +115,6 @@ export function initCart() {
       card.classList.toggle('active', radio && radio.checked);
     });
 
-    // Bank transfer details box
-    if (bankTransferDetailsBox) {
-      bankTransferDetailsBox.style.display = selectedMethod === 'bank_transfer' ? 'flex' : 'none';
-    }
-
     // Dynamic submit button
     if (checkoutSubmitBtn && checkoutSubmitBtnText) {
       if (selectedMethod === 'recurrente') {
@@ -56,12 +122,6 @@ export function initCart() {
         checkoutSubmitBtn.innerHTML = `
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
           <span id="checkoutSubmitBtnText">Pagar ${formattedTotal} con Tarjeta (Recurrente) →</span>
-        `;
-      } else if (selectedMethod === 'bank_transfer') {
-        checkoutSubmitBtn.className = 'btn btn-whatsapp btn-lg btn-block';
-        checkoutSubmitBtn.innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-          <span id="checkoutSubmitBtnText">Confirmar y Enviar Boleta por WhatsApp →</span>
         `;
       } else {
         checkoutSubmitBtn.className = 'btn btn-whatsapp btn-lg btn-block';
@@ -76,34 +136,6 @@ export function initCart() {
   // Listen for payment method radio change
   document.querySelectorAll('input[name="pay_method"]').forEach(radio => {
     radio.addEventListener('change', updatePaymentMethodUI);
-  });
-
-  // Listen for copy account number clicks
-  document.querySelectorAll('.js-copy-account').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const targetId = btn.dataset.target;
-      const targetEl = document.getElementById(targetId);
-      if (!targetEl) return;
-
-      const accountText = targetEl.textContent.trim();
-      navigator.clipboard.writeText(accountText).then(() => {
-        const originalHtml = btn.innerHTML;
-        btn.classList.add('copied');
-        btn.innerHTML = `
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span>¡Copiado!</span>
-        `;
-        showToast(`No. de cuenta ${accountText} copiado al portapapeles`, 'success');
-        setTimeout(() => {
-          btn.classList.remove('copied');
-          btn.innerHTML = originalHtml;
-        }, 2200);
-      }).catch(err => {
-        showToast(`Número: ${accountText}`, 'info');
-      });
-    });
   });
 
   // Direct WhatsApp Order from Drawer
@@ -165,7 +197,7 @@ export function initCart() {
   });
 
   // Submit checkout form
-  checkoutForm?.addEventListener('submit', (e) => {
+  checkoutForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const state = store.getState();
     const payMethodValue = document.querySelector('input[name="pay_method"]:checked')?.value || 'recurrente';
@@ -181,25 +213,40 @@ export function initCart() {
       department: document.getElementById('checkoutCustomerDept')?.value || '',
       payMethod: payMethodValue === 'recurrente'
         ? 'Tarjeta en Línea (Recurrente)'
-        : (payMethodValue === 'bank_transfer'
-            ? 'Transferencia Bancaria (BI / BAC)'
-            : 'Contra Entrega / WhatsApp'),
+        : 'Contra Entrega / WhatsApp',
     };
 
     const finalSubtotal = state.cart.reduce((sum, item) => sum + item.totalPrice, 0);
 
+    // Preparar archivo de diseño (si no subió uno en checkout, usar el arte del editor si es data URL)
+    let finalArtwork = currentArtworkFile;
+    if (!finalArtwork && state.cart[0] && state.cart[0].imageSrc && state.cart[0].imageSrc.startsWith('data:')) {
+      finalArtwork = {
+        name: `${state.cart[0].name}.png`,
+        sizeText: 'Alta resolución (Editor)',
+        mimeType: 'image/png',
+        base64: state.cart[0].imageSrc.split(',')[1]
+      };
+    }
+
+    const orderPayload = {
+      cart: state.cart,
+      customer: customerInfo,
+      finalTotal: finalSubtotal,
+      currency: state.currency,
+      artworkFile: finalArtwork
+    };
+
+    // Enviar datos del pedido y archivo a Google Drive (en segundo plano)
+    sendOrderToGoogleDrive(orderPayload);
+
     // 1. PAGO CON PASARELA RECURRENTE
     if (payMethodValue === 'recurrente') {
-      processRecurrentePayment({
-        cart: state.cart,
-        customer: customerInfo,
-        finalTotal: finalSubtotal,
-        currency: state.currency
-      }, checkoutSubmitBtn);
+      processRecurrentePayment(orderPayload, checkoutSubmitBtn);
       return;
     }
 
-    // 2. TRANSFERENCIA BANCARIA O WHATSAPP
+    // 2. PEDIDO POR WHATSAPP / CONTRA ENTREGA
     const waUrl = getWhatsAppOrderUrl(state.cart, finalSubtotal, state.currency, customerInfo);
     window.open(waUrl, '_blank');
 
