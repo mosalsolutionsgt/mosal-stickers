@@ -28,9 +28,8 @@ export const PAYMENT_CONFIG = {
   },
 
   // Integración con Google Drive y Google Sheets (Opción A)
-  // Al crear tu Web App en script.google.com, pega aquí la URL generada (termina en /exec)
   googleDrive: {
-    webhookUrl: '', // Ej: 'https://script.google.com/macros/s/AKfycbx.../exec'
+    webhookUrl: 'https://script.google.com/macros/s/AKfycbyvuQoJDcoHxtMQiwmziCNC76OTe_R7ja_xUijz5SotwolAU2iTCFuJQhigiZIy9SvLrA/exec',
   },
 
   // Contacto oficial de Mosal Solutions
