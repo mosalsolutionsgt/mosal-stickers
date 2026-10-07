@@ -6,6 +6,7 @@ import { store } from './state.js';
 import { initCustomizer } from './customizer.js';
 import { initMockupSwitcher } from './mockups.js';
 import { initCart } from './cart.js';
+import { initPaymentReturnHandler } from './recurrente.js';
 
 const BASE_URL = import.meta.env.BASE_URL || './';
 const getAssetUrl = (path) => `${BASE_URL}${path}`.replace(/\/\//g, '/');
@@ -89,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCustomizer();
   initMockupSwitcher();
   initCart();
+  initPaymentReturnHandler();
 
   // 2. Currency Selector
   const currencySelector = document.getElementById('currencySelector');
