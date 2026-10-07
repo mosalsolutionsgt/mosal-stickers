@@ -196,6 +196,77 @@ export function initCart() {
     checkoutModal?.classList.remove('open');
   });
 
+  // Espacio de Prueba en Vivo (Q 10.00)
+  const quickTestBtns = document.querySelectorAll('.js-quick-test-q10');
+  quickTestBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // 1. Asegurar moneda GTQ
+      store.setCurrency('GTQ');
+
+      // 2. Limpiar carrito y agregar item de prueba de Q 10.00 exactos
+      store.clearCart();
+      store.addToCart({
+        name: 'Sticker de Prueba en Vivo (Test Recurrente)',
+        imageSrc: './samples/cyberpunk-cat.png',
+        shape: 'die-cut',
+        material: 'holographic',
+        finish: 'glossy',
+        sizeText: '5 x 5 cm',
+        quantity: 1,
+        unitPrice: 10.00,
+        totalPrice: 10.00,
+      });
+
+      // 3. Prellenar datos para agilizar la prueba del usuario
+      const nameInput = document.getElementById('checkoutCustomerName');
+      const emailInput = document.getElementById('checkoutCustomerEmail');
+      const phoneInput = document.getElementById('checkoutCustomerPhone');
+      const addressInput = document.getElementById('checkoutCustomerAddress');
+      const cityInput = document.getElementById('checkoutCustomerCity');
+      const deptInput = document.getElementById('checkoutCustomerDept');
+      const nitInput = document.getElementById('checkoutCustomerNit');
+      const billingInput = document.getElementById('checkoutCustomerBillingName');
+
+      if (nameInput) nameInput.value = 'Herbert Moscoso (Prueba en Vivo)';
+      if (emailInput) emailInput.value = 'mosalsolutionsgt@gmail.com';
+      if (phoneInput) phoneInput.value = '30292980';
+      if (addressInput) addressInput.value = 'Oficinas Mosal Solutions (Prueba de Pago Q10)';
+      if (cityInput) cityInput.value = 'Ciudad de Guatemala';
+      if (deptInput) deptInput.value = 'Guatemala';
+      if (nitInput) nitInput.value = 'C/F';
+      if (billingInput) billingInput.value = 'Mosal Stickers';
+
+      // 4. Si el usuario no ha subido archivo, generar archivo de prueba para validar Google Drive
+      if (!currentArtworkFile) {
+        currentArtworkFile = {
+          name: 'arte-prueba-q10.png',
+          sizeText: '1.2 KB',
+          mimeType: 'image/png',
+          base64: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='
+        };
+        if (checkoutArtworkPrompt) checkoutArtworkPrompt.style.display = 'none';
+        if (checkoutArtworkSelected) checkoutArtworkSelected.style.display = 'flex';
+        if (checkoutArtworkName) checkoutArtworkName.textContent = 'arte-prueba-q10.png';
+        if (checkoutArtworkSize) checkoutArtworkSize.textContent = '(Archivo de prueba para Drive)';
+      }
+
+      // 5. Asegurar selección de tarjeta (Recurrente)
+      const payRadioRecurrente = document.getElementById('payRadioRecurrente');
+      if (payRadioRecurrente) payRadioRecurrente.checked = true;
+
+      // 6. Cerrar carrito y abrir Checkout listo para pagar
+      store.toggleCart(false);
+      updatePaymentMethodUI();
+      checkoutModal?.classList.add('open');
+      if (checkoutForm) checkoutForm.style.display = 'flex';
+      if (checkoutOrderSuccess) checkoutOrderSuccess.style.display = 'none';
+
+      showToast('🧪 Modo de Prueba Activado: Total Q 10.00 listo para pagar en Recurrente.', 'info');
+    });
+  });
+
   // Submit checkout form
   checkoutForm?.addEventListener('submit', async (e) => {
     e.preventDefault();

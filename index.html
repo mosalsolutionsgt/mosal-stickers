@@ -71,6 +71,11 @@
           <option value="EUR">EUR (€)</option>
         </select>
 
+        <!-- Botón de Prueba Rápida Q 10 -->
+        <button class="btn btn-sm btn-secondary js-quick-test-q10" id="quickTestBtn" style="border-color: rgba(255, 230, 0, 0.45); color: var(--color-brand-yellow); gap: 0.35rem; padding: 0.45rem 0.85rem; font-size: 0.8rem; font-weight: 700;" title="Realizar prueba real de Q 10.00">
+          🧪 Probar Q 10
+        </button>
+
         <!-- Cart Button -->
         <button class="cart-toggle-btn js-cart-toggle" aria-label="Ver carrito">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -851,6 +856,22 @@
       <div class="cart-drawer-footer">
         <div id="cartDiscountRow" style="display: none;"></div>
 
+        <!-- Espacio de Prueba en Vivo (Q 10.00) -->
+        <div class="test-order-box" style="background: rgba(255, 230, 0, 0.08); border: 1px dashed rgba(255, 230, 0, 0.4); border-radius: 8px; padding: 0.75rem; margin-bottom: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <span style="font-weight: 700; font-size: 0.85rem; color: var(--color-brand-yellow); display: inline-flex; align-items: center; gap: 0.35rem;">
+              🧪 Espacio de Prueba en Vivo
+            </span>
+            <span style="background: rgba(0, 182, 122, 0.2); color: #00B67A; font-size: 0.75rem; font-weight: 800; padding: 0.15rem 0.45rem; border-radius: 4px;">Q 10.00</span>
+          </div>
+          <p style="font-size: 0.74rem; color: var(--text-gray-400); margin-bottom: 0.5rem; line-height: 1.3;">
+            Haz un pago real de Q 10.00 para verificar la pasarela Recurrente, tu tarjeta y la recepción directa en Google Drive y Gmail.
+          </p>
+          <button type="button" class="btn btn-sm btn-secondary js-quick-test-q10" style="width: 100%; border-color: var(--color-brand-yellow); color: var(--color-brand-yellow); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+            Iniciar Prueba de Q 10.00 →
+          </button>
+        </div>
+
         <!-- Total -->
         <div class="cart-subtotal-row">
           <span>Total a pagar:</span>
@@ -859,7 +880,7 @@
 
         <button class="btn btn-primary btn-lg btn-block" id="checkoutBtn" style="margin-bottom: 0.6rem;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-          Pagar con Tarjeta o Transferencia →
+          Pagar con Tarjeta en Línea →
         </button>
 
         <button class="btn btn-whatsapp btn-block" id="cartWhatsAppBtn">
