@@ -19,7 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Stylesheets -->
-  <script type="module" crossorigin src="./assets/index-DVo6uwAs.js"></script>
+  <script type="module" crossorigin src="./assets/index-Bs6lzcj-.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-DA4leHGd.css">
 </head>
 <body>
@@ -36,7 +36,7 @@
     </div>
     <div class="announcement-item">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: #00b67a; flex-shrink: 0;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-      <span><strong>Envío Gratis</strong> en pedidos de más de Q 250</span>
+      <span>Tarifas de Envío: <strong>Q 25 Capital</strong> • <strong>Q 35 Deptos. Cercanos</strong> • <strong>Q 55 Deptos. Lejanos</strong></span>
     </div>
   </div>
 
@@ -67,11 +67,6 @@
           <option value="EUR">EUR (€)</option>
         </select>
 
-        <!-- Botón de Prueba Rápida Q 10 -->
-        <button class="btn btn-sm btn-secondary js-quick-test-q10" id="quickTestBtn" style="border-color: rgba(255, 230, 0, 0.45); color: var(--color-brand-yellow); gap: 0.35rem; padding: 0.45rem 0.85rem; font-size: 0.8rem; font-weight: 700;" title="Realizar prueba real de Q 10.00">
-          🧪 Probar Q 10
-        </button>
-
         <!-- Cart Button -->
         <button class="cart-toggle-btn js-cart-toggle" aria-label="Ver carrito">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -79,7 +74,7 @@
             <circle cx="20" cy="21" r="1"></circle>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
           </svg>
-          <span class="cart-badge-count js-cart-count">1</span>
+          <span class="cart-badge-count js-cart-count">0</span>
         </button>
 
         <!-- Mobile Hamburger Button -->
@@ -141,7 +136,7 @@
         </div>
 
         <p class="hero-subtitle">
-          Corte troquelado de ultra precisión, vinilo impermeable de alta resistencia y envíos a toda Guatemala. Personaliza acabados brillosos o mate en materiales holográficos, glitter, transparentes, vinilo blanco, DTF UV y DTF Textil.
+          Corte troquelado de ultra precisión, vinilo impermeable de alta resistencia y envíos a toda Guatemala. Personaliza en materiales vinilo blanco, holográfico, transparente, dorado, DTF UV y DTF Textil.
         </p>
 
         <div class="hero-trust-row">
@@ -417,7 +412,7 @@
             </div>
           </div>
           <div class="materials-scroller">
-            <div class="material-card active" data-material="holographic">
+            <div class="material-card" data-material="holographic">
               <div class="material-swatch-circle swatch-holographic"></div>
               <div class="material-card-name">Holográfico</div>
               <div class="material-card-tag">
@@ -426,7 +421,7 @@
               </div>
             </div>
 
-            <div class="material-card" data-material="classic">
+            <div class="material-card active" data-material="classic">
               <div class="material-swatch-circle swatch-classic"></div>
               <div class="material-card-name">Vinilo Blanco</div>
               <div class="material-card-tag">Bestseller</div>
@@ -438,15 +433,9 @@
               <div class="material-card-tag">Limpio</div>
             </div>
 
-            <div class="material-card" data-material="glitter">
-              <div class="material-swatch-circle swatch-glitter"></div>
-              <div class="material-card-name">Glitter</div>
-              <div class="material-card-tag">Brillante</div>
-            </div>
-
             <div class="material-card" data-material="metallic">
               <div class="material-swatch-circle swatch-metallic"></div>
-              <div class="material-card-name">Metálico Oro</div>
+              <div class="material-card-name">Dorado</div>
               <div class="material-card-tag">Lujo</div>
             </div>
 
@@ -464,66 +453,46 @@
           </div>
         </div>
 
-        <!-- 4. Finish Selector -->
+        <!-- 4. Size Selector -->
         <div class="config-card">
           <div class="config-card-header">
             <div class="config-title">
               <span class="config-step-number">4</span>
-              <span>Acabado laminado</span>
-            </div>
-          </div>
-          <div class="pill-selector-row">
-            <button class="pill-option-btn finish-pill active" data-finish="glossy" style="display: inline-flex; align-items: center; gap: 0.45rem;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="#FFC837"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
-              <span>Brillante (protección extra brillante)</span>
-            </button>
-            <button class="pill-option-btn finish-pill" data-finish="matte" style="display: inline-flex; align-items: center; gap: 0.45rem;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: #cbd5e1;"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
-              <span>Mate (cero reflejos)</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 5. Size Selector -->
-        <div class="config-card">
-          <div class="config-card-header">
-            <div class="config-title">
-              <span class="config-step-number">5</span>
-              <span>Dimensiones y tamaño</span>
+              <span>Tamaño y precio 100 Unidades</span>
             </div>
           </div>
           <div class="size-pills-grid">
             <button class="pill-option-btn size-pill" data-w="3" data-h="3">
               <span class="size-pill-dim">3 × 3 cm</span>
-              <span class="size-pill-price">Q 40</span>
+              <span class="size-pill-price">Q 45</span>
             </button>
             <button class="pill-option-btn size-pill" data-w="4" data-h="4">
               <span class="size-pill-dim">4 × 4 cm</span>
-              <span class="size-pill-price">Q 60</span>
+              <span class="size-pill-price">Q 65</span>
             </button>
             <button class="pill-option-btn size-pill active" data-w="5" data-h="5">
               <span class="size-pill-dim">5 × 5 cm</span>
-              <span class="size-pill-price">Q 110</span>
+              <span class="size-pill-price">Q 115</span>
             </button>
             <button class="pill-option-btn size-pill" data-w="6" data-h="6">
               <span class="size-pill-dim">6 × 6 cm</span>
-              <span class="size-pill-price">Q 200</span>
+              <span class="size-pill-price">Q 210</span>
             </button>
             <button class="pill-option-btn size-pill" data-w="7" data-h="7">
               <span class="size-pill-dim">7 × 7 cm</span>
-              <span class="size-pill-price">Q 240</span>
+              <span class="size-pill-price">Q 250</span>
             </button>
             <button class="pill-option-btn size-pill" data-w="8" data-h="8">
               <span class="size-pill-dim">8 × 8 cm</span>
-              <span class="size-pill-price">Q 275</span>
+              <span class="size-pill-price">Q 285</span>
             </button>
             <button class="pill-option-btn size-pill" data-w="9" data-h="9">
               <span class="size-pill-dim">9 × 9 cm</span>
-              <span class="size-pill-price">Q 300</span>
+              <span class="size-pill-price">Q 310</span>
             </button>
             <button class="pill-option-btn size-pill" data-w="10" data-h="10">
               <span class="size-pill-dim">10 × 10 cm</span>
-              <span class="size-pill-price">Q 350</span>
+              <span class="size-pill-price">Q 360</span>
             </button>
             <button class="pill-option-btn size-pill size-pill-custom" data-custom="true">
               <span class="size-pill-dim">Personalizada</span>
@@ -550,11 +519,11 @@
           </div>
         </div>
 
-        <!-- 6. Quantity Matrix (100 uds en adelante) -->
+        <!-- 5. Quantity Matrix (100 uds en adelante) -->
         <div class="config-card">
           <div class="config-card-header">
             <div class="config-title">
-              <span class="config-step-number">6</span>
+              <span class="config-step-number">5</span>
               <span>Cantidad (desde 100 unidades)</span>
             </div>
             <div class="vat-toggle-row">
@@ -640,7 +609,7 @@
         </div>
         <div class="category-card-body">
           <h3 class="category-card-title">Pack de Muestras</h3>
-          <p class="category-card-desc">¿Indeciso sobre el material? Pide nuestro muestrario con acabados holográficos, glitter, transparente, DTF UV y DTF Textil antes de tu gran tirada.</p>
+          <p class="category-card-desc">¿Indeciso sobre el material? Pide nuestro muestrario con acabados holográficos, transparente, dorado, DTF UV y DTF Textil antes de tu gran tirada.</p>
           <div class="category-card-footer">
             <span class="badge badge-yellow">Pack Completo</span>
             <span class="category-price-from">Solo Q 35 <small style="font-size: 0.78rem; opacity: 0.85; font-weight: 600;">(Muestrario)</small></span>
@@ -664,8 +633,7 @@
         <button class="material-tab-btn active" data-mat="holographic">Holográfico</button>
         <button class="material-tab-btn" data-mat="classic">Vinilo Blanco</button>
         <button class="material-tab-btn" data-mat="transparent">Transparente</button>
-        <button class="material-tab-btn" data-mat="glitter">Purpurina Glitter</button>
-        <button class="material-tab-btn" data-mat="metallic">Metálico Oro</button>
+        <button class="material-tab-btn" data-mat="metallic">Dorado</button>
         <button class="material-tab-btn" data-mat="dtf_uv">DTF UV</button>
         <button class="material-tab-btn" data-mat="dtf_textil">DTF Textil</button>
       </div>
@@ -804,7 +772,7 @@
             <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </button>
           <div class="faq-answer">
-            ¡Totalmente! Nuestro vinilo adhesivo premium con laminado protector soporta salpicaduras, lluvia, humedad, termos de agua e incluso lavavajillas con máxima adherencia y resistencia garantizada.
+            ¡Totalmente! Nuestro vinilo adhesivo premium soporta salpicaduras, lluvia, humedad, termos de agua e incluso lavavajillas con máxima adherencia y resistencia garantizada.
           </div>
         </div>
 
@@ -828,7 +796,7 @@
         <div class="cart-drawer-title" style="display: flex; align-items: center; gap: 0.5rem;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
           <span>Tu Carrito</span>
-          <span class="badge badge-yellow js-cart-count">1</span>
+          <span class="badge badge-yellow js-cart-count">0</span>
         </div>
         <button class="cart-close-btn" id="cartCloseBtn" aria-label="Cerrar carrito">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -838,7 +806,7 @@
       <!-- Free Shipping Tracker -->
       <div class="free-shipping-bar">
         <div id="shippingNoticeText">
-          Añade <strong>Q 35.00</strong> más para conseguir <strong>Envío Gratis</strong>
+          Tarifas de envío: <strong>Q 25 Capital</strong> • <strong>Q 35 Deptos. Cercanos</strong> • <strong>Q 55 Deptos. Lejanos</strong>
         </div>
         <div class="shipping-progress-track">
           <div class="shipping-progress-fill" id="shippingProgressBar" style="width: 80%;"></div>
@@ -851,22 +819,6 @@
       <!-- Drawer Footer -->
       <div class="cart-drawer-footer">
         <div id="cartDiscountRow" style="display: none;"></div>
-
-        <!-- Espacio de Prueba en Vivo (Q 10.00) -->
-        <div class="test-order-box" style="background: rgba(255, 230, 0, 0.08); border: 1px dashed rgba(255, 230, 0, 0.4); border-radius: 8px; padding: 0.75rem; margin-bottom: 0.75rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
-            <span style="font-weight: 700; font-size: 0.85rem; color: var(--color-brand-yellow); display: inline-flex; align-items: center; gap: 0.35rem;">
-              🧪 Espacio de Prueba en Vivo
-            </span>
-            <span style="background: rgba(0, 182, 122, 0.2); color: #00B67A; font-size: 0.75rem; font-weight: 800; padding: 0.15rem 0.45rem; border-radius: 4px;">Q 10.00</span>
-          </div>
-          <p style="font-size: 0.74rem; color: var(--text-gray-400); margin-bottom: 0.5rem; line-height: 1.3;">
-            Haz un pago real de Q 10.00 para verificar la pasarela Recurrente, tu tarjeta y la recepción directa en Google Drive y Gmail.
-          </p>
-          <button type="button" class="btn btn-sm btn-secondary js-quick-test-q10" style="width: 100%; border-color: var(--color-brand-yellow); color: var(--color-brand-yellow); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
-            Iniciar Prueba de Q 10.00 →
-          </button>
-        </div>
 
         <!-- Total -->
         <div class="cart-subtotal-row">
@@ -929,15 +881,35 @@
           <div>
             <label class="spec-label">Departamento</label>
             <select id="checkoutCustomerDept" class="promo-input" style="width: 100%; text-transform: none; margin-top: 0.25rem; background: var(--bg-surface-2); color: white;">
-              <option value="Guatemala">Guatemala</option>
-              <option value="Sacatepéquez">Sacatepéquez / Antigua</option>
-              <option value="Quetzaltenango">Quetzaltenango</option>
-              <option value="Escuintla">Escuintla</option>
-              <option value="Chimaltenango">Chimaltenango</option>
-              <option value="Alta Verapaz">Alta Verapaz</option>
-              <option value="Izabal">Izabal</option>
-              <option value="Petén">Petén</option>
-              <option value="Otro">Otro Departamento</option>
+              <optgroup label="Capital — Q 25.00">
+                <option value="Guatemala" selected>Guatemala / Capital (Q 25.00)</option>
+              </optgroup>
+              <optgroup label="Departamentos Cercanos — Q 35.00">
+                <option value="Sacatepéquez">Sacatepéquez / Antigua (Q 35.00)</option>
+                <option value="Chimaltenango">Chimaltenango (Q 35.00)</option>
+                <option value="Escuintla">Escuintla (Q 35.00)</option>
+                <option value="El Progreso">El Progreso / Guastatoya (Q 35.00)</option>
+                <option value="Santa Rosa">Santa Rosa / Cuilapa (Q 35.00)</option>
+                <option value="Sololá">Sololá / Panajachel (Q 35.00)</option>
+                <option value="Suchitepéquez">Suchitepéquez / Mazatenango (Q 35.00)</option>
+                <option value="Quetzaltenango">Quetzaltenango / Xela (Q 35.00)</option>
+                <option value="Retalhuleu">Retalhuleu / Reu (Q 35.00)</option>
+                <option value="Totonicapán">Totonicapán (Q 35.00)</option>
+                <option value="Baja Verapaz">Baja Verapaz / Salamá (Q 35.00)</option>
+                <option value="Jalapa">Jalapa (Q 35.00)</option>
+              </optgroup>
+              <optgroup label="Departamentos Lejanos — Q 55.00">
+                <option value="Huehuetenango">Huehuetenango (Q 55.00)</option>
+                <option value="San Marcos">San Marcos / Tecún Umán (Q 55.00)</option>
+                <option value="Quiché">Quiché / Chichicastenango (Q 55.00)</option>
+                <option value="Alta Verapaz">Alta Verapaz / Cobán (Q 55.00)</option>
+                <option value="Petén">Petén / Flores / Santa Elena (Q 55.00)</option>
+                <option value="Izabal">Izabal / Puerto Barrios (Q 55.00)</option>
+                <option value="Zacapa">Zacapa (Q 55.00)</option>
+                <option value="Chiquimula">Chiquimula / Esquipulas (Q 55.00)</option>
+                <option value="Jutiapa">Jutiapa (Q 55.00)</option>
+                <option value="Otro">Otro Departamento Lejano (Q 55.00)</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -982,6 +954,29 @@
           </div>
         </div>
 
+        <!-- Desglose Oficial de Costos y Envío -->
+        <div class="checkout-breakdown-box" id="checkoutBreakdownBox" style="background: var(--bg-surface-2); border: 1.5px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.1rem 1.25rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.6rem;">
+          <div style="font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; color: #ffffff; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.5rem;">
+            <span>Resumen del Pedido</span>
+            <span style="font-size: 0.76rem; color: #00b67a; font-weight: 600;">✓ Precios Oficiales</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--text-gray-300);">
+            <span>Subtotal de Stickers:</span>
+            <span id="checkoutBreakdownSubtotal" style="font-weight: 700; color: #ffffff;">Q 0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--text-gray-300);">
+            <span id="checkoutBreakdownShippingLabel">Envío (Ciudad de Guatemala):</span>
+            <span id="checkoutBreakdownShippingValue" style="font-weight: 700; color: var(--color-brand-yellow);">Q 25.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 800; color: #ffffff; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 0.5rem; margin-top: 0.15rem;">
+            <span>Total a Pagar:</span>
+            <span id="checkoutBreakdownTotal" style="color: var(--color-brand-yellow); font-size: 1.25rem;">Q 0.00</span>
+          </div>
+          <div id="checkoutShippingNotice" style="font-size: 0.74rem; color: var(--text-gray-400); line-height: 1.4;">
+            * Tarifas de envío: Capital Q 25.00 • Departamentos Cercanos Q 35.00 • Departamentos Lejanos Q 55.00 (Cargo Expreso / Guatex)
+          </div>
+        </div>
+
         <div>
           <label class="spec-label" style="display: flex; justify-content: space-between; align-items: center;">
             <span>Método de Pago</span>
@@ -1003,7 +998,10 @@
                   <div class="payment-logos-row">
                     <span class="card-logo-pill visa">VISA</span>
                     <span class="card-logo-pill mastercard">MC</span>
-                    <span class="card-logo-pill recurrente">RECURRENTE</span>
+                    <span class="card-logo-pill recurrente" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.15rem 0.5rem;">
+                      <img src="./assets/recurrente-icon-white.png" alt="Recurrente" style="height: 12px; width: auto; vertical-align: middle;" />
+                      <span>RECURRENTE</span>
+                    </span>
                   </div>
                 </div>
                 <p class="payment-method-desc">
@@ -1092,13 +1090,13 @@
         <div id="successOrderItems" style="margin-top: 0.25rem;"></div>
       </div>
 
-      <p style="font-size: 0.82rem; color: var(--text-gray-300); line-height: 1.45;">
-        Para acelerar la producción de tus calcomanías, envíanos tu archivo de arte en alta resolución a nuestro WhatsApp de atención prioritaria:
+      <p style="font-size: 0.85rem; color: var(--text-gray-300); line-height: 1.45;">
+        Hemos recibido tu pedido y archivo de diseño correctamente. Si deseas consultar el estado de producción de tus calcomanías o coordinar la entrega, contáctanos a nuestro WhatsApp de atención directa:
       </p>
 
       <a id="successWhatsAppBtn" href="https://wa.me/50230292980" target="_blank" class="btn btn-whatsapp btn-lg btn-block">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        Enviar Arte en Alta Resolución por WhatsApp (+502 3029-2980)
+        Consultar Estado por WhatsApp →
       </a>
 
       <button class="btn btn-secondary btn-sm" onclick="document.getElementById('paymentSuccessModal').classList.remove('open');">
@@ -1188,8 +1186,7 @@
         <div class="footer-links">
           <a href="#materials">Vinilo Blanco Clásico</a>
           <a href="#materials">Holográfico Prismático</a>
-          <a href="#materials">Glitter / Brillantina</a>
-          <a href="#materials">Metálico Oro y Plata</a>
+          <a href="#materials">Dorado Metálico</a>
           <a href="#materials">Guía de Líneas de Corte</a>
         </div>
       </div>
@@ -1235,10 +1232,9 @@
           <svg width="22" height="14" viewBox="0 0 32 20"><circle cx="10" cy="10" r="10" fill="#EB001B"/><circle cx="22" cy="10" r="10" fill="#F79E1B"/><path d="M16 3.07A9.97 9.97 0 0 1 19.8 10 9.97 9.97 0 0 1 16 16.93 9.97 9.97 0 0 1 12.2 10 9.97 9.97 0 0 1 16 3.07z" fill="#FF5F00"/></svg>
           <span>Mastercard</span>
         </span>
-        <!-- Banco Industrial -->
-        <span class="payment-badge" style="color: #60a5fa;" title="Transferencias Banco Industrial">
-          <svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#0A3871"/><text x="12" y="16" font-size="11" font-weight="900" fill="#FFCC00" text-anchor="middle" font-family="sans-serif">BI</text></svg>
-          <span>Banco Industrial</span>
+        <!-- Recurrente Guatemala Oficial -->
+        <span class="payment-badge" style="color: #ffffff; padding: 0.28rem 0.65rem;" title="Pagos Seguros con Recurrente Guatemala">
+          <img src="./assets/recurrente-horizontal-white.png" alt="Recurrente" style="height: 15px; width: auto; object-fit: contain; vertical-align: middle; display: inline-block;" />
         </span>
         <!-- Cargo Expreso / Guatex -->
         <span class="payment-badge" style="color: #FFC837;" title="Envíos con Cargo Expreso y Guatex">
