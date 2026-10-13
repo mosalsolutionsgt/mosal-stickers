@@ -14,8 +14,7 @@ class StateStore {
         name: 'Cyberpunk Cat Troquelado',
         imageSrc: defaultSampleImg,
         shape: 'die-cut', // 'die-cut', 'circle', 'square', 'rounded'
-        material: 'holographic', // 'classic', 'holographic', 'transparent', 'glitter', 'metallic', 'dtf_uv', 'dtf_textil'
-        finish: 'glossy', // 'glossy', 'matte'
+        material: 'classic', // 'classic', 'dtf_textil', 'holographic', 'transparent', 'metallic', 'dtf_uv'
         widthCm: 5,
         heightCm: 5,
         isCustomSize: false,
@@ -31,21 +30,8 @@ class StateStore {
       exchangeRates: { GTQ: 1.0, USD: 0.128, EUR: 0.118 },
       includeVat: true,
 
-      // Shopping Cart
-      cart: [
-        {
-          id: 'cart_1',
-          name: 'Cyberpunk Cat Troquelado',
-          imageSrc: defaultSampleImg,
-          shape: 'die-cut',
-          material: 'holographic',
-          finish: 'glossy',
-          sizeText: '5 x 5 cm',
-          quantity: 100,
-          unitPrice: 1.10,
-          totalPrice: 110.00,
-        }
-      ],
+      // Shopping Cart (inicia vacío sin productos fantasma)
+      cart: [],
       isCartOpen: false,
       appliedPromo: null,
       promoCodes: {
@@ -129,3 +115,28 @@ class StateStore {
 }
 
 export const store = new StateStore();
+
+/* Diccionarios oficiales de especificaciones técnicas para producción e imprenta */
+export const MATERIAL_LABELS = {
+  classic: 'Vinil Blanco',
+  dtf_textil: 'DTF Textil',
+  holographic: 'Holográfico',
+  transparent: 'Transparente',
+  metallic: 'Dorado',
+  dtf_uv: 'DTF UV',
+};
+
+export const SHAPE_LABELS = {
+  'die-cut': 'Troquelado a la Forma (Die-Cut)',
+  circle: 'Circular',
+  square: 'Cuadrado / Rectangular',
+  rounded: 'Bordes Redondeados (Kiss-Cut)',
+};
+
+export function getFullSpecsText(item) {
+  const mat = item.materialLabel || MATERIAL_LABELS[item.material] || item.material || 'Vinil';
+  const shp = item.shapeLabel || SHAPE_LABELS[item.shape] || item.shape || 'Troquelado';
+  const margin = item.cutMarginText || (item.cutMarginMm !== undefined ? `${item.cutMarginMm} mm` : '2.0 mm');
+  return `• Material: ${mat}\n• Tipo de Corte: ${shp}\n• Margen de Corte / Borde: ${margin}`;
+}
+

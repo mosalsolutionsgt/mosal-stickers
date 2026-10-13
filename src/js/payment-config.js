@@ -49,22 +49,9 @@ export const PAYMENT_CONFIG = {
 };
 
 /**
- * Calcula el monto a cobrar en tarjeta para cubrir la comisión de Recurrente y el IVA retenido por SAT,
- * garantizando que Mosal reciba el monto neto exacto de la orden sin pérdidas.
- *
- * Deducción Recurrente = Cobro * 6.1% + Q 2.00
- * Cobro = (NetoDeseado + Q 2.00) / (1 - 0.061)
+ * Retorna el monto exacto de la orden sin recargos adicionales (solo precio de stickers + flete).
  */
 export function calculateCardGrossAmount(netAmount, currency = 'GTQ') {
   const net = Number(netAmount) || 0;
-  if (net <= 0) return 0;
-
-  if (currency === 'GTQ') {
-    const gross = (net + PAYMENT_CONFIG.cardFees.fixedFeeGtq) / (1 - PAYMENT_CONFIG.cardFees.totalPercentRate);
-    return Math.ceil(gross * 100) / 100;
-  }
-
-  // Monedas internacionales (USD / EUR)
-  const gross = (net + 0.30) / (1 - 0.045);
-  return Math.ceil(gross * 100) / 100;
+  return Math.round(net * 100) / 100;
 }

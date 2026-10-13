@@ -3,8 +3,8 @@
    Manages image upload, live material shaders, cutline proofs & volume pricing
    ========================================================================== */
 
-import { store } from './state.js';
-import { calculateStickerPricing, formatPrice, QUANTITY_TIERS } from './pricing.js';
+import { store, MATERIAL_LABELS, SHAPE_LABELS } from './state.js';
+import { calculateStickerPricing, formatPrice, QUANTITY_TIERS, getMaterialPriceTable } from './pricing.js';
 import { renderCutlinePaths } from './cutline-generator.js';
 import { showToast, getWhatsAppOrderUrl } from './cart.js';
 import { processStickerImage } from './bg-remover.js';
@@ -26,7 +26,6 @@ export function initCustomizer() {
   const sampleThumbBtns = document.querySelectorAll('.sample-thumb-btn');
   const shapeRadioCards = document.querySelectorAll('.shape-radio-card');
   const materialCards = document.querySelectorAll('.material-card');
-  const finishPills = document.querySelectorAll('.finish-pill');
   const sizePills = document.querySelectorAll('.size-pill');
   const customSizeBox = document.getElementById('customSizeBox');
   const widthSlider = document.getElementById('widthSlider');
@@ -148,15 +147,7 @@ export function initCustomizer() {
     });
   });
 
-  // 5. Finish Selection
-  finishPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const finish = pill.dataset.finish;
-      store.updateSticker({ finish });
-    });
-  });
-
-  // 6. Size Selection
+  // 4. Size Selection
   sizePills.forEach(pill => {
     pill.addEventListener('click', () => {
       const isCustom = pill.dataset.custom === 'true';
@@ -277,23 +268,29 @@ export function initCustomizer() {
     });
   });
 
-  // 8. Add to Cart Handler
+  // Add to Cart Handler
   addToCartBtn?.addEventListener('click', () => {
     const state = store.getState();
     const pricing = calculateStickerPricing(state.sticker);
+    const cutMargin = state.sticker.cutMarginMm !== undefined ? state.sticker.cutMarginMm : 2.0;
     const item = {
       name: state.sticker.name,
       imageSrc: state.sticker.imageSrc,
       shape: state.sticker.shape,
+      shapeLabel: SHAPE_LABELS[state.sticker.shape] || state.sticker.shape,
       material: state.sticker.material,
-      finish: state.sticker.finish,
+      materialLabel: MATERIAL_LABELS[state.sticker.material] || state.sticker.material,
+      cutMarginMm: cutMargin,
+      cutMarginText: `${cutMargin.toFixed(1)} mm`,
+      widthCm: state.sticker.widthCm,
+      heightCm: state.sticker.heightCm,
       sizeText: `${state.sticker.widthCm} x ${state.sticker.heightCm} cm`,
       quantity: state.sticker.quantity,
       unitPrice: pricing.unitPrice,
       totalPrice: pricing.totalPrice,
     };
     store.addToCart(item);
-    showToast('¡Stickers añadidos al carrito!', 'success');
+    showToast('¡Stickers añadidos al carrito con todas sus especificaciones!', 'success');
   });
 
   // Direct WhatsApp Quote Handler
@@ -301,12 +298,18 @@ export function initCustomizer() {
   customizerWhatsAppBtn?.addEventListener('click', () => {
     const state = store.getState();
     const pricing = calculateStickerPricing(state.sticker);
+    const cutMargin = state.sticker.cutMarginMm !== undefined ? state.sticker.cutMarginMm : 2.0;
     const item = {
       name: state.sticker.name,
       imageSrc: state.sticker.imageSrc,
       shape: state.sticker.shape,
+      shapeLabel: SHAPE_LABELS[state.sticker.shape] || state.sticker.shape,
       material: state.sticker.material,
-      finish: state.sticker.finish,
+      materialLabel: MATERIAL_LABELS[state.sticker.material] || state.sticker.material,
+      cutMarginMm: cutMargin,
+      cutMarginText: `${cutMargin.toFixed(1)} mm`,
+      widthCm: state.sticker.widthCm,
+      heightCm: state.sticker.heightCm,
       sizeText: `${state.sticker.widthCm} x ${state.sticker.heightCm} cm`,
       quantity: state.sticker.quantity,
       unitPrice: pricing.unitPrice,
@@ -343,19 +346,23 @@ export function initCustomizer() {
       card.classList.toggle('active', card.dataset.material === s.material);
     });
 
-    // Update finish active states
-    finishPills.forEach(pill => {
-      pill.classList.toggle('active', pill.dataset.finish === s.finish);
-    });
-
-    // Update size pills
+    // Update size pills and dynamically unlock prices based on selected material
+    const priceTable = getMaterialPriceTable(s.material);
     sizePills.forEach(pill => {
+      const isCustom = pill.dataset.custom === 'true';
+      if (!isCustom) {
+        const w = parseFloat(pill.dataset.w);
+        const priceSpan = pill.querySelector('.size-pill-price');
+        if (priceSpan && priceTable[w] !== undefined) {
+          priceSpan.textContent = `Q ${priceTable[w]}`;
+        }
+      }
       if (s.isCustomSize) {
-        pill.classList.toggle('active', pill.dataset.custom === 'true');
+        pill.classList.toggle('active', isCustom);
       } else {
         const matchW = parseFloat(pill.dataset.w) === s.widthCm;
         const matchH = parseFloat(pill.dataset.h) === s.heightCm;
-        pill.classList.toggle('active', matchW && matchH && pill.dataset.custom !== 'true');
+        pill.classList.toggle('active', matchW && matchH && !isCustom);
       }
     });
 
@@ -369,7 +376,6 @@ export function initCustomizer() {
       // Remove all material-* classes
       container.className = 'sticker-container';
       container.classList.add(`material-${s.material}`);
-      container.classList.add(`finish-${s.finish}`);
       container.classList.add(`shape-${s.shape}`);
       if (s.shape === 'die-cut') container.classList.add('has-diecut');
       container.style.setProperty('--sticker-mask-url', maskVal);
@@ -461,18 +467,8 @@ export function initCustomizer() {
       summaryUnitPrice.textContent = `${formatPrice(pricing.unitPrice)} / ud`;
     }
     if (summaryQtyDesc) {
-      const finishLabel = s.finish === 'glossy' ? 'Brillante' : 'Mate';
-      const materialLabels = {
-        holographic: 'Holográfico',
-        classic: 'Vinilo Blanco',
-        transparent: 'Transparente',
-        glitter: 'Glitter',
-        metallic: 'Metálico',
-        dtf_uv: 'DTF UV',
-        dtf_textil: 'DTF Textil',
-      };
-      const matLabel = materialLabels[s.material] || s.material;
-      summaryQtyDesc.textContent = `${s.quantity} uds • ${s.widthCm}×${s.heightCm} cm • ${matLabel} • ${finishLabel}`;
+      const matLabel = MATERIAL_LABELS[s.material] || s.material;
+      summaryQtyDesc.textContent = `${s.quantity} uds • ${s.widthCm}×${s.heightCm} cm • ${matLabel}`;
     }
   });
 

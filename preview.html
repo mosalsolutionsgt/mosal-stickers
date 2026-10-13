@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio de Muestras • Nuevas Funcionalidades Mosal Stickers</title>
+  <link rel="icon" type="image/png" href="./favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos base de Mosal Stickers -->
+  <link rel="stylesheet" href="./src/styles/variables.css">
+  <link rel="stylesheet" href="./src/styles/reset.css">
+  <link rel="stylesheet" href="./src/styles/main.css">
+  <link rel="stylesheet" href="./src/styles/components.css">
+  <link rel="stylesheet" href="./src/styles/checkout.css">
+
+  <style>
+    /* Estilos específicos para la barra de navegación del laboratorio de muestras */
+    body {
+      background: #090c10;
+      color: #e6edf3;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview-header-bar {
+      background: rgba(13, 17, 23, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 230, 0, 0.25);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 0.75rem 1.5rem;
+    }
+
+    .preview-header-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .preview-badge-lab {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 230, 0, 0.12);
+      border: 1px solid var(--color-brand-yellow);
+      color: var(--color-brand-yellow);
+      padding: 0.35rem 0.8rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .preview-nav-tabs {
+      display: flex;
+      gap: 0.4rem;
+      background: #161b22;
+      padding: 0.3rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow-x: auto;
+    }
+
+    .preview-nav-tab {
+      background: transparent;
+      border: none;
+      color: #8b949e;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .preview-nav-tab:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .preview-nav-tab.active {
+      background: var(--color-brand-yellow);
+      color: #000000;
+      box-shadow: 0 2px 10px rgba(255, 230, 0, 0.3);
+    }
+
+    .preview-main-content {
+      max-width: 1200px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1.25rem 4rem;
+      flex: 1;
+    }
+
+    .preview-section-panel {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .preview-section-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .preview-panel-header {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .preview-panel-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .preview-panel-desc {
+      color: #8b949e;
+      font-size: 0.92rem;
+      margin-top: 0.25rem;
+    }
+
+    /* -------------------------------------------------------------
+       ESTILOS DEL MÓDULO 1: RASTREADOR DE PEDIDOS
+       ------------------------------------------------------------- */
+    .tracker-card {
+      background: #161b22;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+    }
+
+    .tracker-search-box {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tracker-input {
+      flex: 1;
+      min-width: 260px;
+      background: #0d1117;
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 0.85rem 1.2rem;
+      font-size: 1rem;
+      color: #ffffff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .tracker-input:focus {
+      border-color: var(--color-brand-yellow);
+      box-shadow: 0 0 0 3px rgba(255, 230, 0, 0.15);
+    }
+
+    .tracker-quick-demos {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: #8b949e;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+    }
+
+    .tracker-pill-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--color-brand-yellow);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tracker-pill-btn:hover {
+      background: rgba(255, 230, 0, 0.15);
+      border-color: var(--color-brand-yellow);
+    }
+
+    .order-status-banner {
+      background: rgba(0, 182, 122, 0.1);
+      border: 1px solid rgba(0, 182, 122, 0.3);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    /* Stepper horizontal */
+    .timeline-stepper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 2.5rem 0;
+    }
+
+    .timeline-stepper::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      right: 40px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+
+    .timeline-stepper-progress {
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      height: 4px;
+      background: linear-gradient(90deg, #00b67a, var(--color-brand-yellow));
+      z-index: 1;
+      transition: width 0.4s ease;
+    }
+
+    .stepper-step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 18%;
+    }
+
+    .stepper-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #161b22;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #8b949e;
+      margin-bottom: 0.6rem;
+      transition: all 0.3s ease;
+    }
+
+    .stepper-step.completed .stepper-circle {
+      background: #00b67a;
+      border-color: #00b67a;
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(0, 182, 122, 0.5);
+    }
+
+    .stepper-step.current .stepper-circle {
+      background: #161b22;
+      border-color: var(--color-brand-yellow);
+      color: var(--color-brand-yellow);
+      box-shadow: 0 0 15px rgba(255, 230, 0, 0.5);
+      animation: pulseCircle 1.8s infinite;
+    }
+
+    @keyframes pulseCircle {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    .stepper-title {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e1e4e8;
+      margin-bottom: 0.2rem;
+    }
+
+    .stepper-time {
+      font-size: 0.72rem;
+      color: #8b949e;
+    }
+
+    .tracker-details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+
+    .tracker-info-box {
+      background: #0d1117;
+      padding: 1.25rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tracker-info-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-brand-yellow);
+      margin-bottom: 0.5rem;
+    }
+
+    /* -------------------------------------------------------------
+       ESTILOS DEL MÓDULO 2: SELLOS & AVISO DE PRUEBA DIGITAL
+       ------------------------------------------------------------- */
+    .trust-banner-proof {
+      background: linear-gradient(135deg, rgba(255, 230, 0, 0.12), rgba(0, 240, 255, 0.08));
+      border: 1.5px solid var(--color-brand-yellow);
+      border-radius: 12px;
+      padding: 1.15rem 1.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .trust-badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .trust-badge-item {
+      background: #161b22;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* -------------------------------------------------------------
+       ESTILOS DEL MÓDULO 3: COMPROBANTE DE PAGO IMPRIMIBLE
+       ------------------------------------------------------------- */
+    .receipt-paper {
+      background: #ffffff;
+      color: #111827;
+      border-radius: 14px;
+      padding: 2.5rem;
+      max-width: 650px;
+      margin: 0 auto;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      font-family: var(--font-body);
+      position: relative;
+    }
+
+    .receipt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .receipt-stamp-paid {
+      border: 2.5px solid #059669;
+      color: #059669;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transform: rotate(-4deg);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .receipt-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    .receipt-table th {
+      text-align: left;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6b7280;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .receipt-table td {
+      padding: 0.75rem 0;
+      font-size: 0.9rem;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+
+    /* -------------------------------------------------------------
+       ESTILOS DEL MÓDULO 4: CENTRO DE POLÍTICAS (TABS)
+       ------------------------------------------------------------- */
+    .policy-tabs-container {
+      background: #161b22;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .policy-tabs-nav {
+      display: flex;
+      background: #0d1117;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      overflow-x: auto;
+    }
+
+    .policy-tab-btn {
+      padding: 1rem 1.5rem;
+      background: transparent;
+      border: none;
+      color: #8b949e;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .policy-tab-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .policy-tab-btn.active {
+      color: var(--color-brand-yellow);
+      border-bottom-color: var(--color-brand-yellow);
+      background: rgba(255, 230, 0, 0.05);
+    }
+
+    .policy-tab-pane {
+      display: none;
+      padding: 2rem;
+      line-height: 1.7;
+      color: #c9d1d9;
+    }
+
+    .policy-tab-pane.active {
+      display: block;
+    }
+
+    /* -------------------------------------------------------------
+       ESTILOS DEL MÓDULO 5: VISOR DE CORREO AUTOMÁTICO
+       ------------------------------------------------------------- */
+    .email-preview-frame {
+      max-width: 650px;
+      margin: 0 auto;
+      background: #ffffff;
+      color: #1f2937;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .email-header-top {
+      background: #090c10;
+      padding: 1.75rem 2rem;
+      text-align: center;
+      border-bottom: 3px solid var(--color-brand-yellow);
+    }
+
+    .email-body-content {
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .preview-header-container { flex-direction: column; align-items: stretch; }
+      .timeline-stepper { flex-direction: column; gap: 1.5rem; }
+      .timeline-stepper::before, .timeline-stepper-progress { display: none; }
+      .stepper-step { width: 100%; flex-direction: row; text-align: left; gap: 1rem; }
+      .stepper-circle { margin-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Navegación del Laboratorio de Muestras -->
+  <header class="preview-header-bar">
+    <div class="preview-header-container">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <a href="./" style="display: flex; align-items: center;">
+          <img src="./assets/mosal-logo-white.png" alt="Mosal Stickers" style="height: 28px; width: auto;" />
+        </a>
+        <span class="preview-badge-lab">🧪 Muestra de Mejoras</span>
+      </div>
+
+      <!-- Pestañas de Navegación entre Muestras -->
+      <nav class="preview-nav-tabs" role="tablist">
+        <button class="preview-nav-tab active" data-target="tab-tracker">
+          🔍 1. Rastreador de Pedido
+        </button>
+        <button class="preview-nav-tab" data-target="tab-trust">
+          🛡️ 2. Sellos & Prueba en Checkout
+        </button>
+        <button class="preview-nav-tab" data-target="tab-receipt">
+          📄 3. Recibo / Comprobante PDF
+        </button>
+        <button class="preview-nav-tab" data-target="tab-policies">
+          ⚖️ 4. Centro de Políticas (Tabs)
+        </button>
+        <button class="preview-nav-tab" data-target="tab-email">
+          ✉️ 5. Correo al Cliente
+        </button>
+      </nav>
+
+      <div>
+        <a href="./" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.8rem; font-size: 0.82rem;">
+          ← Volver a la Tienda
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="preview-main-content">
+
+    <!-- =========================================================================
+         MÓDULO 1: RASTREADOR DE PEDIDOS EN VIVO
+         ========================================================================= -->
+    <section class="preview-section-panel active" id="tab-tracker">
+      <div class="preview-panel-header">
+        <div>
+          <h2 class="preview-panel-title">
+            <span>🔍 Módulo de Rastreo de Pedido en Tiempo Real</span>
+          </h2>
+          <p class="preview-panel-desc">
+            Permite que tus clientes consulten el avance de sus stickers en cualquier momento con su número de orden o WhatsApp sin tener que llamar.
+          </p>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-secondary btn-sm" onclick="demoResetTracker('MOS-849201')">Probar En Impresión</button>
+          <button class="btn btn-secondary btn-sm" onclick="demoResetTracker('MOS-592184')">Probar En Envío (Cargo Exp.)</button>
+        </div>
+      </div>
+
+      <div class="tracker-card">
+        <div class="tracker-search-box">
+          <input type="text" id="trackerInput" class="tracker-input" placeholder="Ingresa tu No. de Orden (ej. MOS-849201) o WhatsApp..." value="MOS-849201" />
+          <button class="btn btn-primary" id="trackerSearchBtn" onclick="executeTrackerSearch()">
+            Buscar Pedido →
+          </button>
+        </div>
+
+        <div class="tracker-quick-demos">
+          <span>Pedidos de ejemplo listos para probar:</span>
+          <button class="tracker-pill-btn" onclick="setTrackerQuery('MOS-849201')">#MOS-849201 (En Impresión)</button>
+          <button class="tracker-pill-btn" onclick="setTrackerQuery('MOS-592184')">#MOS-592184 (En Camino / Cargo Expreso)</button>
+          <button class="tracker-pill-btn" onclick="setTrackerQuery('MOS-103948')">#MOS-103948 (Entregado)</button>
+        </div>
+
+        <div id="trackerResultArea">
+          <!-- Banner Resumen -->
+          <div class="order-status-banner">
+            <div>
+              <div style="font-size: 0.8rem; color: #8b949e; text-transform: uppercase; font-weight: 700;">No. de Orden Oficial:</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: #ffffff;" id="trackerOrderIdDisplay">#MOS-849201</div>
+            </div>
+            <div style="text-align: right;">
+              <span class="badge badge-yellow" id="trackerBadgeStatus">⚡ En Taller de Impresión</span>
+              <div style="font-size: 0.78rem; color: #8b949e; margin-top: 0.2rem;">Actualizado hace 24 minutos</div>
+            </div>
+          </div>
+
+          <!-- Línea de Tiempo / Stepper -->
+          <div class="timeline-stepper">
+            <div class="timeline-stepper-progress" id="stepperProgressBar" style="width: 50%;"></div>
+
+            <!-- Paso 1 -->
+            <div class="stepper-step completed" id="step1">
+              <div class="stepper-circle">✓</div>
+              <div class="stepper-title">Pago Aprobado</div>
+              <div class="stepper-time">Recurrente Tarjeta<br>17 Oct • 10:25 AM</div>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="stepper-step completed" id="step2">
+              <div class="stepper-circle">✓</div>
+              <div class="stepper-title">Prueba de Corte OK</div>
+              <div class="stepper-time">Aprobado en WhatsApp<br>17 Oct • 11:40 AM</div>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="stepper-step current" id="step3">
+              <div class="stepper-circle">3</div>
+              <div class="stepper-title">En Impresión</div>
+              <div class="stepper-time" style="color: var(--color-brand-yellow); font-weight: 600;">Troquelado de Precisión<br>¡En proceso ahora!</div>
+            </div>
+
+            <!-- Paso 4 -->
+            <div class="stepper-step" id="step4">
+              <div class="stepper-circle">4</div>
+              <div class="stepper-title">En Envío</div>
+              <div class="stepper-time" id="step4Subtitle">Cargo Expreso / Guatex<br>Guía pendiente</div>
+            </div>
+
+            <!-- Paso 5 -->
+            <div class="stepper-step" id="step5">
+              <div class="stepper-circle">5</div>
+              <div class="stepper-title">Entregado</div>
+              <div class="stepper-time">En tu dirección</div>
+            </div>
+          </div>
+
+          <!-- Detalles del Pedido -->
+          <div class="tracker-details-grid">
+            <div class="tracker-info-box">
+              <div class="tracker-info-label">👤 Datos del Cliente & Envío</div>
+              <div style="font-weight: 700; color: #fff;" id="trackerCustomerName">Herbert Moscoso</div>
+              <div style="font-size: 0.85rem; color: #8b949e; margin-top: 0.2rem;" id="trackerCustomerPhone">+502 3029-2980</div>
+              <div style="font-size: 0.85rem; color: #8b949e; margin-top: 0.2rem;" id="trackerCustomerAddress">7ma Avenida 12-34, Zona 10, Ciudad de Guatemala</div>
+            </div>
+
+            <div class="tracker-info-box">
+              <div class="tracker-info-label">📦 Productos en Producción</div>
+              <div style="font-weight: 700; color: #fff;" id="trackerItemName">100x Stickers Troquelados (6x6 cm)</div>
+              <div style="font-size: 0.85rem; color: #8b949e; margin-top: 0.2rem;" id="trackerItemMaterial">Material: Vinilo Holográfico Prismático • Acabado UV Brillante</div>
+              <div style="font-size: 0.85rem; color: var(--color-brand-yellow); font-weight: 700; margin-top: 0.3rem;" id="trackerItemTotal">Total Pagado: Q 240.00</div>
+            </div>
+
+            <div class="tracker-info-box" style="display: flex; flex-direction: column; justify-content: center;">
+              <div class="tracker-info-label">💬 Asistencia Directa</div>
+              <p style="font-size: 0.82rem; color: #8b949e; margin-bottom: 0.75rem;">
+                ¿Deseas cambiar tu dirección de entrega o añadir más unidades antes de despacho?
+              </p>
+              <a id="trackerWhatsAppLink" href="https://wa.me/50230292980?text=Hola%20Mosal%20Solutions%2C%20quisiera%20consultar%20mi%20orden%20MOS-849201" target="_blank" class="btn btn-whatsapp btn-sm" style="display: inline-flex; justify-content: center; align-items: center; gap: 0.4rem;">
+                Consultar por WhatsApp (3029-2980)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         MÓDULO 2: SELLOS DE SEGURIDAD Y AVISO DE PRUEBA EN EL CHECKOUT
+         ========================================================================= -->
+    <section class="preview-section-panel" id="tab-trust">
+      <div class="preview-panel-header">
+        <div>
+          <h2 class="preview-panel-title">
+            <span>🛡️ Sellos de Confianza y Aviso de Prueba Digital en Checkout</span>
+          </h2>
+          <p class="preview-panel-desc">
+            Así es como se vería el interior del formulario de compra para transmitir absoluta tranquilidad al cliente antes de pagar con tarjeta.
+          </p>
+        </div>
+      </div>
+
+      <div style="max-width: 680px; margin: 0 auto; background: #161b22; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 2rem;">
+        
+        <!-- Aviso de Prueba Digital -->
+        <div class="trust-banner-proof">
+          <div style="font-size: 1.7rem; flex-shrink: 0;">🎨</div>
+          <div>
+            <div style="font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--color-brand-yellow); margin-bottom: 0.2rem;">
+              Garantía de Aprobación de Arte Previa
+            </div>
+            <p style="font-size: 0.84rem; color: #e1e4e8; line-height: 1.5; margin: 0;">
+              No te preocupes si no sabes cómo quedará el corte. Antes de encender las impresoras, nuestro diseñador preparará tu línea de troquelado y te enviará la <strong>prueba digital final por WhatsApp</strong> para que des tu visto bueno definitivo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Métodos de Pago Interactivos -->
+        <div style="font-size: 0.88rem; font-weight: 700; color: #ffffff; margin-bottom: 0.6rem;">
+          Selecciona tu método de pago:
+        </div>
+
+        <div class="payment-methods-grid" style="margin-bottom: 1.25rem;">
+          <div class="payment-method-card active">
+            <input type="radio" checked class="payment-method-radio">
+            <div class="payment-method-content">
+              <div class="payment-method-header">
+                <span class="payment-method-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                  Tarjeta en Línea (Recurrente)
+                </span>
+                <span class="badge badge-yellow">Aprobación Inmediata</span>
+              </div>
+              <p class="payment-method-desc">
+                Paga de forma 100% segura con Visa o Mastercard emitidas en Guatemala o internacionales.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón de Pago Principal -->
+        <button class="btn-recurrente-pay" style="width: 100%; justify-content: center; padding: 1rem 1.5rem; font-size: 1.05rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          <span>Pagar Q 256.66 con Tarjeta (Recurrente) →</span>
+        </button>
+
+        <!-- Cuadrícula de Sellos de Confianza y Seguridad -->
+        <div class="trust-badges-grid">
+          <div class="trust-badge-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00b67a" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 700; color: #fff;">SSL 256-Bit Seguro</div>
+              <div style="font-size: 0.72rem; color: #8b949e;">Datos de pago cifrados</div>
+            </div>
+          </div>
+
+          <div class="trust-badge-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 700; color: #fff;">3D Secure Oficial</div>
+              <div style="font-size: 0.72rem; color: #8b949e;">Validación bancaria</div>
+            </div>
+          </div>
+
+          <div class="trust-badge-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffe600" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 700; color: #fff;">Garantía Mosal 100%</div>
+              <div style="font-size: 0.72rem; color: #8b949e;">Reimpresión ante fallas</div>
+            </div>
+          </div>
+
+          <div class="trust-badge-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff2d87" stroke-width="2.2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 700; color: #fff;">Cargo Expreso / Guatex</div>
+              <div style="font-size: 0.72rem; color: #8b949e;">Envíos a todo el país</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         MÓDULO 3: COMPROBANTE DE PAGO / RECIBO IMPRIMIBLE
+         ========================================================================= -->
+    <section class="preview-section-panel" id="tab-receipt">
+      <div class="preview-panel-header">
+        <div>
+          <h2 class="preview-panel-title">
+            <span>📄 Comprobante Oficial Imprimible & PDF</span>
+          </h2>
+          <p class="preview-panel-desc">
+            Al completar el pago en Recurrente, el cliente puede hacer clic en "Descargar / Imprimir Recibo" para obtener esta constancia digital formal.
+          </p>
+        </div>
+        <div>
+          <button class="btn btn-primary" onclick="printReceiptDemo()">
+            🖨️ Probar Imprimir / Guardar en PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Papel del Recibo Formal -->
+      <div class="receipt-paper" id="printableReceiptArea">
+        <div class="receipt-header">
+          <div>
+            <img src="./assets/mosal-logo-black.png" alt="Mosal Solutions" style="height: 38px; width: auto; margin-bottom: 0.4rem;" />
+            <div style="font-size: 0.82rem; color: #4b5563;">Mosal Solutions Guatemala</div>
+            <div style="font-size: 0.78rem; color: #6b7280;">PBX/WhatsApp: +502 3029-2980 • mosalsolutionsgt@gmail.com</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="receipt-stamp-paid">✓ Pagado con Tarjeta</div>
+            <div style="font-size: 1.1rem; font-weight: 800; margin-top: 0.5rem; color: #111827;">ORDEN #MOS-849201</div>
+            <div style="font-size: 0.78rem; color: #6b7280;">17 de Octubre de 2026, 10:25 AM</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; font-size: 0.85rem;">
+          <div>
+            <div style="font-weight: 700; color: #111827;">FACTURADO A:</div>
+            <div style="color: #374151;">Herbert Moscoso</div>
+            <div style="color: #6b7280;">NIT: C/F (Consumidor Final)</div>
+            <div style="color: #6b7280;">Teléfono: 3029-2980</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-weight: 700; color: #111827;">DESTINO DE ENVÍO:</div>
+            <div style="color: #374151;">7ma Avenida 12-34, Zona 10</div>
+            <div style="color: #6b7280;">Ciudad de Guatemala, Guatemala</div>
+            <div style="color: #6b7280;">Paquetería: Cargo Expreso / Guatex</div>
+          </div>
+        </div>
+
+        <table class="receipt-table">
+          <thead>
+            <tr>
+              <th>Descripción</th>
+              <th style="text-align: center;">Cantidad</th>
+              <th style="text-align: right;">Precio Unit.</th>
+              <th style="text-align: right;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div style="font-weight: 700; color: #111827;">Stickers Troquelados Personalizados (6x6 cm)</div>
+                <div style="font-size: 0.78rem; color: #6b7280;">Material: Vinilo Holográfico Prismático • Acabado UV Brillante</div>
+              </td>
+              <td style="text-align: center; font-weight: 600;">100 unid.</td>
+              <td style="text-align: right; color: #374151;">Q 2.00</td>
+              <td style="text-align: right; font-weight: 700; color: #111827;">Q 200.00</td>
+            </tr>
+            <tr>
+              <td>
+                <div style="font-weight: 700; color: #111827;">Envío Nacional con Guía y Rastreo</div>
+                <div style="font-size: 0.78rem; color: #6b7280;">Cobertura puerta a puerta en Guatemala</div>
+              </td>
+              <td style="text-align: center; font-weight: 600;">1</td>
+              <td style="text-align: right; color: #374151;">Q 35.00</td>
+              <td style="text-align: right; font-weight: 700; color: #111827;">Q 35.00</td>
+            </tr>
+            <tr>
+              <td>
+                <div style="font-weight: 600; color: #6b7280;">Cargo por procesamiento seguro de tarjeta (Recurrente)</div>
+              </td>
+              <td style="text-align: center; font-weight: 600;">1</td>
+              <td style="text-align: right; color: #6b7280;">Q 15.22</td>
+              <td style="text-align: right; font-weight: 600; color: #6b7280;">Q 15.22</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 1rem; border-top: 2px solid #e5e7eb;">
+          <div style="font-size: 0.78rem; color: #6b7280; max-width: 320px; line-height: 1.4;">
+            Transacción procesada por pasarela segura Recurrente Guatemala. Cualquier duda puedes contactarnos por WhatsApp con tu número de orden.
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.85rem; color: #6b7280;">TOTAL COBRADO:</div>
+            <div style="font-size: 1.6rem; font-weight: 900; color: #111827;">Q 250.22</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         MÓDULO 4: CENTRO DE POLÍTICAS Y AYUDA (TABS)
+         ========================================================================= -->
+    <section class="preview-section-panel" id="tab-policies">
+      <div class="preview-panel-header">
+        <div>
+          <h2 class="preview-panel-title">
+            <span>⚖️ Centro de Términos, Políticas & Garantía Mosal</span>
+          </h2>
+          <p class="preview-panel-desc">
+            Organizado en pestañas elegantes para responder todas las dudas legales del cliente y cumplir los estándares de Visa/Mastercard.
+          </p>
+        </div>
+      </div>
+
+      <div class="policy-tabs-container">
+        <div class="policy-tabs-nav">
+          <button class="policy-tab-btn active" data-pane="pane-shipping">
+            🚚 Envíos y Tiempos de Entrega
+          </button>
+          <button class="policy-tab-btn" data-pane="pane-warranty">
+            🔄 Garantía y Reembolsos
+          </button>
+          <button class="policy-tab-btn" data-pane="pane-terms">
+            ⚖️ Términos de Servicio
+          </button>
+          <button class="policy-tab-btn" data-pane="pane-privacy">
+            🔒 Privacidad de Datos
+          </button>
+        </div>
+
+        <!-- Pestaña 1: Envíos -->
+        <div class="policy-tab-pane active" id="pane-shipping">
+          <h3 style="color: #fff; font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.75rem;">
+            Cobertura y Tiempos de Entrega en Toda Guatemala
+          </h3>
+          <p>
+            En <strong>Mosal Solutions</strong> realizamos envíos seguros y asegurados a los 22 departamentos de Guatemala a través de nuestras alianzas oficiales con <strong>Cargo Expreso</strong> y <strong>Guatex</strong>, así como mensajería expresa propia en el perímetro metropolitano.
+          </p>
+          <ul style="margin: 1rem 0 1rem 1.5rem; list-style-type: disc;">
+            <li><strong>Tiempo de Producción Gráfica:</strong> 24 a 48 horas hábiles tras la aprobación definitiva de la prueba digital por WhatsApp.</li>
+            <li><strong>Tiempo de Tránsito Ciudad Capital:</strong> 24 a 48 horas hábiles una vez despachado el paquete.</li>
+            <li><strong>Tiempo de Tránsito Departamentos:</strong> 48 a 72 horas hábiles puerta a puerta.</li>
+            <li><strong>Envío Gratis:</strong> Aplica de forma automática en compras superiores a <strong>Q 250.00</strong> en todo el territorio nacional.</li>
+          </ul>
+        </div>
+
+        <!-- Pestaña 2: Garantía -->
+        <div class="policy-tab-pane" id="pane-warranty">
+          <h3 style="color: #fff; font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.75rem;">
+            Garantía de Calidad Mosal 100% Sin Riesgo
+          </h3>
+          <p>
+            Nos tomamos muy en serio la calidad de cada sticker. Todos nuestros materiales cuentan con vinilo adhesivo de alto agarre y máxima protección contra agua, sol y rayones.
+          </p>
+          <ul style="margin: 1rem 0 1rem 1.5rem; list-style-type: disc;">
+            <li><strong>Fallas de Fabricación o Troquelado:</strong> Si tus stickers presentan desalineación de corte, manchas de tinta o defectos imputables a impresión, te realizamos la reimpresión completa sin ningún costo.</li>
+            <li><strong>Aprobación Previa:</strong> Para tu tranquilidad, nunca imprimimos un pedido sin que antes hayas aprobado la prueba digital enviada por WhatsApp.</li>
+          </ul>
+        </div>
+
+        <!-- Pestaña 3: Términos -->
+        <div class="policy-tab-pane" id="pane-terms">
+          <h3 style="color: #fff; font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.75rem;">
+            Términos y Condiciones del Servicio
+          </h3>
+          <p>
+            Al utilizar nuestra plataforma y enviar pedidos personalizados, el cliente declara ser el titular o contar con las autorizaciones debidas sobre los logotipos, marcas e ilustraciones enviadas para impresión. Mosal Solutions actúa exclusivamente como proveedor de servicios de manufactura e impresión gráfica por encargo.
+          </p>
+        </div>
+
+        <!-- Pestaña 4: Privacidad -->
+        <div class="policy-tab-pane" id="pane-privacy">
+          <h3 style="color: #fff; font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.75rem;">
+            Política de Privacidad y Tratamiento de Información
+          </h3>
+          <p>
+            Los datos personales, números de contacto, NIT y direcciones recabados durante el proceso de compra son utilizados exclusivamente para la facturación, despacho de paquetería y comunicación de soporte sobre tu pedido. <strong>Mosal Solutions jamás comercializa ni comparte tus datos con terceras entidades.</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         MÓDULO 5: VISOR DE CORREO AUTOMÁTICO AL CLIENTE
+         ========================================================================= -->
+    <section class="preview-section-panel" id="tab-email">
+      <div class="preview-panel-header">
+        <div>
+          <h2 class="preview-panel-title">
+            <span>✉️ Correo Automático de Confirmación al Cliente</span>
+          </h2>
+          <p class="preview-panel-desc">
+            Plantilla de correo electrónico que se disparará automáticamente vía Google Apps Script al cliente inmediatamente después de pagar.
+          </p>
+        </div>
+      </div>
+
+      <div class="email-preview-frame">
+        <div class="email-header-top">
+          <img src="./assets/mosal-logo-white.png" alt="Mosal Solutions" style="height: 32px; width: auto;" />
+          <div style="color: #8b949e; font-size: 0.8rem; margin-top: 0.35rem;">Stickers Troquelados & Soluciones Gráficas</div>
+        </div>
+
+        <div class="email-body-content">
+          <div style="font-size: 1.2rem; font-weight: 800; color: #111827; margin-bottom: 0.5rem;">
+            ¡Gracias por tu compra, Herbert! 🎉
+          </div>
+          <p style="color: #4b5563; font-size: 0.92rem;">
+            Hemos recibido con éxito tu pago con tarjeta y tu pedido ya fue asignado a nuestra cola de producción.
+          </p>
+
+          <div style="background: #f3f4f6; border-radius: 10px; padding: 1.25rem; margin: 1.5rem 0;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="font-size: 0.85rem; color: #6b7280;">No. de Orden:</span>
+              <strong style="color: #111827;">#MOS-849201</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="font-size: 0.85rem; color: #6b7280;">Método de Pago:</span>
+              <span style="color: #059669; font-weight: 700;">Tarjeta en Línea (Recurrente)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-top: 1px dashed #d1d5db; padding-top: 0.5rem; margin-top: 0.5rem;">
+              <span style="font-size: 0.95rem; font-weight: 700; color: #111827;">Total Pagado:</span>
+              <span style="font-size: 1.1rem; font-weight: 800; color: #111827;">Q 250.22</span>
+            </div>
+          </div>
+
+          <div style="font-weight: 700; font-size: 0.95rem; color: #111827; margin-bottom: 0.6rem;">
+            ¿Cuáles son los siguientes pasos?
+          </div>
+          <ol style="color: #4b5563; font-size: 0.88rem; padding-left: 1.25rem; line-height: 1.6;">
+            <li>Nuestro equipo gráfico inspeccionará la resolución de tu archivo.</li>
+            <li>Te contactaremos a tu WhatsApp (+502 3029-2980) para mostrarte la prueba digital final.</li>
+            <li>Al tener tu aprobación, se imprime y se despacha con guía de rastreo.</li>
+          </ol>
+
+          <div style="text-align: center; margin: 2rem 0 1rem;">
+            <a href="#" style="background: #111827; color: #ffe600; font-weight: 800; text-decoration: none; padding: 0.85rem 1.8rem; border-radius: 8px; font-size: 0.9rem; display: inline-block;">
+              🔍 Rastrear Estado de mi Pedido en la Web →
+            </a>
+          </div>
+        </div>
+
+        <div style="background: #f9fafb; padding: 1.25rem; text-align: center; border-top: 1px solid #e5e7eb; font-size: 0.78rem; color: #6b7280;">
+          Mosal Solutions • PBX / WhatsApp: +502 3029-2980 • mosalsolutionsgt@gmail.com<br>
+          Ciudad de Guatemala, Guatemala.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Navegación interactiva entre las muestras del laboratorio
+    const navTabs = document.querySelectorAll('.preview-nav-tab');
+    const sections = document.querySelectorAll('.preview-section-panel');
+
+    navTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        navTabs.forEach(t => t.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+
+        tab.classList.add('active');
+        const targetId = tab.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) targetSection.classList.add('active');
+      });
+    });
+
+    // Pestañas del módulo de Políticas
+    const policyTabs = document.querySelectorAll('.policy-tab-btn');
+    const policyPanes = document.querySelectorAll('.policy-tab-pane');
+
+    policyTabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        policyTabs.forEach(b => b.classList.remove('active'));
+        policyPanes.forEach(p => p.classList.remove('active'));
+
+        btn.classList.add('active');
+        const paneId = btn.getAttribute('data-pane');
+        const targetPane = document.getElementById(paneId);
+        if (targetPane) targetPane.classList.add('active');
+      });
+    });
+
+    // Simulación de búsqueda en el Rastreador
+    const DEMO_ORDERS = {
+      'MOS-849201': {
+        orderId: 'MOS-849201',
+        customer: 'Herbert Moscoso',
+        phone: '+502 3029-2980',
+        address: '7ma Avenida 12-34, Zona 10, Ciudad de Guatemala',
+        item: '100x Stickers Troquelados (6x6 cm)',
+        material: 'Vinilo Holográfico Prismático',
+        total: 'Q 280.00',
+        statusText: '⚡ En Taller de Impresión y Troquelado',
+        statusBadgeClass: 'badge-yellow',
+        progressWidth: '50%',
+        completedSteps: [1, 2],
+        currentStep: 3,
+        step4Sub: 'Cargo Expreso / Guatex (Pendiente)'
+      },
+      'MOS-592184': {
+        orderId: 'MOS-592184',
+        customer: 'Carlos Ramírez',
+        phone: '+502 4123-9876',
+        address: '4ta Calle 8-12, Zona 3, Quetzaltenango (Xela)',
+        item: '500x Stickers Troquelados (5x5 cm)',
+        material: 'Vinilo Clásico Blanco',
+        total: 'Q 575.00',
+        statusText: '🚚 En Camino con Cargo Expreso (Guía #948201)',
+        statusBadgeClass: 'badge-yellow',
+        progressWidth: '75%',
+        completedSteps: [1, 2, 3],
+        currentStep: 4,
+        step4Sub: 'Guía Cargo Expreso: 948201 (En ruta a Xela)'
+      },
+      'MOS-103948': {
+        orderId: 'MOS-103948',
+        customer: 'Ana Lucía Morales',
+        phone: '+502 5590-1122',
+        address: 'Carretera a El Salvador, Km 14.5, Santa Catarina Pinula',
+        item: '200x Stickers Dorado (7x7 cm)',
+        material: 'Dorado Metálico Premium',
+        total: 'Q 660.00',
+        statusText: '✓ Entregado con Éxito',
+        statusBadgeClass: 'badge-yellow',
+        progressWidth: '100%',
+        completedSteps: [1, 2, 3, 4, 5],
+        currentStep: 5,
+        step4Sub: 'Entregado por Guatex'
+      }
+    };
+
+    function executeTrackerSearch() {
+      const input = document.getElementById('trackerInput');
+      const val = input.value.trim().toUpperCase();
+      const order = DEMO_ORDERS[val] || DEMO_ORDERS['MOS-849201'];
+      applyOrderData(order);
+    }
+
+    function setTrackerQuery(id) {
+      document.getElementById('trackerInput').value = id;
+      executeTrackerSearch();
+    }
+
+    function demoResetTracker(id) {
+      setTrackerQuery(id);
+    }
+
+    function applyOrderData(order) {
+      document.getElementById('trackerOrderIdDisplay').textContent = `#${order.orderId}`;
+      document.getElementById('trackerBadgeStatus').textContent = order.statusText;
+      document.getElementById('stepperProgressBar').style.width = order.progressWidth;
+      document.getElementById('trackerCustomerName').textContent = order.customer;
+      document.getElementById('trackerCustomerPhone').textContent = order.phone;
+      document.getElementById('trackerCustomerAddress').textContent = order.address;
+      document.getElementById('trackerItemName').textContent = order.item;
+      document.getElementById('trackerItemMaterial').textContent = `Material: ${order.material}`;
+      document.getElementById('trackerItemTotal').textContent = `Total Pagado: ${order.total}`;
+      document.getElementById('step4Subtitle').textContent = order.step4Sub;
+
+      // Actualizar clases de steps
+      for (let i = 1; i <= 5; i++) {
+        const stepEl = document.getElementById(`step${i}`);
+        if (!stepEl) continue;
+        stepEl.classList.remove('completed', 'current');
+        if (order.completedSteps.includes(i)) {
+          stepEl.classList.add('completed');
+        } else if (order.currentStep === i) {
+          stepEl.classList.add('current');
+        }
+      }
+
+      // WhatsApp link
+      const waLink = document.getElementById('trackerWhatsAppLink');
+      if (waLink) {
+        waLink.href = `https://wa.me/50230292980?text=${encodeURIComponent(`Hola Mosal Solutions, quisiera consultar el estado de mi orden #${order.orderId}`)}`;
+      }
+    }
+
+    function printReceiptDemo() {
+      window.print();
+    }
+  </script>
+</body>
+</html>

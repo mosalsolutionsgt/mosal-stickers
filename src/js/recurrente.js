@@ -50,12 +50,22 @@ export async function processRecurrentePayment(orderPayload, submitButton) {
     // Estructura detallada de items para el recibo de Recurrente
     let items = orderPayload.cart && orderPayload.cart.length > 0
       ? orderPayload.cart.map(item => ({
-          name: `${item.quantity}x ${item.name} (${item.sizeText})`,
+          name: `${item.quantity}x ${item.name} (${item.sizeText || ''} - ${item.materialLabel || item.material || 'Vinilo'})`,
           amount_in_cents: Math.round(item.totalPrice * 100),
           currency: orderPayload.currency || 'GTQ',
           quantity: 1
         }))
       : [];
+
+    // Agregar flete como item desglosado si aplica
+    if (orderPayload.shippingFee > 0) {
+      items.push({
+        name: `Envío Nacional (${orderPayload.shippingZone || 'Cargo Expreso / Guatex'})`,
+        amount_in_cents: Math.round(orderPayload.shippingFee * 100),
+        currency: orderPayload.currency || 'GTQ',
+        quantity: 1
+      });
+    }
 
     const itemsTotal = items.reduce((sum, it) => sum + it.amount_in_cents, 0);
     const expectedTotal = Math.round(orderPayload.finalTotal * 100);
@@ -63,8 +73,8 @@ export async function processRecurrentePayment(orderPayload, submitButton) {
     // Si hubo cupón de descuento, ajuste de tarjeta o discrepancia de centavos, unificar en un item exacto
     if (items.length === 0 || itemsTotal !== expectedTotal) {
       const summaryTitle = orderPayload.cart && orderPayload.cart.length === 1
-        ? `${orderPayload.cart[0].quantity}x ${orderPayload.cart[0].name} (${orderPayload.cart[0].sizeText})`
-        : `Pedido Mosal Stickers #${orderId} (${orderPayload.cart?.length || 1} productos)`;
+        ? `${orderPayload.cart[0].quantity}x ${orderPayload.cart[0].name} (${orderPayload.cart[0].sizeText || ''}) + Envío`
+        : `Pedido Mosal Stickers #${orderId} (${orderPayload.cart?.length || 1} productos + Envío)`;
 
       items = [
         {
@@ -174,12 +184,23 @@ export function openSuccessModal(orderId, orderData = null) {
   if (totalEl) totalEl.textContent = totalAmount;
 
   if (detailsEl && orderData && orderData.cart) {
-    detailsEl.innerHTML = orderData.cart.map(item => `
+    let itemsHtml = orderData.cart.map(item => `
       <div style="display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.82rem; color: var(--text-gray-200); padding: 0.25rem 0; border-bottom: 1px dashed rgba(255,255,255,0.08);">
-        <span>• ${item.quantity}x ${item.name} (${item.sizeText})</span>
+        <span>• ${item.quantity}x ${item.name} (${item.sizeText || ''} - ${item.materialLabel || item.material || 'Vinilo'})</span>
         <span style="font-weight: 700; color: white;">${formatPrice(item.totalPrice)}</span>
       </div>
     `).join('');
+
+    if (orderData.shippingFee !== undefined) {
+      itemsHtml += `
+        <div style="display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.82rem; color: var(--text-gray-300); padding: 0.25rem 0; border-bottom: 1px dashed rgba(255,255,255,0.08);">
+          <span>• Flete / Envío (${orderData.shippingZone || 'Nacional'})</span>
+          <span style="font-weight: 700; color: ${orderData.shippingFee === 0 ? '#00b67a' : 'white'};">${orderData.shippingFee === 0 ? '¡GRATIS!' : formatPrice(orderData.shippingFee)}</span>
+        </div>
+      `;
+    }
+
+    detailsEl.innerHTML = itemsHtml;
   }
 
   // Configurar botón para notificar a Mosal por WhatsApp
@@ -189,9 +210,11 @@ export function openSuccessModal(orderId, orderData = null) {
       `📦 *No. de Orden:* #${orderId}`,
       `👤 *Cliente:* ${clientName}`,
       orderData && orderData.customer && orderData.customer.phone ? `📞 *Teléfono:* ${orderData.customer.phone}` : '',
+      orderData && orderData.subtotal ? `• Subtotal Stickers: ${formatPrice(orderData.subtotal)}` : '',
+      orderData && orderData.shippingFee !== undefined ? `• Costo de Envío: ${orderData.shippingFee > 0 ? formatPrice(orderData.shippingFee) : '¡GRATIS!'} (${orderData.shippingZone || ''})` : '',
       `💰 *Total Pagado:* ${totalAmount}`,
       '',
-      'Les escribo para consultar el estado de producción de mis stickers y coordinar la entrega. ¡Muchas gracias!'
+      'Les escribo para revisar mi prueba digital final y coordinar la entrega. ¡Muchas gracias!'
     ].filter(Boolean).join('\n');
 
     waBtn.href = `https://wa.me/50230292980?text=${encodeURIComponent(waText)}`;

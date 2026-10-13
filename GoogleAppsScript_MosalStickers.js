@@ -78,12 +78,14 @@ function doPost(e) {
         "NIT",
         "Facturación",
         "Método de Pago",
-        "Total",
-        "Productos",
+        "Subtotal Stickers",
+        "Envío / Flete",
+        "Total Cobrado",
+        "Detalle Completo de Productos (Material, Corte, Margen)",
         "Enlace a Archivo en Drive"
       ]);
       // Dar formato a los encabezados
-      sheet.getRange(1, 1, 1, 14).setBackground("#FFE600").setFontWeight("bold").setFontColor("#000000");
+      sheet.getRange(1, 1, 1, 16).setBackground("#FFE600").setFontWeight("bold").setFontColor("#000000");
       sheet.setFrozenRows(1);
 
       // Mover el Spreadsheet a la carpeta de Pedidos
@@ -105,8 +107,10 @@ function doPost(e) {
       data.nit || "C/F",
       data.billingName || "",
       data.payMethod || "",
+      data.subtotal || "",
+      data.shippingFee || "",
       data.total || "",
-      data.itemsSummary || "",
+      data.itemsDetailedText || data.itemsSummary || "",
       fileUrl
     ]);
 
@@ -114,25 +118,62 @@ function doPost(e) {
     var recipient = "mosalsolutionsgt@gmail.com";
     var subject = "📦 Nuevo Pedido Web #" + (data.orderId || "") + " - " + (data.customerName || "Cliente") + " (" + (data.total || "") + ")";
     var body = "¡Hola Mosal Solutions!\n\n" +
-      "Se ha recibido un nuevo pedido en la tienda web:\n\n" +
-      "📋 DETALLES DEL PEDIDO:\n" +
+      "Se ha recibido un nuevo pedido en la tienda web con especificaciones técnicas completas:\n\n" +
+      "📋 DETALLES DE LA ORDEN:\n" +
       "• No. de Orden: #" + (data.orderId || "") + "\n" +
       "• Fecha: " + (data.date || "") + "\n" +
-      "• Total: " + (data.total || "") + "\n" +
-      "• Método de pago: " + (data.payMethod || "") + "\n\n" +
-      "👤 DATOS DEL CLIENTE:\n" +
+      "• Método de Pago: " + (data.payMethod || "") + "\n\n" +
+      "👤 DATOS DEL CLIENTE Y ENVÍO:\n" +
       "• Nombre: " + (data.customerName || "") + "\n" +
       "• Teléfono / WhatsApp: " + (data.phone || "") + "\n" +
       "• Correo: " + (data.email || "") + "\n" +
       "• Dirección: " + (data.address || "") + ", " + (data.city || "") + " (" + (data.department || "") + ")\n" +
       "• NIT: " + (data.nit || "C/F") + "\n" +
       "• Nombre Facturación: " + (data.billingName || "Mismo del cliente") + "\n\n" +
-      "📦 PRODUCTOS:\n" + (data.itemsSummary || "Ver detalle en el sistema") + "\n\n" +
+      "📦 DETALLE COMPLETO DE PRODUCTOS:\n" +
+      "--------------------------------------------------\n" +
+      (data.itemsDetailedText || data.itemsSummary || "Ver detalle en el sistema") + "\n" +
+      "--------------------------------------------------\n\n" +
+      "💰 DESGLOSE ECONÓMICO Y FLETE:\n" +
+      "• Subtotal Stickers: " + (data.subtotal || "Q 0.00") + "\n" +
+      "• Costo de Envío (" + (data.shippingZone || data.department || "Guatemala") + "): " + (data.shippingFee || "Q 0.00") + "\n" +
+      "• TOTAL COBRADO: " + (data.total || "Q 0.00") + "\n\n" +
       "📁 ARCHIVO EN ALTA RESOLUCIÓN (GOOGLE DRIVE):\n" + fileUrl + "\n\n" +
       "📊 HOJA DE CÁLCULO DE PEDIDOS:\n" + spreadsheet.getUrl() + "\n\n" +
       "— Sistema Web Mosal Stickers";
 
     MailApp.sendEmail(recipient, subject, body);
+
+    // 5. Enviar correo automático de confirmación al cliente si proporcionó un correo válido
+    if (data.email && data.email.indexOf("@") !== -1) {
+      try {
+        var clientSubject = "✓ Confirmación de tu Pedido Mosal Stickers #" + (data.orderId || "");
+        var clientBody = "¡Hola " + (data.customerName || "Estimado Cliente") + "! 👋\n\n" +
+          "Muchas gracias por tu compra en Mosal Solutions. Tu pedido #" + (data.orderId || "") + " ha sido recibido y registrado en nuestra cola de producción.\n\n" +
+          "📦 DETALLE DE TU PEDIDO:\n" +
+          "--------------------------------------------------\n" +
+          (data.itemsDetailedText || data.itemsSummary || "") + "\n" +
+          "--------------------------------------------------\n\n" +
+          "💰 DESGLOSE:\n" +
+          "• Subtotal Stickers: " + (data.subtotal || "") + "\n" +
+          "• Costo de Envío (" + (data.shippingZone || data.department || "Guatemala") + "): " + (data.shippingFee || "") + "\n" +
+          "• Total Pagado: " + (data.total || "") + "\n" +
+          "• Método de Pago: " + (data.payMethod || "") + "\n\n" +
+          "📍 DIRECCIÓN DE ENTREGA:\n" +
+          (data.address || "") + ", " + (data.city || "") + " (" + (data.department || "") + ")\n\n" +
+          "¿CUÁLES SON LOS SIGUIENTES PASOS?\n" +
+          "1. Nuestro equipo gráfico revisará la resolución de tu archivo.\n" +
+          "2. Te escribiremos a tu WhatsApp (" + (data.phone || "") + ") con la prueba digital para tu visto bueno previo.\n" +
+          "3. Una vez aprobado, pasa a impresión, corte de alta precisión y despacho con guía de rastreo.\n\n" +
+          "Cualquier consulta puedes contactarnos directo a nuestro WhatsApp: +502 3029-2980 o respondiendo a este correo.\n\n" +
+          "¡Gracias por confiar en Mosal Solutions!\n" +
+          "www.mosalstickers.com";
+
+        MailApp.sendEmail(data.email, clientSubject, clientBody);
+      } catch (clientErr) {
+        Logger.log("Error enviando confirmación al cliente: " + clientErr);
+      }
+    }
 
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
