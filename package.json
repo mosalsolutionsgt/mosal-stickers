@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite --port 3000 --host",
     "build": "vite build",
-    "preview": "vite preview --port 3000"
+    "preview": "vite preview --port 3000",
+    "deploy": "vite build && gh-pages -d dist -m 'deploy: update stickersmosal.com'"
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "sharp": "^0.35.4",
     "vite": "^5.4.2"
   }
